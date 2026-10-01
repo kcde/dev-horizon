@@ -208,3 +208,22 @@
 .lightPanel .muted {
   color: var(--color-text-inverse-muted);
 }
+
+.trackRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-200);
+}
+
+@media (max-width: 1023px) {
+  .trackRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-250);
+  }
+}
+
+@media (max-width: 441px) {
+  .trackRow {
+    grid-template-columns: 1fr;
+  }
+}

@@ -15,6 +15,8 @@ import {
 } from "@/components/icons/icons";
 import { Logo } from "@/components/Logo/Logo";
 import { NavButton } from "@/components/NavButton/NavButton";
+import { TrackCard } from "@/components/TrackCard/TrackCard";
+import { TRACK_KEYS } from "@/lib/tracks";
 
 import styles from "./page.module.css";
 import { StateGrid } from "./StateGrid";
@@ -161,6 +163,21 @@ export default function DesignSystemPage() {
             </NavButton>
           )}
         />
+        <StateGrid
+          title="TrackCard"
+          minColumnWidth="300px"
+          render={(state) => (
+            <TrackCard track="frontend" previewState={state} className="fill" />
+          )}
+        />
+        <div className={styles.group}>
+          <h3 className="text-preset-4">TrackCard · all tracks</h3>
+          <div className={styles.trackRow}>
+            {TRACK_KEYS.map((key) => (
+              <TrackCard key={key} track={key} />
+            ))}
+          </div>
+        </div>
         <div className={styles.group}>
           <h3 className="text-preset-4">NavButton · active</h3>
           <div>
