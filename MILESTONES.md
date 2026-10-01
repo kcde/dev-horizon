@@ -72,7 +72,7 @@ Progress:
 - [x] M2.3 Navigation + footer
 - [x] M2.4 Track card
 - [x] M2.5 Speaker card
-- [ ] M2.6 Talk ticket
+- [x] M2.6 Talk ticket
 - [ ] M2.7 Hero + keynote spotlight
 - [ ] M2.8 Keyboard/visual pass + docs
 

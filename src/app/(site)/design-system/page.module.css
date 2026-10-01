@@ -246,3 +246,9 @@
     grid-template-columns: 1fr;
   }
 }
+
+.ticketStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+}

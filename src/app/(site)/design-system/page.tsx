@@ -22,6 +22,7 @@ import { sanityFetch } from "@/sanity/fetch";
 import { DESIGN_SYSTEM_SAMPLES_QUERY } from "@/sanity/queries";
 
 import styles from "./page.module.css";
+import { SaveableTicket } from "./SaveableTicket";
 import { StateGrid } from "./StateGrid";
 
 // Dev-only reference for tokens and (from M2) component states. Never ships.
@@ -143,6 +144,20 @@ export default async function DesignSystemPage() {
     photo: speaker.photo,
   }));
   const [firstSpeaker] = speakerCards;
+  const tickets = samples.talks.map((talk) => ({
+    title: talk.title ?? "",
+    description: talk.description,
+    speakerName: talk.speaker?.name,
+    company: talk.speaker?.company,
+    track: talk.track ?? "frontend",
+    isKeynote: talk.isKeynote,
+    startTime: talk.startTime ?? "",
+    endTime: talk.endTime ?? "",
+    date: talk.day?.date ?? "",
+    dayLabel: talk.day?.label,
+    location: talk.location,
+  }));
+  const [keynoteTicket, secondTicket, thirdTicket] = tickets;
 
   return (
     <main className={styles.page}>
@@ -219,6 +234,21 @@ export default async function DesignSystemPage() {
             ))}
           </div>
         </div>
+        {keynoteTicket && secondTicket && thirdTicket && (
+          <div className={styles.group}>
+            <h3 className="text-preset-4">TalkTicket</h3>
+            <p className={`text-preset-7 ${styles.muted}`}>
+              keynote · expanded / collapsed · saved (click the stars) /
+              highlight variant
+            </p>
+            <div className={styles.ticketStack}>
+              <SaveableTicket {...keynoteTicket} defaultExpanded />
+              <SaveableTicket {...secondTicket} />
+              <SaveableTicket {...thirdTicket} saved />
+              <SaveableTicket {...thirdTicket} variant="highlight" />
+            </div>
+          </div>
+        )}
         <div className={styles.group}>
           <h3 className="text-preset-4">NavButton · active</h3>
           <div>
