@@ -60,10 +60,12 @@
   color: var(--color-text-inverse);
 }
 
+/* Inverts to the page colors: neutral-900 fill, neutral-100 text. */
 .light:hover,
 .light[data-preview-state="hover"] {
   --edge: var(--color-neutral-600);
-  color: var(--color-text-inverse);
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 .light:focus-visible,
