@@ -12,7 +12,7 @@ Breakpoints in the design: **375** (mobile), **768** (tablet), **1440** (desktop
 
 Progress:
 
-- [ ] M0.1 Scaffold Next.js app
+- [x] M0.1 Scaffold Next.js app
 - [ ] M0.2 Embed Sanity Studio
 - [ ] M0.3 Tracks + schemas
 - [ ] M0.4 Talk validations
@@ -55,18 +55,18 @@ Source: Figma variables (from `Desktop - Home`, `90:363`).
 
 Built against the Figma component sets, with every state from the design (default / hover / focus, plus the variants listed).
 
-| Component | Figma | Variants / states |
-| --- | --- | --- |
-| Navigation | `Navbar` section (`115:656`) | desktop, tablet, mobile; active page; mobile menu open (`Mobile Nav`, `193:5254`) |
-| Footer | `Footer` section (`179:2571`) | desktop, tablet, mobile; back-to-top |
-| Buttons | from screens | primary (`VIEW TALK →`), outline (`VIEW ALL SPEAKERS`), nav button (active), icon close (×) |
-| Filter chips | `Desktop - Schedule` | day (square, selected = lime fill), track (pill), My Schedule (dashed), Clear (red) |
-| Track card | `Track` (`246:3640`) | default, hover, focus |
-| Speaker card | `Speaker` (`246:3624`) | default, hover, focus; background = track color, keynote = cyan; grid-paper photo area |
-| Talk ticket | `Schedule Component` (`129:787`) | collapsed / expanded, saved / not saved, desktop / mobile; side tag = track or KEYNOTE; barcode; start/end time (12-hour, PDT/PST — not the design's 24-hour); "Day N" variant without star for Home highlights |
-| Speaker modal | `Speaker Modal Components` (`193:5252`) | desktop, tablet, mobile; overlay, close, focus trap, Esc to close |
-| Hero | `Desktop - Home` → Hero | headline with outlined "HORIZON" text, date + venue |
-| Keynote spotlight | `Desktop - Home` → Featured Keynote | label, speaker, talk, time/room, CTA, cut-out photo |
+| Component         | Figma                                   | Variants / states                                                                                                                                                                                               |
+| ----------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Navigation        | `Navbar` section (`115:656`)            | desktop, tablet, mobile; active page; mobile menu open (`Mobile Nav`, `193:5254`)                                                                                                                               |
+| Footer            | `Footer` section (`179:2571`)           | desktop, tablet, mobile; back-to-top                                                                                                                                                                            |
+| Buttons           | from screens                            | primary (`VIEW TALK →`), outline (`VIEW ALL SPEAKERS`), nav button (active), icon close (×)                                                                                                                     |
+| Filter chips      | `Desktop - Schedule`                    | day (square, selected = lime fill), track (pill), My Schedule (dashed), Clear (red)                                                                                                                             |
+| Track card        | `Track` (`246:3640`)                    | default, hover, focus                                                                                                                                                                                           |
+| Speaker card      | `Speaker` (`246:3624`)                  | default, hover, focus; background = track color, keynote = cyan; grid-paper photo area                                                                                                                          |
+| Talk ticket       | `Schedule Component` (`129:787`)        | collapsed / expanded, saved / not saved, desktop / mobile; side tag = track or KEYNOTE; barcode; start/end time (12-hour, PDT/PST — not the design's 24-hour); "Day N" variant without star for Home highlights |
+| Speaker modal     | `Speaker Modal Components` (`193:5252`) | desktop, tablet, mobile; overlay, close, focus trap, Esc to close                                                                                                                                               |
+| Hero              | `Desktop - Home` → Hero                 | headline with outlined "HORIZON" text, date + venue                                                                                                                                                             |
+| Keynote spotlight | `Desktop - Home` → Featured Keynote     | label, speaker, talk, time/room, CTA, cut-out photo                                                                                                                                                             |
 
 **Done when:** each component renders all of its states on the `/dev` page at all three breakpoints, with keyboard and focus behavior working.
 

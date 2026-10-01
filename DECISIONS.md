@@ -5,12 +5,14 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 ## Content model (Sanity)
 
 ### Speaker
+
 - Fields: name, slug (generated from name, unique; used in the modal URL), jobTitle, company, photo, bio.
 - Photos are transparent cut-outs (background already removed), all framed identically and prepared in advance. Framing/size follows the design.
 - Photo upload accepts PNG or WebP only.
 - A speaker always has a talk. As a safety net, speakers with no talk are hidden on the site.
 
 ### Talk
+
 - Fields: title, description, speaker (single reference), day (reference), track, startTime, endTime, location, isKeynote.
 - Required: speaker, day, track, startTime, endTime. Validation: endTime must be after startTime.
 - Room clash (same location, overlapping time on the same day): warning, not a block.
@@ -20,9 +22,11 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - Visually, the keynote's talk row shows a "KEYNOTE" side tag in the keynote color (cyan) instead of its track tag and color.
 
 ### Day
+
 - Fields: date, label (e.g. "Day 1").
 
 ### Tracks
+
 - Hard-coded in the app: Frontend, Performance, Accessibility, Tooling, each with a color and a one-line description (copy from the Home screen design):
   - Frontend: "Building modern interfaces for the web"
   - Performance: "Make every millisecond count"
@@ -31,11 +35,13 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - In Sanity, Talk.track is a fixed dropdown of the track keys, not a document reference.
 
 ### Site Settings (singleton)
+
 - Event name, tagline, event dates (free text, e.g. "14–16 Oct 2026"), venue (Pier 70, San Francisco).
 
 ## Pages
 
 ### Home
+
 - Hero: from Site Settings.
 - Keynote spotlight: the talk with `isKeynote`.
 - Track cards: link to `/schedule?track=<key>`. Card content follows the design.
@@ -44,12 +50,14 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - "Earliest" means ordered by day date, then start time; ties broken by talk title.
 
 ### Speakers
+
 - Grid of all speakers (with a talk): photo, name, job title, company, primary talk title.
 - Card background color = primary talk's track color. The keynote speaker gets a special background (per design).
 - Clicking a card opens a speaker modal: bio plus all of that speaker's talks.
 - The open modal is reflected in the URL (`/speakers?speaker=<slug>`), updated client-side so the page stays static. The link is shareable; closing the modal removes the param.
 
 ### Schedule
+
 - Filters: Day + Track + My Schedule + Clear, all combinable.
 - Filter state is reflected in the URL (e.g. `?day=2&track=frontend&mine=1`), updated client-side so pages stay static. `mine` only reflects the current browser's saved talks.
 - Talk row: track color tag, title, speaker + company, start/end time, expandable details (description + location), save toggle.
@@ -57,6 +65,7 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - Day filter always means conference days.
 
 ### Saved talks
+
 - Stored in `localStorage`, keyed by Sanity document `_id` (renaming a talk keeps it saved).
 - IDs that no longer match a talk are dropped silently and removed from storage on load.
 
