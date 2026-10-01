@@ -75,7 +75,9 @@ export function SpeakerCard({
           {talkTitle && (
             <>
               <hr className={styles.divider} />
-              <p className={styles.talk}>{talkTitle}</p>
+              <p className={styles.talk}>
+                <span className={styles.talkText}>{talkTitle}</span>
+              </p>
             </>
           )}
         </div>
