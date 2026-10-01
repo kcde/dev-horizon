@@ -39,7 +39,7 @@ Progress:
 - [x] M1.4 Type presets
 - [x] M1.5 Global styles + layout primitives
 - [x] M1.6 /design-system preview page
-- [ ] M1.7 Docs + PR
+- [x] M1.7 Docs + PR
 
 Source: Figma variables (from `Desktop - Home`, `90:363`).
 
@@ -59,7 +59,7 @@ Source: Figma variables (from `Desktop - Home`, `90:363`).
 - **Spacing scale:** 0, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80 (`spacing/0`–`spacing/1000`).
 - **Globals:** reset, page container + gutters per breakpoint, breakpoint media queries, grid-paper background pattern, shared focus ring (dashed lime outline), `// label` section-heading style.
 
-**Done when:** tokens are exposed as CSS custom properties, fonts load, and the Home page (M3) is built only from these tokens.
+**Done when:** tokens are exposed as CSS custom properties, fonts load self-hosted, and the dev-only `/design-system` page shows every token at all three breakpoints. Home (M3) is then built only from these tokens.
 
 M1, M2 and M3 run together. The Home page is where the tokens and components get looked at and adjusted, so each component is built and then used on Home right away.
 

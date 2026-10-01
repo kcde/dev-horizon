@@ -84,6 +84,11 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - Source: Figma and a Claude Design project, provided by Keside.
 - Build is progressive: Keside decides which piece is built next.
 - Design wins on visual details (track/keynote colors, card layout, photo framing).
+- Breakpoints (from the Claude Design handoff): desktop ≥ 1024px, tablet 442–1023px, mobile ≤ 441px. Written as `max-width: 1023px` / `max-width: 441px` media queries.
+- Tokens live in `src/styles/tokens.css` in two layers: primitives named as in Figma (`--color-neutral-900`, `--space-300`, `--radius-8`) and semantic aliases that components use (`--color-bg`, `--color-accent`, `--color-track-frontend`, `--page-pad`). Components use the aliases where one exists.
+- Type presets are global classes (`.text-preset-1` … `.text-preset-7`) in `src/styles/typography.css`, used alongside each component's CSS Module.
+- Site and Studio have separate root layouts (`src/app/(site)`, `src/app/(studio)`) so site styles never reach the Studio.
+- `/design-system` is a dev-only reference page (404 in production) showing tokens and, from M2, every component state.
 
 ## Still open
 
