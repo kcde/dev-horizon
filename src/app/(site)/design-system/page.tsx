@@ -2,6 +2,18 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
 
+import { HorizonText } from "@/components/HorizonText/HorizonText";
+import {
+  ArrowRightIcon,
+  BarsIcon,
+  CloseIcon,
+  MinusIcon,
+  PlusIcon,
+  StarIcon,
+  StarSolidIcon,
+} from "@/components/icons/icons";
+import { Logo } from "@/components/Logo/Logo";
+
 import styles from "./page.module.css";
 
 // Dev-only reference for tokens and (from M2) component states. Never ships.
@@ -208,6 +220,23 @@ export default function DesignSystemPage() {
               light surface
             </button>
           </div>
+        </div>
+      </section>
+
+      <section className={styles.section}>
+        <h2 className="section-label">{"// icons & brand"}</h2>
+        <div className={styles.iconRow}>
+          <ArrowRightIcon />
+          <BarsIcon />
+          <CloseIcon />
+          <PlusIcon />
+          <MinusIcon />
+          <StarIcon />
+          <StarSolidIcon />
+        </div>
+        <Logo className={styles.logoSample} />
+        <div className={styles.horizonSample}>
+          <HorizonText opacity={0.3} />
         </div>
       </section>
 
