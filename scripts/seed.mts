@@ -7,7 +7,7 @@ import { join } from "node:path";
 
 import { createClient } from "@sanity/client";
 
-import { ROOMS, days, siteSettings, speakers, talks } from "./seed-data.ts";
+import { ROOMS, days, siteSettings, speakers, talks } from "./seed-data.mts";
 
 const token = process.env.SANITY_API_WRITE_TOKEN;
 if (!token) {

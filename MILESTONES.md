@@ -17,7 +17,7 @@ Progress:
 - [x] M0.3 Tracks + schemas
 - [x] M0.4 Talk validations
 - [x] M0.5 Typed data access
-- [ ] M0.6 Seed content
+- [x] M0.6 Seed content
 - [ ] M0.7 Vercel + PR
 
 - Next.js App Router + TypeScript (strict), npm, ESLint + Prettier, CSS Modules, Vitest.
