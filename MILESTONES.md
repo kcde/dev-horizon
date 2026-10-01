@@ -14,7 +14,7 @@ Progress:
 
 - [x] M0.1 Scaffold Next.js app
 - [x] M0.2 Embed Sanity Studio
-- [ ] M0.3 Tracks + schemas
+- [x] M0.3 Tracks + schemas
 - [ ] M0.4 Talk validations
 - [ ] M0.5 Typed data access
 - [ ] M0.6 Seed content
