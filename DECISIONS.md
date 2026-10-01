@@ -89,6 +89,10 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - Type presets are global classes (`.text-preset-1` … `.text-preset-7`) in `src/styles/typography.css`, used alongside each component's CSS Module.
 - Site and Studio have separate root layouts (`src/app/(site)`, `src/app/(studio)`) so site styles never reach the Studio.
 - `/design-system` is a dev-only reference page (404 in production) showing tokens and, from M2, every component state.
+- Components live in `src/components/<Name>/` with a CSS Module, take plain-data props (no Sanity types) and are mapped from query results by the page.
+- Hover and focus are CSS-only (`:hover`, `:focus-visible`). Each selector also matches `[data-preview-state]`, which only `/design-system` sets, so every state can be shown side by side.
+- Talk times: start in large type ("9:00 AM"), end and zone in small type ("10:00 AM PST"). The zone comes from the talk's date, so PDT/PST is always right.
+- The schedule row (`TalkTicket`) is one responsive component. Home uses its `highlight` variant (shows the day, no save star).
 
 ## Still open
 
