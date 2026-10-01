@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
 
+import { Button } from "@/components/Button/Button";
 import { HorizonText } from "@/components/HorizonText/HorizonText";
 import {
   ArrowRightIcon,
@@ -13,8 +14,10 @@ import {
   StarSolidIcon,
 } from "@/components/icons/icons";
 import { Logo } from "@/components/Logo/Logo";
+import { NavButton } from "@/components/NavButton/NavButton";
 
 import styles from "./page.module.css";
+import { StateGrid } from "./StateGrid";
 
 // Dev-only reference for tokens and (from M2) component states. Never ships.
 export const metadata: Metadata = {
@@ -123,12 +126,50 @@ export default function DesignSystemPage() {
     <main className={`container ${styles.page}`}>
       <header className={styles.header}>
         <p className="section-label">{"// design system"}</p>
-        <h1 className="text-preset-1">tokens & type</h1>
+        <h1 className="text-preset-1">design system</h1>
         <p className={`text-preset-6 ${styles.muted}`}>
           Dev-only. Values come from src/styles/tokens.css and typography.css.
           Resize below 1024px and 442px to see the tablet and mobile values.
         </p>
       </header>
+
+      <section className={styles.section}>
+        <h2 className="section-label">{"// components"}</h2>
+        <StateGrid
+          title="Button · primary"
+          render={(state) => (
+            <Button href="#" previewState={state}>
+              View all speakers
+            </Button>
+          )}
+        />
+        <div className={styles.lightPanel}>
+          <StateGrid
+            title="Button · light (keynote surface)"
+            render={(state) => (
+              <Button href="#" variant="light" arrow previewState={state}>
+                View talk
+              </Button>
+            )}
+          />
+        </div>
+        <StateGrid
+          title="NavButton"
+          render={(state) => (
+            <NavButton href="#" previewState={state}>
+              Schedule
+            </NavButton>
+          )}
+        />
+        <div className={styles.group}>
+          <h3 className="text-preset-4">NavButton · active</h3>
+          <div>
+            <NavButton href="#" active>
+              Home
+            </NavButton>
+          </div>
+        </div>
+      </section>
 
       <section className={styles.section}>
         <h2 className="section-label">{"// color"}</h2>
