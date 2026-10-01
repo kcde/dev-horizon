@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  formatShortDate,
   formatTime,
   isEndAfterStart,
   isValidTime,
@@ -116,5 +117,16 @@ describe("timeZoneLabel", () => {
   it("follows the DST switch (Nov 1, 2026)", () => {
     expect(timeZoneLabel("2026-10-31")).toBe("PDT");
     expect(timeZoneLabel("2026-11-01")).toBe("PST");
+  });
+});
+
+describe("formatShortDate", () => {
+  it("formats a calendar date", () => {
+    expect(formatShortDate("2026-11-15")).toBe("Nov 15");
+    expect(formatShortDate("2026-01-01")).toBe("Jan 1");
+  });
+
+  it("returns invalid input unchanged", () => {
+    expect(formatShortDate("someday")).toBe("someday");
   });
 });

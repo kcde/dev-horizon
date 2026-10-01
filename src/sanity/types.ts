@@ -246,8 +246,31 @@ export type SITE_SETTINGS_QUERY_RESULT = {
 
 // Source: src/sanity/queries.ts
 // Variable: DESIGN_SYSTEM_SAMPLES_QUERY
-// Query: {  "speakers": *[_type == "speaker" && slug.current in ["elena-vasquez", "james-okonkwo", "priya-sharma", "ryan-osullivan"]]    | order(name asc) {      name,      "slug": slug.current,      jobTitle,      company,      photo,      "talk": *[_type == "talk" && references(^._id)] | order(day->date asc, startTime asc)[0]{ title, track, isKeynote }    },  "talks": *[_type == "talk"] | order(day->date asc, startTime asc)[0...3]{    _id,    title,    description,    track,    isKeynote,    startTime,    endTime,    location,    "speaker": speaker->{ name, company },    "day": day->{ label, date }  }}
+// Query: {  "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },  "keynote": *[_type == "talk" && isKeynote][0]{    title,    startTime,    location,    "date": day->date,    "speaker": speaker->{ name, jobTitle, company, photo }  },  "speakers": *[_type == "speaker" && slug.current in ["elena-vasquez", "james-okonkwo", "priya-sharma", "ryan-osullivan"]]    | order(name asc) {      name,      "slug": slug.current,      jobTitle,      company,      photo,      "talk": *[_type == "talk" && references(^._id)] | order(day->date asc, startTime asc)[0]{ title, track, isKeynote }    },  "talks": *[_type == "talk"] | order(day->date asc, startTime asc)[0...3]{    _id,    title,    description,    track,    isKeynote,    startTime,    endTime,    location,    "speaker": speaker->{ name, company },    "day": day->{ label, date }  }}
 export type DESIGN_SYSTEM_SAMPLES_QUERY_RESULT = {
+  settings: {
+    tagline: string | null;
+    eventDates: string | null;
+    venue: string | null;
+  } | null;
+  keynote: {
+    title: string | null;
+    startTime: string | null;
+    location: string | null;
+    date: string | null;
+    speaker: {
+      name: string | null;
+      jobTitle: string | null;
+      company: string | null;
+      photo: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+    } | null;
+  } | null;
   speakers: Array<{
     name: string | null;
     slug: string | null;
@@ -290,7 +313,7 @@ export type DESIGN_SYSTEM_SAMPLES_QUERY_RESULT = {
 declare global {
   interface SanityQueries {
     '*[_type == "siteSettings"][0]{ eventName, tagline, eventDates, venue }': SITE_SETTINGS_QUERY_RESULT;
-    '{\n  "speakers": *[_type == "speaker" && slug.current in ["elena-vasquez", "james-okonkwo", "priya-sharma", "ryan-osullivan"]]\n    | order(name asc) {\n      name,\n      "slug": slug.current,\n      jobTitle,\n      company,\n      photo,\n      "talk": *[_type == "talk" && references(^._id)] | order(day->date asc, startTime asc)[0]{ title, track, isKeynote }\n    },\n  "talks": *[_type == "talk"] | order(day->date asc, startTime asc)[0...3]{\n    _id,\n    title,\n    description,\n    track,\n    isKeynote,\n    startTime,\n    endTime,\n    location,\n    "speaker": speaker->{ name, company },\n    "day": day->{ label, date }\n  }\n}': DESIGN_SYSTEM_SAMPLES_QUERY_RESULT;
+    '{\n  "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },\n  "keynote": *[_type == "talk" && isKeynote][0]{\n    title,\n    startTime,\n    location,\n    "date": day->date,\n    "speaker": speaker->{ name, jobTitle, company, photo }\n  },\n  "speakers": *[_type == "speaker" && slug.current in ["elena-vasquez", "james-okonkwo", "priya-sharma", "ryan-osullivan"]]\n    | order(name asc) {\n      name,\n      "slug": slug.current,\n      jobTitle,\n      company,\n      photo,\n      "talk": *[_type == "talk" && references(^._id)] | order(day->date asc, startTime asc)[0]{ title, track, isKeynote }\n    },\n  "talks": *[_type == "talk"] | order(day->date asc, startTime asc)[0...3]{\n    _id,\n    title,\n    description,\n    track,\n    isKeynote,\n    startTime,\n    endTime,\n    location,\n    "speaker": speaker->{ name, company },\n    "day": day->{ label, date }\n  }\n}': DESIGN_SYSTEM_SAMPLES_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

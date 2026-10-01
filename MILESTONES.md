@@ -73,7 +73,7 @@ Progress:
 - [x] M2.4 Track card
 - [x] M2.5 Speaker card
 - [x] M2.6 Talk ticket
-- [ ] M2.7 Hero + keynote spotlight
+- [x] M2.7 Hero + keynote spotlight
 - [ ] M2.8 Keyboard/visual pass + docs
 
 Built against the Figma component sets, with every state from the design (default / hover / focus, plus the variants listed). Components that only Schedule or Speakers use are built in those milestones.

@@ -252,3 +252,28 @@
   flex-direction: column;
   gap: var(--space-200);
 }
+
+/* Mirrors the Home layout (M3): hero and keynote side by side on desktop. */
+.heroRow {
+  display: flex;
+  gap: var(--space-400);
+}
+
+.heroPanel {
+  flex: 0 0 780px;
+}
+
+.keynotePanel {
+  flex: 1;
+}
+
+@media (max-width: 1023px) {
+  .heroRow {
+    flex-direction: column;
+    gap: var(--space-300);
+  }
+
+  .heroPanel {
+    flex-basis: auto;
+  }
+}

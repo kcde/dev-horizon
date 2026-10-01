@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
 
 import { Button } from "@/components/Button/Button";
+import { Hero } from "@/components/Hero/Hero";
 import { HorizonText } from "@/components/HorizonText/HorizonText";
 import {
   ArrowRightIcon,
@@ -13,6 +14,7 @@ import {
   StarIcon,
   StarSolidIcon,
 } from "@/components/icons/icons";
+import { KeynoteSpotlight } from "@/components/KeynoteSpotlight/KeynoteSpotlight";
 import { Logo } from "@/components/Logo/Logo";
 import { NavButton } from "@/components/NavButton/NavButton";
 import { SpeakerCard } from "@/components/SpeakerCard/SpeakerCard";
@@ -249,6 +251,33 @@ export default async function DesignSystemPage() {
             </div>
           </div>
         )}
+        <div className={styles.group}>
+          <h3 className="text-preset-4">Hero + KeynoteSpotlight</h3>
+          <div className={styles.heroRow}>
+            <Hero
+              tagline={
+                samples.settings?.tagline ?? "where code meets the machine_"
+              }
+              eventDates={samples.settings?.eventDates}
+              venue={samples.settings?.venue}
+              className={styles.heroPanel}
+            />
+            {samples.keynote?.speaker && (
+              <KeynoteSpotlight
+                speakerName={samples.keynote.speaker.name ?? ""}
+                jobTitle={samples.keynote.speaker.jobTitle}
+                company={samples.keynote.speaker.company}
+                talkTitle={samples.keynote.title ?? ""}
+                date={samples.keynote.date ?? ""}
+                startTime={samples.keynote.startTime ?? ""}
+                location={samples.keynote.location}
+                photo={samples.keynote.speaker.photo}
+                href="#"
+                className={styles.keynotePanel}
+              />
+            )}
+          </div>
+        </div>
         <div className={styles.group}>
           <h3 className="text-preset-4">NavButton · active</h3>
           <div>

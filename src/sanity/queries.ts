@@ -6,6 +6,14 @@ export const SITE_SETTINGS_QUERY = defineQuery(
 
 // Dev-only: sample content for the /design-system page.
 export const DESIGN_SYSTEM_SAMPLES_QUERY = defineQuery(`{
+  "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },
+  "keynote": *[_type == "talk" && isKeynote][0]{
+    title,
+    startTime,
+    location,
+    "date": day->date,
+    "speaker": speaker->{ name, jobTitle, company, photo }
+  },
   "speakers": *[_type == "speaker" && slug.current in ["elena-vasquez", "james-okonkwo", "priya-sharma", "ryan-osullivan"]]
     | order(name asc) {
       name,

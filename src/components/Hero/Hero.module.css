@@ -1,0 +1,106 @@
+/* Home hero from the design (Home.dc.html). Breakpoints: see tokens.css. */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  padding: var(--space-250) var(--space-400);
+  overflow: hidden;
+  background: var(--color-neutral-100);
+  color: var(--color-text-inverse);
+}
+
+.headline {
+  position: relative;
+  z-index: 1;
+  flex-grow: 1;
+  max-width: 716px;
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: -2.4px;
+  text-transform: lowercase;
+  text-wrap: balance;
+}
+
+.meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-200);
+  padding-top: var(--space-200);
+  border-top: 2px solid var(--color-text-inverse);
+  font-size: 14px;
+  line-height: 18px;
+  text-transform: uppercase;
+}
+
+.meta span:first-child {
+  white-space: nowrap;
+}
+
+.meta span:last-child {
+  text-align: right;
+}
+
+.horizon {
+  position: absolute;
+  z-index: 0;
+  left: 113px;
+  right: 113px;
+  bottom: 148px;
+  height: 128px;
+  color: var(--color-text-inverse);
+}
+
+/* The design insets the lettering slightly within its box. */
+.horizonSvg {
+  position: absolute;
+  inset: 14.4% 1.6% 15.6% 1.5%;
+  width: 96.9%;
+  height: 70%;
+}
+
+@media (max-width: 1023px) {
+  .hero {
+    height: 360px;
+    padding: var(--space-250) var(--space-300);
+  }
+
+  .headline {
+    font-size: 80px;
+    letter-spacing: -2px;
+  }
+
+  .horizon {
+    left: 87px;
+    right: 87px;
+    bottom: 116px;
+    height: calc(23.1vw - 49.4px);
+  }
+}
+
+@media (max-width: 441px) {
+  .hero {
+    height: 220px;
+    padding: var(--space-200);
+  }
+
+  .headline {
+    font-size: 38px;
+  }
+
+  .meta {
+    font-size: 12px;
+  }
+
+  .horizon {
+    left: 33px;
+    right: 33px;
+    bottom: 78px;
+    height: calc(23.1vw - 22.6px);
+  }
+}
