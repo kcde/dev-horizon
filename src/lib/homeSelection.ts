@@ -91,12 +91,7 @@ export function selectFeaturedSpeakers<T extends SelectableTalk>(
   return keynote ? [keynote, ...fromTracks] : fromTracks;
 }
 
-/** Schedule highlights (5): the keynote plus one per track, spread across days, in time order. */
+/** Schedule highlights (4): one per track, spread across days. Never the keynote. */
 export function selectHighlights<T extends SelectableTalk>(talks: T[]): T[] {
-  const keynote = talks.find((talk) => talk.isKeynote);
-  const fromTracks = selectPerTrack(talks, {
-    perTrack: 1,
-    limit: TRACK_KEYS.length,
-  });
-  return (keynote ? [keynote, ...fromTracks] : fromTracks).sort(compareTalks);
+  return selectPerTrack(talks, { perTrack: 1, limit: TRACK_KEYS.length });
 }

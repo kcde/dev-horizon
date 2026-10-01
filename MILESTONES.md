@@ -106,7 +106,7 @@ Figma: `Desktop - Home` (`90:363`), `Tablet - Home` (`173:1470`), `Mobile - Home
 - Hero from Site Settings.
 - Keynote spotlight from the `isKeynote` talk.
 - Track cards → `/schedule?track=<key>`.
-- Featured-speaker (8) and schedule-highlight (5) selection rules + Vitest.
+- Featured-speaker (8) and schedule-highlight (4) selection rules + Vitest.
 - "View all speakers" / "View full schedule" links.
 
 ## M4 — Schedule page
@@ -147,5 +147,5 @@ All five conflicts are settled in DECISIONS.md:
 1. Times: 12-hour with PDT/PST (DECISIONS wins over the design).
 2. Keynote speaker always leads Home featured speakers (design wins); the other 7 come from the tracks.
 3. Tracks have hard-coded one-line descriptions (Home screen copy).
-4. The keynote is not a track: its row shows a cyan "KEYNOTE" tag, it never shows under a track filter, and Home highlights show it in addition to one talk per track (5 rows).
+4. The keynote is not a track: its row shows a cyan "KEYNOTE" tag, it never shows under a track filter, and it's left out of Home highlights.
 5. Speaker modal is reflected in the URL (`/speakers?speaker=<slug>`); Speaker gets a `slug` field.

@@ -46,7 +46,7 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - Keynote spotlight: the talk with `isKeynote`.
 - Track cards: link to `/schedule?track=<key>`. Card content follows the design.
 - Featured speakers (8): the keynote speaker first (the design features them), then 7 from the tracks: one per track, then a second per track in track order until 7 (so Tooling gets one). Track picks rotate days so all 3 days are represented; within a day, pick the earliest talk. The keynote speaker isn't picked again for a track. A speaker repeats only if no one else is available.
-- Schedule highlights (5): the keynote plus 1 per track (the keynote doesn't count as Frontend's), track picks spread across days using the same idea. Shown in time order.
+- Schedule highlights (4): 1 per track, spread across days using the same idea. Never the keynote (it has the spotlight).
 - "Earliest" means ordered by day date, then start time; ties broken by talk title.
 
 ### Speakers

@@ -199,16 +199,11 @@ describe("selectHighlights", () => {
     expect(speakers(selectHighlights(talks))).toEqual(["p", "f"]);
   });
 
-  it("adds the keynote on top of one per track, all in time order", () => {
+  it("leaves out the keynote talk", () => {
     const talks = [
       keynote("keynote", D1, "09:00"),
       talk("frontend", "frontend", D1, "13:00"),
-      talk("performance", "performance", D2, "10:00"),
     ];
-    expect(speakers(selectHighlights(talks))).toEqual([
-      "keynote",
-      "frontend",
-      "performance",
-    ]);
+    expect(speakers(selectHighlights(talks))).toEqual(["frontend"]);
   });
 });
