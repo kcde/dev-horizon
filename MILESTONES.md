@@ -31,6 +31,16 @@ Progress:
 
 ## M1 — Design system
 
+Progress:
+
+- [ ] M1.1 Separate site and Studio layouts
+- [ ] M1.2 Tokens
+- [ ] M1.3 Fonts
+- [ ] M1.4 Type presets
+- [ ] M1.5 Global styles + layout primitives
+- [ ] M1.6 /design-system preview page
+- [ ] M1.7 Docs + PR
+
 Source: Figma variables (from `Desktop - Home`, `90:363`).
 
 - **Colors**
