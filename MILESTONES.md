@@ -65,6 +65,17 @@ M1, M2 and M3 run together. The Home page is where the tokens and components get
 
 ## M2 — Components (the ones Home uses)
 
+Progress:
+
+- [ ] M2.1 Foundations (icons, logo, time format, images, preview harness)
+- [ ] M2.2 Buttons
+- [ ] M2.3 Navigation + footer
+- [ ] M2.4 Track card
+- [ ] M2.5 Speaker card
+- [ ] M2.6 Talk ticket
+- [ ] M2.7 Hero + keynote spotlight
+- [ ] M2.8 Keyboard/visual pass + docs
+
 Built against the Figma component sets, with every state from the design (default / hover / focus, plus the variants listed). Components that only Schedule or Speakers use are built in those milestones.
 
 | Component         | Figma                               | Variants / states                                                                                                                                                                                               |
