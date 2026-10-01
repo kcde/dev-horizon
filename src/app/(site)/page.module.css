@@ -72,6 +72,10 @@
     flex-basis: auto;
   }
 
+  .keynote {
+    flex: none;
+  }
+
   .trackGrid,
   .speakerGrid {
     grid-template-columns: repeat(2, 1fr);
