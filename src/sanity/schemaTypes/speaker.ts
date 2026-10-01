@@ -1,5 +1,9 @@
 import { defineField, defineType } from "sanity";
 
+import { imageFormat } from "../validation";
+
+const PHOTO_FORMATS = new Set(["png", "webp"]);
+
 export const speakerType = defineType({
   name: "speaker",
   title: "Speaker",
@@ -24,6 +28,15 @@ export const speakerType = defineType({
       type: "image",
       description: "Transparent cut-out, PNG or WebP.",
       options: { accept: "image/png,image/webp" },
+      validation: (rule) =>
+        rule.custom((value?: { asset?: { _ref?: string } }) => {
+          const ref = value?.asset?._ref;
+          if (!ref) return true;
+          const format = imageFormat(ref);
+          return format && PHOTO_FORMATS.has(format)
+            ? true
+            : "Photo must be a PNG or WebP.";
+        }),
     }),
     defineField({ name: "bio", type: "text", rows: 5 }),
   ],
