@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typegen": "sanity schema extract --path=src/sanity/schema.json && sanity typegen generate"
+    "typegen": "sanity schema extract --path=src/sanity/schema.json && sanity typegen generate",
+    "seed": "node --env-file=.env.local scripts/seed.ts"
   },
   "dependencies": {
     "@sanity/image-url": "^2.1.1",
@@ -25,6 +26,7 @@
     "styled-components": "^6.5.3"
   },
   "devDependencies": {
+    "@sanity/client": "^8.9.0",
     "@types/node": "^24.19.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",

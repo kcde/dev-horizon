@@ -24,7 +24,7 @@ Progress:
 - Sanity: Studio embedded at `/studio`, project `8tnqf6xe`.
 - Schemas per DECISIONS.md: Speaker (with slug), Talk, Day, Site Settings (singleton); tracks (with descriptions) hard-coded.
 - Talk validations: required fields, `endTime > startTime`, single keynote, room-clash warning.
-- Seed content matching the Figma (24 speakers, 3 days).
+- Seed content matching the Figma (20 speakers, 20 talks, 3 days).
 - Vercel project + preview deployments.
 
 **Done when:** `npm run dev` serves an empty app, Studio works at `/studio`, and seed content is queryable.
