@@ -119,7 +119,6 @@
   background: var(--color-border);
 }
 
-/* Always two lines tall so dividers line up across cards; one line sits centered. */
 .talk {
   display: flex;
   align-items: center;
@@ -127,7 +126,6 @@
   color: var(--color-accent);
 }
 
-/* Longer titles stop at two lines; the modal shows the full title. */
 .talkText {
   display: -webkit-box;
   -webkit-box-orient: vertical;
