@@ -123,7 +123,7 @@ export default function DesignSystemPage() {
   if (process.env.NODE_ENV === "production") notFound();
 
   return (
-    <main className={`container ${styles.page}`}>
+    <main className={styles.page}>
       <header className={styles.header}>
         <p className="section-label">{"// design system"}</p>
         <h1 className="text-preset-1">design system</h1>

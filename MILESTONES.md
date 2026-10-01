@@ -69,7 +69,7 @@ Progress:
 
 - [x] M2.1 Foundations (icons, logo, time format, images, preview harness)
 - [x] M2.2 Buttons
-- [ ] M2.3 Navigation + footer
+- [x] M2.3 Navigation + footer
 - [ ] M2.4 Track card
 - [ ] M2.5 Speaker card
 - [ ] M2.6 Talk ticket

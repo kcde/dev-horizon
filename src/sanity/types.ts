@@ -233,3 +233,24 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageAsset
   | Geopoint;
+
+// Source: src/sanity/queries.ts
+// Variable: SITE_SETTINGS_QUERY
+// Query: *[_type == "siteSettings"][0]{ eventName, tagline, eventDates, venue }
+export type SITE_SETTINGS_QUERY_RESULT = {
+  eventName: string | null;
+  tagline: string | null;
+  eventDates: string | null;
+  venue: string | null;
+} | null;
+
+// Query TypeMap
+declare global {
+  interface SanityQueries {
+    '*[_type == "siteSettings"][0]{ eventName, tagline, eventDates, venue }': SITE_SETTINGS_QUERY_RESULT;
+  }
+}
+// Lets @sanity/client releases that predate the global registry read it too
+declare module "@sanity/client" {
+  interface SanityQueries extends globalThis.SanityQueries {}
+}

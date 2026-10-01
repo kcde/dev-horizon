@@ -1,0 +1,101 @@
+/* Desktop/Tablet/Mobile Nav from the design. Breakpoints: see tokens.css. */
+
+.header {
+  position: relative;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-250);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.logoLink {
+  display: block;
+  color: var(--color-accent);
+}
+
+.logoLink:hover {
+  color: var(--color-accent);
+}
+
+.logo {
+  width: 188px;
+  height: auto;
+}
+
+.links {
+  display: flex;
+  gap: var(--space-200);
+}
+
+.menuButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--color-text);
+  box-shadow: inset 0 0 0 1px var(--color-text);
+}
+
+.menuButton svg {
+  width: 14px;
+  height: 14px;
+}
+
+.menuButton:hover {
+  background: var(--color-bg);
+  box-shadow:
+    inset 0 0 0 1px var(--color-text),
+    2px 2px 0 0 var(--color-text);
+}
+
+.menuButton:focus-visible {
+  background: var(--color-surface);
+  box-shadow: 2px 2px 0 0 var(--color-accent);
+}
+
+/* Mobile menu panel; only ever shown on mobile. */
+.menu {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .logo {
+    width: 180px;
+  }
+}
+
+@media (max-width: 441px) {
+  .bar {
+    padding-block: var(--space-150);
+  }
+
+  .links {
+    display: none;
+  }
+
+  .menuButton {
+    display: inline-flex;
+  }
+
+  .menu:not([hidden]) {
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-200);
+    padding: var(--space-300) 0;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .menu .navButton {
+    width: 100%;
+  }
+}

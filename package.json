@@ -12,7 +12,7 @@
     "test:watch": "vitest",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typegen": "sanity schema extract --path=src/sanity/schema.json && sanity typegen generate",
+    "typegen": "sanity schema extract --path=src/sanity/schema.json --force && sanity typegen generate",
     "seed": "node --env-file=.env.local scripts/seed.mts"
   },
   "dependencies": {
