@@ -89,13 +89,15 @@
   top: 0;
   right: 0;
   width: 311px;
+  max-width: calc(100% - 280px);
   height: 100%;
   overflow: hidden;
 }
 
+/* -46px (the design) at full frame width; slides so the face (~252px into the photo) is centered as the frame narrows. */
 .photo {
   position: absolute;
-  left: -46px;
+  left: calc(73.5% - 274.6px);
   top: 24px;
   width: 481px;
   height: 378px;
@@ -145,6 +147,11 @@
 
   .photoFrame {
     width: 368px;
+    max-width: calc(100% - 360px);
+  }
+
+  .photo {
+    left: calc(56.75% - 254.8px);
   }
 
   .circles {
