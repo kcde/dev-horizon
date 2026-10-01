@@ -1,0 +1,227 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import type { CSSProperties } from "react";
+
+import styles from "./page.module.css";
+
+// Dev-only reference for tokens and (from M2) component states. Never ships.
+export const metadata: Metadata = {
+  title: "Design system · DevHorizon 26",
+  robots: { index: false, follow: false },
+};
+
+const COLOR_GROUPS: { label: string; tokens: string[] }[] = [
+  {
+    label: "Neutral",
+    tokens: [
+      "neutral-0",
+      "neutral-100",
+      "neutral-200",
+      "neutral-500",
+      "neutral-600",
+      "neutral-800",
+      "neutral-900",
+    ],
+  },
+  {
+    label: "Accent and semantic",
+    tokens: [
+      "green-200",
+      "yellow-100",
+      "red-100",
+      "red-300",
+      "blue-100",
+      "cyan-100",
+      "purple-100",
+    ],
+  },
+  {
+    label: "Aliases",
+    tokens: [
+      "bg",
+      "surface",
+      "text",
+      "text-muted",
+      "accent",
+      "danger",
+      "border",
+    ],
+  },
+  {
+    label: "Tracks and keynote",
+    tokens: [
+      "track-frontend",
+      "track-performance",
+      "track-accessibility",
+      "track-tooling",
+      "keynote",
+    ],
+  },
+];
+
+const TYPE_PRESETS: { className: string; spec: string }[] = [
+  {
+    className: "text-preset-1",
+    spec: "Chakra Petch 700 · 80 / 1.0 · -2px · mobile 38",
+  },
+  {
+    className: "text-preset-2",
+    spec: "Chakra Petch 700 · 32 / 1.2 · tablet 28 · mobile 24",
+  },
+  { className: "text-preset-3", spec: "Chakra Petch 600 · 24 / 1.3" },
+  { className: "text-preset-4", spec: "Chakra Petch 700 · 20 / 1.4" },
+  { className: "text-preset-5", spec: "JetBrains Mono 400 · 16 / 1.4" },
+  { className: "text-preset-5-bold", spec: "JetBrains Mono 700 · 16 / 1.4" },
+  { className: "text-preset-6", spec: "JetBrains Mono 400 · 14 / 1.4" },
+  { className: "text-preset-6-medium", spec: "JetBrains Mono 500 · 14 / 1.4" },
+  {
+    className: "text-preset-6-extrabold",
+    spec: "JetBrains Mono 800 · 14 / 1.4",
+  },
+  { className: "text-preset-7", spec: "JetBrains Mono 400 · 12 / 1.4 · 0.5px" },
+];
+
+const SPACING = [
+  "025",
+  "050",
+  "075",
+  "100",
+  "125",
+  "150",
+  "200",
+  "250",
+  "300",
+  "400",
+  "500",
+  "600",
+  "800",
+  "1000",
+  "1200",
+  "1400",
+  "1600",
+  "1800",
+];
+
+const RADII = ["0", "4", "6", "8", "10", "12", "16", "20", "24", "full"];
+
+export default function DesignSystemPage() {
+  if (process.env.NODE_ENV === "production") notFound();
+
+  return (
+    <main className={`container ${styles.page}`}>
+      <header className={styles.header}>
+        <p className="section-label">{"// design system"}</p>
+        <h1 className="text-preset-1">tokens & type</h1>
+        <p className={`text-preset-6 ${styles.muted}`}>
+          Dev-only. Values come from src/styles/tokens.css and typography.css.
+          Resize below 1024px and 442px to see the tablet and mobile values.
+        </p>
+      </header>
+
+      <section className={styles.section}>
+        <h2 className="section-label">{"// color"}</h2>
+        {COLOR_GROUPS.map((group) => (
+          <div key={group.label} className={styles.group}>
+            <h3 className="text-preset-4">{group.label}</h3>
+            <ul role="list" className={styles.swatches}>
+              {group.tokens.map((token) => (
+                <li key={token} className={styles.swatch}>
+                  <span
+                    className={styles.chip}
+                    style={{ background: `var(--color-${token})` }}
+                  />
+                  <code className="text-preset-7">--color-{token}</code>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </section>
+
+      <section className={styles.section}>
+        <h2 className="section-label">{"// typography"}</h2>
+        {TYPE_PRESETS.map((preset) => (
+          <div key={preset.className} className={styles.typeRow}>
+            <div className={styles.typeMeta}>
+              <code className="text-preset-7">.{preset.className}</code>
+              <span className={`text-preset-7 ${styles.muted}`}>
+                {preset.spec}
+              </span>
+            </div>
+            <p className={preset.className}>where code meets the machine_</p>
+          </div>
+        ))}
+      </section>
+
+      <section className={styles.section}>
+        <h2 className="section-label">{"// spacing"}</h2>
+        <ul role="list" className={styles.scale}>
+          {SPACING.map((step) => (
+            <li key={step} className={styles.scaleRow}>
+              <code className="text-preset-7">--space-{step}</code>
+              <span
+                className={styles.bar}
+                style={{ width: `var(--space-${step})` }}
+              />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className={styles.section}>
+        <h2 className="section-label">{"// radius"}</h2>
+        <ul role="list" className={styles.radii}>
+          {RADII.map((radius) => (
+            <li key={radius} className={styles.radiusItem}>
+              <span
+                className={styles.radiusBox}
+                style={{ borderRadius: `var(--radius-${radius})` }}
+              />
+              <code className="text-preset-7">--radius-{radius}</code>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className={styles.section}>
+        <h2 className="section-label">{"// focus"}</h2>
+        <p className={`text-preset-6 ${styles.muted}`}>
+          Press Tab to move through these.
+        </p>
+        <div className={styles.focusRow}>
+          <button
+            type="button"
+            className={`text-preset-6 ${styles.sampleButton}`}
+          >
+            dark surface
+          </button>
+          <div
+            className={styles.lightSurface}
+            style={
+              { "--focus-color": "var(--color-neutral-600)" } as CSSProperties
+            }
+          >
+            <button
+              type="button"
+              className={`text-preset-6 ${styles.sampleButtonLight}`}
+            >
+              light surface
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.section}>
+        <h2 className="section-label">{"// utilities"}</h2>
+        <div className={styles.utilities}>
+          <div className={`grid-paper ${styles.paper}`}>
+            <span className="text-preset-7">.grid-paper</span>
+          </div>
+          <div className={`grid-paper ${styles.paper} ${styles.paperKeynote}`}>
+            <span className="text-preset-7">.grid-paper on keynote</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

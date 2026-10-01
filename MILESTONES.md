@@ -38,7 +38,7 @@ Progress:
 - [x] M1.3 Fonts
 - [x] M1.4 Type presets
 - [x] M1.5 Global styles + layout primitives
-- [ ] M1.6 /design-system preview page
+- [x] M1.6 /design-system preview page
 - [ ] M1.7 Docs + PR
 
 Source: Figma variables (from `Desktop - Home`, `90:363`).
