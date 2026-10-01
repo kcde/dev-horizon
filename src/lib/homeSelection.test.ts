@@ -152,7 +152,7 @@ describe("selectFeaturedSpeakers", () => {
 
   it("keeps the extra fields of the input talks", () => {
     const input = [{ ...talk("a", "frontend", D1, "09:00"), extra: 42 }];
-    expect(selectFeaturedSpeakers(input)[0].extra).toBe(42);
+    expect(selectFeaturedSpeakers(input)[0]?.extra).toBe(42);
   });
 });
 

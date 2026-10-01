@@ -97,7 +97,7 @@ Progress:
 
 - [x] M3.1 Home query
 - [x] M3.2 Featured-speaker and highlight selection + Vitest
-- [ ] M3.3 Page assembly
+- [x] M3.3 Page assembly
 - [ ] M3.4 Checks + visual/keyboard pass
 - [ ] M3.5 Design review rounds (Keside's feedback folded back into tokens and components)
 

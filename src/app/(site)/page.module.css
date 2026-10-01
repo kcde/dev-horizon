@@ -1,0 +1,87 @@
+/* Home layout from Home.dc.html. Breakpoints: see tokens.css. */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  /* The design uses 45px here; 40px is the nearest spacing token. */
+  gap: var(--space-500);
+}
+
+/* ---------- Hero + keynote ---------- */
+.heroRow {
+  display: flex;
+  gap: var(--space-400);
+}
+
+.hero {
+  flex: 0 0 780px;
+}
+
+.keynote {
+  flex: 1;
+}
+
+/* ---------- Sections ---------- */
+/* A section: heading + content, then an optional centered CTA. */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-600);
+}
+
+.sectionBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-300);
+}
+
+.cta {
+  align-self: center;
+}
+
+.trackGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-200);
+}
+
+.speakerGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-300);
+}
+
+.ticketStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+}
+
+/* Cards fill their grid cell so a row stays one height. */
+.fill {
+  height: 100%;
+}
+
+@media (max-width: 1023px) {
+  .heroRow {
+    flex-direction: column;
+    gap: var(--space-300);
+  }
+
+  .hero {
+    flex-basis: auto;
+  }
+
+  .trackGrid,
+  .speakerGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-250);
+  }
+}
+
+@media (max-width: 441px) {
+  .trackGrid,
+  .speakerGrid {
+    grid-template-columns: 1fr;
+  }
+}
