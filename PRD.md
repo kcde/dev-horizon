@@ -22,11 +22,11 @@ Dev Horizon is a 3-day tech conference with speakers scheduled across multiple d
 
 ## 3. Users
 
-| User | Needs |
-| --- | --- |
-| **Attendee** | Browse speakers, see what's happening each day/track, bookmark talks they plan to attend |
+| User                              | Needs                                                                                                                  |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **Attendee**                      | Browse speakers, see what's happening each day/track, bookmark talks they plan to attend                               |
 | **Client (conference organizer)** | Add/edit speakers, talks, and schedule via CMS; feature specific content on the homepage indirectly through scheduling |
-| **Keside (developer)** | Build and maintain the site; also enters some content alongside the client |
+| **Keside (developer)**            | Build and maintain the site; also enters some content alongside the client                                             |
 
 ---
 
@@ -56,12 +56,12 @@ Dev Horizon is a 3-day tech conference with speakers scheduled across multiple d
 
 ## 5. Content Model (CMS Schema)
 
-| Type | Fields |
-| --- | --- |
-| **Speaker** | name, jobTitle, company, photo, bio |
-| **Talk** | title, description, speaker (single reference — a talk never has more than one), day (reference), track (reference), startTime, endTime, location, isKeynote (boolean) |
-| **Track** | name, color — fixed list, not client-editable |
-| **Day** | date, label (e.g. "Day 1") |
+| Type        | Fields                                                                                                                                                                 |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Speaker** | name, jobTitle, company, photo, bio                                                                                                                                    |
+| **Talk**    | title, description, speaker (single reference — a talk never has more than one), day (reference), track (reference), startTime, endTime, location, isKeynote (boolean) |
+| **Track**   | name, color — fixed list, not client-editable                                                                                                                          |
+| **Day**     | date, label (e.g. "Day 1")                                                                                                                                             |
 
 **Relationships:** Talk → Speaker is a one-way reference. The Speaker's own talks are retrieved by querying Talks where the speaker reference matches — nothing is duplicated or stored on the Speaker side.
 
@@ -73,13 +73,13 @@ Dev Horizon is a 3-day tech conference with speakers scheduled across multiple d
 
 ## 6. Tech Stack
 
-| Layer | Choice |
-| --- | --- |
-| Framework | Next.js (App Router) |
-| CMS | Sanity |
-| Styling | CSS Modules |
+| Layer       | Choice                           |
+| ----------- | -------------------------------- |
+| Framework   | Next.js (App Router)             |
+| CMS         | Sanity                           |
+| Styling     | CSS Modules                      |
 | Saved talks | Browser `localStorage` — no auth |
-| Hosting | Vercel |
+| Hosting     | Vercel                           |
 
 ---
 
