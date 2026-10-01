@@ -11,7 +11,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "typegen": "sanity schema extract --path=src/sanity/schema.json && sanity typegen generate"
   },
   "dependencies": {
     "@sanity/image-url": "^2.1.1",
