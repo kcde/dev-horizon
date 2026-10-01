@@ -89,18 +89,18 @@
   top: 0;
   right: 0;
   width: 311px;
-  max-width: calc(100% - 280px);
+  max-width: calc(100% - 237px);
   height: 100%;
   overflow: hidden;
 }
 
-/* -46px (the design) at full frame width; slides so the face (~252px into the photo) is centered as the frame narrows. */
+/* The design's 481×378 photo at left -46px in a 311px frame, as percentages so it scales with the frame. */
 .photo {
   position: absolute;
-  left: calc(73.5% - 274.6px);
-  top: 24px;
-  width: 481px;
-  height: 378px;
+  left: -14.8%;
+  bottom: -2px;
+  width: 154.7%;
+  aspect-ratio: 481 / 378;
 }
 
 .image {
@@ -151,7 +151,8 @@
   }
 
   .photo {
-    left: calc(56.75% - 254.8px);
+    left: -12.5%;
+    width: 130.7%;
   }
 
   .circles {
