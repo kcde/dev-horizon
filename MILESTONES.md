@@ -124,11 +124,10 @@ Figma: `Desktop - Schedule` (`115:669`), `Tablet - Schedule` (`193:1423`), `Mobi
 
 Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) and the `- Modal` variants (`193:3616`, `193:4048`, `193:4370`).
 
-- New component: speaker modal (`Speaker Modal Components`, `193:5252`): desktop, tablet, mobile; overlay, close (×), focus trap, Esc to close.
+- Speaker modal: already built during the M3 review (`SpeakerModal`, owned by `SpeakerCard`). Speakers only needs to pass each card its bio and talks.
 - Query speakers who have at least one talk; primary talk = earliest.
 - Grid at 4 / 2 / 1 columns (check the tablet/mobile frames).
-- Card → modal with bio + all talks (talk tickets, save toggle works here too).
-- Modal state in the URL (`?speaker=<slug>`), client-side; shareable, closes cleanly with back/close/Esc.
+- Card → modal with bio + all talks (talk tickets; the save star works once M4 lands).
 
 ## M6 — Launch readiness
 
@@ -148,4 +147,4 @@ All five conflicts are settled in DECISIONS.md:
 2. Keynote speaker always leads Home featured speakers (design wins); the other 7 come from the tracks.
 3. Tracks have hard-coded one-line descriptions (Home screen copy).
 4. The keynote is not a track: its row shows a cyan "KEYNOTE" tag, it never shows under a track filter, and it's left out of Home highlights.
-5. Speaker modal is reflected in the URL (`/speakers?speaker=<slug>`); Speaker gets a `slug` field.
+5. Speaker modal opens in place from any speaker card and isn't in the URL (changed during the M3 review). Speaker keeps a `slug` field as a stable identifier.

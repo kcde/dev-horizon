@@ -31,31 +31,8 @@
   gap: var(--space-200);
 }
 
-.menuButton {
+.bar .menuButton {
   display: none;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  color: var(--color-text);
-  box-shadow: inset 0 0 0 1px var(--color-text);
-}
-
-.menuButton svg {
-  width: 14px;
-  height: 14px;
-}
-
-.menuButton:hover {
-  background: var(--color-bg);
-  box-shadow:
-    inset 0 0 0 1px var(--color-text),
-    2px 2px 0 0 var(--color-text);
-}
-
-.menuButton:focus-visible {
-  background: var(--color-surface);
-  box-shadow: 2px 2px 0 0 var(--color-accent);
 }
 
 /* Mobile menu panel; only ever shown on mobile. */
@@ -78,7 +55,7 @@
     display: none;
   }
 
-  .menuButton {
+  .bar .menuButton {
     display: inline-flex;
   }
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 
+import { IconButton } from "@/components/IconButton/IconButton";
 import { BarsIcon, CloseIcon } from "@/components/icons/icons";
 import { Logo } from "@/components/Logo/Logo";
 import { NavButton } from "@/components/NavButton/NavButton";
@@ -58,19 +59,16 @@ export function SiteNav() {
           {links}
         </ul>
 
-        <button
+        <IconButton
           ref={menuButton}
-          type="button"
+          label={menuOpen ? "Close menu" : "Open menu"}
           className={styles.menuButton}
           aria-expanded={menuOpen}
           aria-controls={menuId}
           onClick={() => setMenuOpen((open) => !open)}
         >
           {menuOpen ? <CloseIcon /> : <BarsIcon />}
-          <span className="visually-hidden">
-            {menuOpen ? "Close menu" : "Open menu"}
-          </span>
-        </button>
+        </IconButton>
       </nav>
 
       <ul role="list" id={menuId} className={styles.menu} hidden={!menuOpen}>

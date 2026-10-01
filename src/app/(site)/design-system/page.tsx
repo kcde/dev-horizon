@@ -5,6 +5,7 @@ import type { CSSProperties } from "react";
 import { Button } from "@/components/Button/Button";
 import { Hero } from "@/components/Hero/Hero";
 import { HorizonText } from "@/components/HorizonText/HorizonText";
+import { IconButton } from "@/components/IconButton/IconButton";
 import {
   ArrowRightIcon,
   BarsIcon,
@@ -18,6 +19,7 @@ import { KeynoteSpotlight } from "@/components/KeynoteSpotlight/KeynoteSpotlight
 import { Logo } from "@/components/Logo/Logo";
 import { NavButton } from "@/components/NavButton/NavButton";
 import { SpeakerCard } from "@/components/SpeakerCard/SpeakerCard";
+import { TalkTicket } from "@/components/TalkTicket/TalkTicket";
 import { TrackCard } from "@/components/TrackCard/TrackCard";
 import { TRACK_KEYS } from "@/lib/tracks";
 import { sanityFetch } from "@/sanity/fetch";
@@ -68,6 +70,7 @@ const COLOR_GROUPS: { label: string; tokens: string[] }[] = [
       "accent",
       "danger",
       "border",
+      "overlay",
     ],
   },
   {
@@ -134,17 +137,32 @@ export default async function DesignSystemPage() {
     query: DESIGN_SYSTEM_SAMPLES_QUERY,
     tags: ["speaker", "talk", "day"],
   });
-  const speakerCards = samples.speakers.map((speaker) => ({
-    slug: speaker.slug ?? "",
-    name: speaker.name ?? "",
-    jobTitle: speaker.jobTitle,
-    company: speaker.company,
-    talkTitle: speaker.talk?.title,
-    tint: speaker.talk?.isKeynote
-      ? ("keynote" as const)
-      : (speaker.talk?.track ?? "frontend"),
-    photo: speaker.photo,
-  }));
+  const speakerCards = samples.speakers.map((speaker) => {
+    const [primary] = speaker.talks;
+    return {
+      slug: speaker.slug ?? "",
+      name: speaker.name ?? "",
+      jobTitle: speaker.jobTitle,
+      company: speaker.company,
+      bio: speaker.bio,
+      talkTitle: primary?.title,
+      tint: primary?.isKeynote
+        ? ("keynote" as const)
+        : (primary?.track ?? "frontend"),
+      photo: speaker.photo,
+      talks: speaker.talks.map((talk) => ({
+        id: talk._id,
+        title: talk.title ?? "",
+        speakerName: speaker.name,
+        company: speaker.company,
+        track: talk.track ?? "frontend",
+        isKeynote: talk.isKeynote,
+        startTime: talk.startTime ?? "",
+        endTime: talk.endTime ?? "",
+        date: talk.date ?? "",
+      })),
+    };
+  });
   const [firstSpeaker] = speakerCards;
   const tickets = samples.talks.map((talk) => ({
     title: talk.title ?? "",
@@ -201,6 +219,14 @@ export default async function DesignSystemPage() {
           )}
         />
         <StateGrid
+          title="IconButton"
+          render={(state) => (
+            <IconButton label="Close" previewState={state}>
+              <CloseIcon />
+            </IconButton>
+          )}
+        />
+        <StateGrid
           title="TrackCard"
           minColumnWidth="300px"
           render={(state) => (
@@ -229,7 +255,9 @@ export default async function DesignSystemPage() {
           />
         )}
         <div className={styles.group}>
-          <h3 className="text-preset-4">SpeakerCard · tints</h3>
+          <h3 className="text-preset-4">
+            SpeakerCard · tints (click to open the modal)
+          </h3>
           <div className={styles.cardRow}>
             {speakerCards.map((card) => (
               <SpeakerCard key={card.slug} {...card} />
@@ -241,13 +269,14 @@ export default async function DesignSystemPage() {
             <h3 className="text-preset-4">TalkTicket</h3>
             <p className={`text-preset-7 ${styles.muted}`}>
               keynote · expanded / collapsed · saved (click the stars) /
-              highlight variant
+              highlight variant / modal (no details, static star)
             </p>
             <div className={styles.ticketStack}>
               <SaveableTicket {...keynoteTicket} defaultExpanded />
               <SaveableTicket {...secondTicket} />
               <SaveableTicket {...thirdTicket} saved />
               <SaveableTicket {...thirdTicket} variant="highlight" />
+              <TalkTicket {...secondTicket} showDetails={false} />
             </div>
           </div>
         )}

@@ -2,6 +2,7 @@ import { Button } from "@/components/Button/Button";
 import { Hero } from "@/components/Hero/Hero";
 import { KeynoteSpotlight } from "@/components/KeynoteSpotlight/KeynoteSpotlight";
 import { SpeakerCard } from "@/components/SpeakerCard/SpeakerCard";
+import type { SpeakerModalTalk } from "@/components/SpeakerModal/SpeakerModal";
 import { TalkTicket } from "@/components/TalkTicket/TalkTicket";
 import { TrackCard } from "@/components/TrackCard/TrackCard";
 import type { SelectableTalk } from "@/lib/homeSelection";
@@ -49,6 +50,24 @@ function toHomeTalk(talk: QueryTalk): HomeTalk | null {
   };
 }
 
+/** TalkTicket props for a talk (used by highlights and the speaker modal). */
+function toTicket(talk: HomeTalk): SpeakerModalTalk {
+  return {
+    id: talk.id,
+    title: talk.title,
+    description: talk.source.description,
+    speakerName: talk.speaker.name,
+    company: talk.speaker.company,
+    track: talk.track,
+    isKeynote: talk.isKeynote,
+    startTime: talk.startTime,
+    endTime: talk.endTime,
+    date: talk.date,
+    dayLabel: talk.dayLabel,
+    location: talk.source.location,
+  };
+}
+
 export default async function HomePage() {
   const { settings, talks } = await sanityFetch({
     query: HOME_QUERY,
@@ -61,6 +80,8 @@ export default async function HomePage() {
   const keynote = homeTalks.find((talk) => talk.isKeynote);
   const featured = selectFeaturedSpeakers(homeTalks);
   const highlights = selectHighlights(homeTalks);
+  // Every talk per speaker, for their modal. homeTalks is already earliest-first.
+  const ticketsBySpeaker = Map.groupBy(homeTalks, (talk) => talk.speakerSlug);
 
   return (
     <div className={styles.page}>
@@ -114,11 +135,14 @@ export default async function HomePage() {
               {featured.map((talk) => (
                 <li key={talk.id}>
                   <SpeakerCard
-                    slug={talk.speakerSlug}
                     name={talk.speaker.name ?? ""}
                     jobTitle={talk.speaker.jobTitle}
                     company={talk.speaker.company}
+                    bio={talk.speaker.bio}
                     talkTitle={talk.title}
+                    talks={(ticketsBySpeaker.get(talk.speakerSlug) ?? []).map(
+                      toTicket,
+                    )}
                     tint={talk.isKeynote ? "keynote" : talk.track}
                     photo={talk.speaker.photo}
                     className={styles.fill}
@@ -145,20 +169,7 @@ export default async function HomePage() {
             <ul role="list" className={styles.ticketStack}>
               {highlights.map((talk) => (
                 <li key={talk.id}>
-                  <TalkTicket
-                    variant="highlight"
-                    title={talk.title}
-                    description={talk.source.description}
-                    speakerName={talk.speaker.name}
-                    company={talk.speaker.company}
-                    track={talk.track}
-                    isKeynote={talk.isKeynote}
-                    startTime={talk.startTime}
-                    endTime={talk.endTime}
-                    date={talk.date}
-                    dayLabel={talk.dayLabel}
-                    location={talk.source.location}
-                  />
+                  <TalkTicket {...toTicket(talk)} variant="highlight" />
                 </li>
               ))}
             </ul>

@@ -18,7 +18,7 @@ export const HOME_QUERY = defineQuery(`{
       endTime,
       location,
       "day": day->{ label, date },
-      "speaker": speaker->{ name, "slug": slug.current, jobTitle, company, photo }
+      "speaker": speaker->{ name, "slug": slug.current, jobTitle, company, bio, photo }
     }
 }`);
 
@@ -38,8 +38,17 @@ export const DESIGN_SYSTEM_SAMPLES_QUERY = defineQuery(`{
       "slug": slug.current,
       jobTitle,
       company,
+      bio,
       photo,
-      "talk": *[_type == "talk" && references(^._id)] | order(day->date asc, startTime asc)[0]{ title, track, isKeynote }
+      "talks": *[_type == "talk" && references(^._id)] | order(day->date asc, startTime asc, title asc){
+        _id,
+        title,
+        track,
+        isKeynote,
+        startTime,
+        endTime,
+        "date": day->date
+      }
     },
   "talks": *[_type == "talk"] | order(day->date asc, startTime asc)[0...3]{
     _id,

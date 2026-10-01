@@ -1,6 +1,7 @@
 /* Speaker card from the design: default, hover, focus. */
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -18,11 +19,29 @@
     4px 4px 0 0 var(--color-text);
 }
 
-.card:focus-visible,
+/* The ring goes on the whole card when its button has keyboard focus. */
+.card:has(.open:focus-visible),
 .card[data-preview-state="focus"] {
   outline: 1px dashed var(--color-accent);
   outline-offset: -1px;
   box-shadow: 4px 4px 0 0 var(--color-accent);
+}
+
+/* The name's button stretches over the whole card, so any click opens the modal. */
+.open {
+  font: inherit;
+  text-align: inherit;
+  text-transform: inherit;
+}
+
+.open::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.open:focus-visible {
+  outline: none;
 }
 
 /* ---------- Photo ---------- */

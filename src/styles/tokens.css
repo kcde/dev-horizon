@@ -74,6 +74,8 @@
   --color-accent: var(--color-green-200);
   --color-danger: var(--color-red-300);
   --color-border: var(--color-neutral-600);
+  /* Dims the page behind modals. neutral-900 at 80%. */
+  --color-overlay: rgb(0 21 29 / 0.8);
 
   /* ---------- Semantic: tracks and keynote ---------- */
   /* Keep in sync with TRACKS / KEYNOTE_COLOR in src/lib/tracks.ts. */

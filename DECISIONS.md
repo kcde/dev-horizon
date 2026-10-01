@@ -6,7 +6,7 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 
 ### Speaker
 
-- Fields: name, slug (generated from name, unique; used in the modal URL), jobTitle, company, photo, bio.
+- Fields: name, slug (generated from name, unique; a stable identifier), jobTitle, company, photo, bio.
 - Photos are transparent cut-outs (background already removed), all framed identically and prepared in advance. Framing/size follows the design.
 - Photo upload accepts PNG or WebP only.
 - A speaker always has a talk. As a safety net, speakers with no talk are hidden on the site.
@@ -45,6 +45,7 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - Hero: from Site Settings.
 - Keynote spotlight: the talk with `isKeynote`.
 - Track cards: link to `/schedule?track=<key>`. Card content follows the design.
+- Featured speaker cards open the speaker modal (see Design → speaker card and modal).
 - Featured speakers (8): the keynote speaker first (the design features them), then 7 from the tracks: one per track, then a second per track in track order until 7 (so Tooling gets one). Track picks rotate days so all 3 days are represented; within a day, pick the earliest talk. The keynote speaker isn't picked again for a track. A speaker repeats only if no one else is available.
 - Schedule highlights (4): 1 per track, spread across days using the same idea. Never the keynote (it has the spotlight).
 - "Earliest" means ordered by day date, then start time; ties broken by talk title.
@@ -54,7 +55,6 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - Grid of all speakers (with a talk): photo, name, job title, company, primary talk title.
 - Card background color = primary talk's track color. The keynote speaker gets a special background (per design).
 - Clicking a card opens a speaker modal: bio plus all of that speaker's talks.
-- The open modal is reflected in the URL (`/speakers?speaker=<slug>`), updated client-side so the page stays static. The link is shareable; closing the modal removes the param.
 
 ### Schedule
 
@@ -91,6 +91,8 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - `/design-system` is a dev-only reference page (404 in production) showing tokens and, from M2, every component state.
 - Components live in `src/components/<Name>/` with a CSS Module, take plain-data props (no Sanity types) and are mapped from query results by the page.
 - Hover and focus are CSS-only (`:hover`, `:focus-visible`). Each selector also matches `[data-preview-state]`, which only `/design-system` sets, so every state can be shown side by side.
+- Speaker card and modal: a speaker card never navigates. Clicking it opens that speaker's modal in place, on any page; the card owns the modal. The modal isn't in the URL (no link, no history entry). It's a native `<dialog>`: focus trap, Escape, × and backdrop click close it, and focus returns to the card. Its tickets hide the details toggle and show a static star until saving exists (M4).
+- Shared pieces: `IconButton` (the design's 40×40 "Menu" button: mobile menu toggle, modal close) and `--color-overlay` (neutral-900 at 80%) behind modals.
 - Talk times: start in large type ("9:00 AM"), end and zone in small type ("10:00 AM PST"). The zone comes from the talk's date, so PDT/PST is always right.
 - The schedule row (`TalkTicket`) is one responsive component. Home uses its `highlight` variant (shows the day, no save star).
 

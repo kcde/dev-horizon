@@ -232,7 +232,7 @@
   color: var(--color-accent);
 }
 
-.save:hover {
+button.save:hover {
   box-shadow: 2px 2px 0 0 var(--color-text-inverse-muted);
 }
 

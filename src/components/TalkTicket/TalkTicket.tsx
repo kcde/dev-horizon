@@ -32,7 +32,10 @@ export type TalkTicketProps = {
   /** "highlight" is the Home page row: shows the day, no save star. */
   variant?: "schedule" | "highlight";
   saved?: boolean;
+  /** Without it, the star is shown as a static icon (saving arrives in M4). */
   onToggleSave?: () => void;
+  /** Shows the description/location toggle. Off in the speaker modal. */
+  showDetails?: boolean;
   defaultExpanded?: boolean;
   className?: string;
 };
@@ -53,13 +56,14 @@ export function TalkTicket({
   variant = "schedule",
   saved = false,
   onToggleSave,
+  showDetails = true,
   defaultExpanded = false,
   className,
 }: TalkTicketProps) {
   const [expanded, setExpanded] = useState(defaultExpanded);
   const detailsId = useId();
   const tag = isKeynote ? "Keynote" : TRACKS[track].name;
-  const hasDetails = Boolean(description || location);
+  const hasDetails = showDetails && Boolean(description || location);
 
   return (
     <article
@@ -123,7 +127,7 @@ export function TalkTicket({
         <span className={styles.barcode} aria-hidden="true" />
         {variant === "highlight" ? (
           dayLabel && <span className={styles.day}>{dayLabel}</span>
-        ) : (
+        ) : onToggleSave ? (
           <button
             type="button"
             className={styles.save}
@@ -136,6 +140,10 @@ export function TalkTicket({
               {title}
             </span>
           </button>
+        ) : (
+          <span className={styles.save} aria-hidden="true">
+            {saved ? <StarSolidIcon /> : <StarIcon />}
+          </span>
         )}
       </div>
     </article>
