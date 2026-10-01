@@ -93,6 +93,14 @@ Built against the Figma component sets, with every state from the design (defaul
 
 ## M3 — Home page
 
+Progress:
+
+- [ ] M3.1 Home query
+- [ ] M3.2 Featured-speaker and highlight selection + Vitest
+- [ ] M3.3 Page assembly
+- [ ] M3.4 Checks + visual/keyboard pass
+- [ ] M3.5 Design review rounds (Keside's feedback folded back into tokens and components)
+
 Figma: `Desktop - Home` (`90:363`), `Tablet - Home` (`173:1470`), `Mobile - Home` (`175:1774`), hover states (`210:4798`), focus states (`249:4251`). Also the Claude Design handoff (`Home.dc.html`).
 
 - Hero from Site Settings.
