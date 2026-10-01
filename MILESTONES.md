@@ -13,7 +13,7 @@ Breakpoints in the design: **375** (mobile), **768** (tablet), **1440** (desktop
 Progress:
 
 - [x] M0.1 Scaffold Next.js app
-- [ ] M0.2 Embed Sanity Studio
+- [x] M0.2 Embed Sanity Studio
 - [ ] M0.3 Tracks + schemas
 - [ ] M0.4 Talk validations
 - [ ] M0.5 Typed data access
