@@ -49,49 +49,30 @@ Source: Figma variables (from `Desktop - Home`, `90:363`).
 - **Spacing scale:** 0, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80 (`spacing/0`–`spacing/1000`).
 - **Globals:** reset, page container + gutters per breakpoint, breakpoint media queries, grid-paper background pattern, shared focus ring (dashed lime outline), `// label` section-heading style.
 
-**Done when:** tokens are exposed as CSS custom properties, fonts load, and a `/dev/tokens` page (removed before launch) renders the palette and type scale.
+**Done when:** tokens are exposed as CSS custom properties, fonts load, and the Home page (M3) is built only from these tokens.
 
-## M2 — Components
+M1, M2 and M3 run together. The Home page is where the tokens and components get looked at and adjusted, so each component is built and then used on Home right away.
 
-Built against the Figma component sets, with every state from the design (default / hover / focus, plus the variants listed).
+## M2 — Components (the ones Home uses)
 
-| Component         | Figma                                   | Variants / states                                                                                                                                                                                               |
-| ----------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Navigation        | `Navbar` section (`115:656`)            | desktop, tablet, mobile; active page; mobile menu open (`Mobile Nav`, `193:5254`)                                                                                                                               |
-| Footer            | `Footer` section (`179:2571`)           | desktop, tablet, mobile; back-to-top                                                                                                                                                                            |
-| Buttons           | from screens                            | primary (`VIEW TALK →`), outline (`VIEW ALL SPEAKERS`), nav button (active), icon close (×)                                                                                                                     |
-| Filter chips      | `Desktop - Schedule`                    | day (square, selected = lime fill), track (pill), My Schedule (dashed), Clear (red)                                                                                                                             |
-| Track card        | `Track` (`246:3640`)                    | default, hover, focus                                                                                                                                                                                           |
-| Speaker card      | `Speaker` (`246:3624`)                  | default, hover, focus; background = track color, keynote = cyan; grid-paper photo area                                                                                                                          |
-| Talk ticket       | `Schedule Component` (`129:787`)        | collapsed / expanded, saved / not saved, desktop / mobile; side tag = track or KEYNOTE; barcode; start/end time (12-hour, PDT/PST — not the design's 24-hour); "Day N" variant without star for Home highlights |
-| Speaker modal     | `Speaker Modal Components` (`193:5252`) | desktop, tablet, mobile; overlay, close, focus trap, Esc to close                                                                                                                                               |
-| Hero              | `Desktop - Home` → Hero                 | headline with outlined "HORIZON" text, date + venue                                                                                                                                                             |
-| Keynote spotlight | `Desktop - Home` → Featured Keynote     | label, speaker, talk, time/room, CTA, cut-out photo                                                                                                                                                             |
+Built against the Figma component sets, with every state from the design (default / hover / focus, plus the variants listed). Components that only Schedule or Speakers use are built in those milestones.
 
-**Done when:** each component renders all of its states on the `/dev` page at all three breakpoints, with keyboard and focus behavior working.
+| Component         | Figma                               | Variants / states                                                                                                                                                                                               |
+| ----------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Navigation        | `Navbar` section (`115:656`)        | desktop, tablet, mobile; active page; mobile menu open (`Mobile Nav`, `193:5254`)                                                                                                                               |
+| Footer            | `Footer` section (`179:2571`)       | desktop, tablet, mobile; back-to-top                                                                                                                                                                            |
+| Buttons           | from screens                        | primary (`VIEW TALK →`), outline (`VIEW ALL SPEAKERS`), nav button (active)                                                                                                                                     |
+| Hero              | `Desktop - Home` → Hero             | headline with outlined "HORIZON" text, date + venue                                                                                                                                                             |
+| Keynote spotlight | `Desktop - Home` → Featured Keynote | label, speaker, talk, time/room, CTA, cut-out photo                                                                                                                                                             |
+| Track card        | `Track` (`246:3640`)                | default, hover, focus                                                                                                                                                                                           |
+| Speaker card      | `Speaker` (`246:3624`)              | default, hover, focus; background = track color, keynote = cyan; grid-paper photo area                                                                                                                          |
+| Talk ticket       | `Schedule Component` (`129:787`)    | collapsed / expanded, saved / not saved, desktop / mobile; side tag = track or KEYNOTE; barcode; start/end time (12-hour, PDT/PST — not the design's 24-hour); "Day N" variant without star for Home highlights |
 
-## M3 — Schedule page
+**Done when:** each component matches the design at all three breakpoints on the Home page, with keyboard and focus behavior working.
 
-Figma: `Desktop - Schedule` (`115:669`), `Tablet - Schedule` (`193:1423`), `Mobile - Schedule` (`193:1929`), hover states (`249:3909`), focus states (`249:4311`).
+## M3 — Home page
 
-- Sanity query for talks with speaker, day, and track.
-- Filter logic (Day × Track × My Schedule, combinable) + Vitest.
-- Filter state ↔ URL (`?day=&track=&mine=1`), client-side.
-- Saved talks in `localStorage` keyed by `_id`, with stale-ID cleanup + Vitest.
-- Expand/collapse details, empty states (no talks match / nothing saved).
-
-## M4 — Speakers page + modal
-
-Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) and the `- Modal` variants (`193:3616`, `193:4048`, `193:4370`).
-
-- Query speakers who have at least one talk; primary talk = earliest.
-- Grid at 4 / 2 / 1 columns (check the tablet/mobile frames).
-- Card → modal with bio + all talks (talk tickets, save toggle works here too).
-- Modal state in the URL (`?speaker=<slug>`), client-side; shareable, closes cleanly with back/close/Esc.
-
-## M5 — Home page
-
-Figma: `Desktop - Home` (`90:363`), `Tablet - Home` (`173:1470`), `Mobile - Home` (`175:1774`), hover states (`210:4798`), focus states (`249:4251`).
+Figma: `Desktop - Home` (`90:363`), `Tablet - Home` (`173:1470`), `Mobile - Home` (`175:1774`), hover states (`210:4798`), focus states (`249:4251`). Also the Claude Design handoff (`Home.dc.html`).
 
 - Hero from Site Settings.
 - Keynote spotlight from the `isKeynote` talk.
@@ -99,7 +80,26 @@ Figma: `Desktop - Home` (`90:363`), `Tablet - Home` (`173:1470`), `Mobile - Home
 - Featured-speaker (8) and schedule-highlight (4) selection rules + Vitest.
 - "View all speakers" / "View full schedule" links.
 
-Home comes last because it reuses components from every other page and has the most rule logic.
+## M4 — Schedule page
+
+Figma: `Desktop - Schedule` (`115:669`), `Tablet - Schedule` (`193:1423`), `Mobile - Schedule` (`193:1929`), hover states (`249:3909`), focus states (`249:4311`).
+
+- New component: filter chips: day (square, selected = lime fill), track (pill), My Schedule (dashed), Clear (red).
+- Sanity query for talks with speaker, day, and track.
+- Filter logic (Day × Track × My Schedule, combinable) + Vitest.
+- Filter state ↔ URL (`?day=&track=&mine=1`), client-side.
+- Saved talks in `localStorage` keyed by `_id`, with stale-ID cleanup + Vitest.
+- Expand/collapse details, empty states (no talks match / nothing saved).
+
+## M5 — Speakers page + modal
+
+Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) and the `- Modal` variants (`193:3616`, `193:4048`, `193:4370`).
+
+- New component: speaker modal (`Speaker Modal Components`, `193:5252`): desktop, tablet, mobile; overlay, close (×), focus trap, Esc to close.
+- Query speakers who have at least one talk; primary talk = earliest.
+- Grid at 4 / 2 / 1 columns (check the tablet/mobile frames).
+- Card → modal with bio + all talks (talk tickets, save toggle works here too).
+- Modal state in the URL (`?speaker=<slug>`), client-side; shareable, closes cleanly with back/close/Esc.
 
 ## M6 — Launch readiness
 
