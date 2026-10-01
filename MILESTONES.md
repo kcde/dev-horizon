@@ -34,7 +34,7 @@ Progress:
 Progress:
 
 - [x] M1.1 Separate site and Studio layouts
-- [ ] M1.2 Tokens
+- [x] M1.2 Tokens
 - [ ] M1.3 Fonts
 - [ ] M1.4 Type presets
 - [ ] M1.5 Global styles + layout primitives
