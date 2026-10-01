@@ -259,12 +259,13 @@
   gap: var(--space-400);
 }
 
+/* Desktop splits the row 780 : 548, as in the 1440 design. */
 .heroPanel {
-  flex: 0 0 780px;
+  width: calc((100% - var(--space-400)) * 780 / 1328);
 }
 
 .keynotePanel {
-  flex: 1;
+  width: calc((100% - var(--space-400)) * 548 / 1328);
 }
 
 @media (max-width: 1023px) {
@@ -273,11 +274,8 @@
     gap: var(--space-300);
   }
 
-  .heroPanel {
-    flex-basis: auto;
-  }
-
+  .heroPanel,
   .keynotePanel {
-    flex: none;
+    width: auto;
   }
 }
