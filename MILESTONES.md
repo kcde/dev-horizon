@@ -18,7 +18,7 @@ Progress:
 - [x] M0.4 Talk validations
 - [x] M0.5 Typed data access
 - [x] M0.6 Seed content
-- [ ] M0.7 Vercel + PR
+- [x] M0.7 Vercel + PR
 
 - Next.js App Router + TypeScript (strict), npm, ESLint + Prettier, CSS Modules, Vitest.
 - Sanity: Studio embedded at `/studio`, project `8tnqf6xe`.
