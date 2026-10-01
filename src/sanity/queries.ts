@@ -4,6 +4,24 @@ export const SITE_SETTINGS_QUERY = defineQuery(
   `*[_type == "siteSettings"][0]{ eventName, tagline, eventDates, venue }`,
 );
 
+// Home picks the keynote, featured speakers and highlights from `talks` (src/lib/homeSelection.ts).
+export const HOME_QUERY = defineQuery(`{
+  "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },
+  "talks": *[_type == "talk" && defined(speaker) && defined(day)]
+    | order(day->date asc, startTime asc, title asc) {
+      _id,
+      title,
+      description,
+      track,
+      isKeynote,
+      startTime,
+      endTime,
+      location,
+      "day": day->{ label, date },
+      "speaker": speaker->{ name, "slug": slug.current, jobTitle, company, photo }
+    }
+}`);
+
 // Dev-only: sample content for the /design-system page.
 export const DESIGN_SYSTEM_SAMPLES_QUERY = defineQuery(`{
   "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },
