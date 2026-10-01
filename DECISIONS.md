@@ -62,7 +62,7 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 
 ## Technical
 
-- Next.js App Router, TypeScript (strict), CSS Modules, pnpm, ESLint (Next default) + Prettier.
+- Next.js App Router, TypeScript (strict), CSS Modules, npm, ESLint (Next default) + Prettier. No CI: checks run locally and Vercel builds each preview.
 - Tests: Vitest for rule logic only: featured/highlight selection, schedule filtering, saved-talks storage. No end-to-end tests for now.
 - Rendering: static pages, revalidated on demand by a Sanity webhook on publish, with time-based revalidation (hourly) as a fallback.
 - Sanity Studio embedded in the app at `/studio`.

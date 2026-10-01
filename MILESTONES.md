@@ -10,14 +10,24 @@ Breakpoints in the design: **375** (mobile), **768** (tablet), **1440** (desktop
 
 ## M0 — Project foundation
 
-- Next.js App Router + TypeScript (strict), pnpm, ESLint + Prettier, CSS Modules, Vitest.
+Progress:
+
+- [ ] M0.1 Scaffold Next.js app
+- [ ] M0.2 Embed Sanity Studio
+- [ ] M0.3 Tracks + schemas
+- [ ] M0.4 Talk validations
+- [ ] M0.5 Typed data access
+- [ ] M0.6 Seed content
+- [ ] M0.7 Vercel + PR
+
+- Next.js App Router + TypeScript (strict), npm, ESLint + Prettier, CSS Modules, Vitest.
 - Sanity: Studio embedded at `/studio`, project `8tnqf6xe`.
 - Schemas per DECISIONS.md: Speaker (with slug), Talk, Day, Site Settings (singleton); tracks (with descriptions) hard-coded.
 - Talk validations: required fields, `endTime > startTime`, single keynote, room-clash warning.
 - Seed content matching the Figma (24 speakers, 3 days).
 - Vercel project + preview deployments.
 
-**Done when:** `pnpm dev` serves an empty app, Studio works at `/studio`, and seed content is queryable.
+**Done when:** `npm run dev` serves an empty app, Studio works at `/studio`, and seed content is queryable.
 
 ## M1 — Design system
 
