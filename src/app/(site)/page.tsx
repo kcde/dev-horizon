@@ -42,6 +42,7 @@ function toHomeTalk(talk: QueryTalk): HomeTalk | null {
     startTime,
     endTime,
     speakerSlug: speaker.slug,
+    isKeynote: talk.isKeynote,
     source: talk,
     speaker,
     dayLabel: day.label,
@@ -57,7 +58,7 @@ export default async function HomePage() {
   const homeTalks = talks
     .map(toHomeTalk)
     .filter((talk): talk is HomeTalk => talk !== null);
-  const keynote = homeTalks.find((talk) => talk.source.isKeynote);
+  const keynote = homeTalks.find((talk) => talk.isKeynote);
   const featured = selectFeaturedSpeakers(homeTalks);
   const highlights = selectHighlights(homeTalks);
 
@@ -118,7 +119,7 @@ export default async function HomePage() {
                     jobTitle={talk.speaker.jobTitle}
                     company={talk.speaker.company}
                     talkTitle={talk.title}
-                    tint={talk.source.isKeynote ? "keynote" : talk.track}
+                    tint={talk.isKeynote ? "keynote" : talk.track}
                     photo={talk.speaker.photo}
                     className={styles.fill}
                   />
@@ -151,7 +152,7 @@ export default async function HomePage() {
                     speakerName={talk.speaker.name}
                     company={talk.speaker.company}
                     track={talk.track}
-                    isKeynote={talk.source.isKeynote}
+                    isKeynote={talk.isKeynote}
                     startTime={talk.startTime}
                     endTime={talk.endTime}
                     date={talk.date}

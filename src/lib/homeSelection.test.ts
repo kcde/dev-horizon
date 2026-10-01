@@ -29,6 +29,11 @@ function talk(
   };
 }
 
+// The keynote keeps a track in Sanity, but Home treats it separately.
+function keynote(speaker: string, date: string, startTime: string) {
+  return { ...talk(speaker, "frontend", date, startTime), isKeynote: true };
+}
+
 const speakers = (talks: SelectableTalk[]) => talks.map((t) => t.speakerSlug);
 
 // Every track has one talk on every day, so the rotation is fully visible.
@@ -123,14 +128,33 @@ describe("selectFeaturedSpeakers", () => {
     expect(new Set(picked.map((t) => t.id)).size).toBe(2);
   });
 
-  it("includes the keynote speaker like anyone else", () => {
-    const talks = [
-      { ...talk("keynote", "frontend", D1, "09:00"), isKeynote: true },
-      talk("other", "frontend", D2, "09:00"),
-    ];
+  it("puts the keynote speaker first, then 7 from the tracks", () => {
+    const talks = [...FULL, keynote("keynote", D1, "09:00")];
     expect(speakers(selectFeaturedSpeakers(talks))).toEqual([
       "keynote",
-      "other",
+      // Tracks get one each, then a second in track order until 7: Tooling
+      // ends up with one.
+      "accessibility-d1",
+      "frontend-d1",
+      "tooling-d1",
+      "frontend-d2",
+      "performance-d2",
+      "accessibility-d3",
+      "performance-d3",
+    ]);
+  });
+
+  it("doesn't count the keynote toward its track or repeat its speaker", () => {
+    const talks = [
+      keynote("star", D1, "09:00"),
+      talk("star", "frontend", D2, "09:00"),
+      talk("f1", "frontend", D1, "13:00"),
+      talk("f2", "frontend", D3, "09:00"),
+    ];
+    expect(speakers(selectFeaturedSpeakers(talks))).toEqual([
+      "star",
+      "f1",
+      "f2",
     ]);
   });
 
@@ -175,10 +199,11 @@ describe("selectHighlights", () => {
     expect(speakers(selectHighlights(talks))).toEqual(["p", "f"]);
   });
 
-  it("includes the keynote talk", () => {
+  it("leaves out the keynote talk", () => {
     const talks = [
-      { ...talk("keynote", "frontend", D1, "09:00"), isKeynote: true },
+      keynote("keynote", D1, "09:00"),
+      talk("frontend", "frontend", D1, "13:00"),
     ];
-    expect(speakers(selectHighlights(talks))).toEqual(["keynote"]);
+    expect(speakers(selectHighlights(talks))).toEqual(["frontend"]);
   });
 });

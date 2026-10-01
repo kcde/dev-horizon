@@ -145,7 +145,7 @@ Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) a
 All five conflicts are settled in DECISIONS.md:
 
 1. Times: 12-hour with PDT/PST (DECISIONS wins over the design).
-2. Keynote speaker is eligible for Home featured speakers (design wins).
+2. Keynote speaker always leads Home featured speakers (design wins); the other 7 come from the tracks.
 3. Tracks have hard-coded one-line descriptions (Home screen copy).
-4. Keynote row shows a cyan "KEYNOTE" tag but still filters under its track.
+4. The keynote is not a track: its row shows a cyan "KEYNOTE" tag, it never shows under a track filter, and it's left out of Home highlights.
 5. Speaker modal is reflected in the URL (`/speakers?speaker=<slug>`); Speaker gets a `slug` field.

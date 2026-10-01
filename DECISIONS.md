@@ -18,7 +18,7 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - Room clash (same location, overlapping time on the same day): warning, not a block.
 - Only one talk may have `isKeynote` set (validation blocks a second).
 - One talk per speaker is **not** enforced. If a speaker has several talks, the earliest is their "primary" talk.
-- The keynote is the keynote speaker's talk. It still belongs to a real track and shows under that track's filter.
+- The keynote is the keynote speaker's talk. The keynote is **not a track**: the site treats the `isKeynote` talk separately from the four tracks. Its `track` field is still required in Sanity but isn't used on the site.
 - Visually, the keynote's talk row shows a "KEYNOTE" side tag in the keynote color (cyan) instead of its track tag and color.
 
 ### Day
@@ -45,8 +45,8 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - Hero: from Site Settings.
 - Keynote spotlight: the talk with `isKeynote`.
 - Track cards: link to `/schedule?track=<key>`. Card content follows the design.
-- Featured speakers (8): 2 per track, drawn from **different days**, rotating days across tracks so all 3 days are represented. Within a day, pick the earliest talk. The keynote speaker is eligible like any other speaker (the design features them). A speaker repeats only if no one else is available.
-- Schedule highlights (4): 1 per track, spread across days using the same idea.
+- Featured speakers (8): the keynote speaker first (the design features them), then 7 from the tracks: one per track, then a second per track in track order until 7 (so Tooling gets one). Track picks rotate days so all 3 days are represented; within a day, pick the earliest talk. The keynote speaker isn't picked again for a track. A speaker repeats only if no one else is available.
+- Schedule highlights (4): 1 per track, spread across days using the same idea. Never the keynote (it has the spotlight).
 - "Earliest" means ordered by day date, then start time; ties broken by talk title.
 
 ### Speakers
@@ -58,7 +58,7 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 
 ### Schedule
 
-- Filters: Day + Track + My Schedule + Clear, all combinable.
+- Filters: Day + Track + My Schedule + Clear, all combinable. The keynote shows only when no track filter is set (it still follows Day and My Schedule).
 - Filter state is reflected in the URL (e.g. `?day=2&track=frontend&mine=1`), updated client-side so pages stay static. `mine` only reflects the current browser's saved talks.
 - Talk row: track color tag, title, speaker + company, start/end time, expandable details (description + location), save toggle.
 - Times: 12-hour format, America/Los_Angeles, labelled (PDT/PST). No conversion to the viewer's time zone. This overrides the design, which shows 24-hour times.
