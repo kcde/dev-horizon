@@ -15,8 +15,11 @@ import {
 } from "@/components/icons/icons";
 import { Logo } from "@/components/Logo/Logo";
 import { NavButton } from "@/components/NavButton/NavButton";
+import { SpeakerCard } from "@/components/SpeakerCard/SpeakerCard";
 import { TrackCard } from "@/components/TrackCard/TrackCard";
 import { TRACK_KEYS } from "@/lib/tracks";
+import { sanityFetch } from "@/sanity/fetch";
+import { DESIGN_SYSTEM_SAMPLES_QUERY } from "@/sanity/queries";
 
 import styles from "./page.module.css";
 import { StateGrid } from "./StateGrid";
@@ -121,8 +124,25 @@ const SPACING = [
 
 const RADII = ["0", "4", "6", "8", "10", "12", "16", "20", "24", "full"];
 
-export default function DesignSystemPage() {
+export default async function DesignSystemPage() {
   if (process.env.NODE_ENV === "production") notFound();
+
+  const samples = await sanityFetch({
+    query: DESIGN_SYSTEM_SAMPLES_QUERY,
+    tags: ["speaker", "talk", "day"],
+  });
+  const speakerCards = samples.speakers.map((speaker) => ({
+    slug: speaker.slug ?? "",
+    name: speaker.name ?? "",
+    jobTitle: speaker.jobTitle,
+    company: speaker.company,
+    talkTitle: speaker.talk?.title,
+    tint: speaker.talk?.isKeynote
+      ? ("keynote" as const)
+      : (speaker.talk?.track ?? "frontend"),
+    photo: speaker.photo,
+  }));
+  const [firstSpeaker] = speakerCards;
 
   return (
     <main className={styles.page}>
@@ -175,6 +195,27 @@ export default function DesignSystemPage() {
           <div className={styles.trackRow}>
             {TRACK_KEYS.map((key) => (
               <TrackCard key={key} track={key} />
+            ))}
+          </div>
+        </div>
+        {firstSpeaker && (
+          <StateGrid
+            title="SpeakerCard"
+            minColumnWidth="300px"
+            render={(state) => (
+              <SpeakerCard
+                {...firstSpeaker}
+                previewState={state}
+                className="fill"
+              />
+            )}
+          />
+        )}
+        <div className={styles.group}>
+          <h3 className="text-preset-4">SpeakerCard · tints</h3>
+          <div className={styles.cardRow}>
+            {speakerCards.map((card) => (
+              <SpeakerCard key={card.slug} {...card} />
             ))}
           </div>
         </div>

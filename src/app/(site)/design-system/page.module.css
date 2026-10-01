@@ -227,3 +227,22 @@
     grid-template-columns: 1fr;
   }
 }
+
+.cardRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-300);
+}
+
+@media (max-width: 1023px) {
+  .cardRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-250);
+  }
+}
+
+@media (max-width: 441px) {
+  .cardRow {
+    grid-template-columns: 1fr;
+  }
+}
