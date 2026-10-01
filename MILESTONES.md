@@ -95,8 +95,8 @@ Built against the Figma component sets, with every state from the design (defaul
 
 Progress:
 
-- [ ] M3.1 Home query
-- [ ] M3.2 Featured-speaker and highlight selection + Vitest
+- [x] M3.1 Home query
+- [x] M3.2 Featured-speaker and highlight selection + Vitest
 - [ ] M3.3 Page assembly
 - [ ] M3.4 Checks + visual/keyboard pass
 - [ ] M3.5 Design review rounds (Keside's feedback folded back into tokens and components)
