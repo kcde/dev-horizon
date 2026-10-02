@@ -116,7 +116,7 @@ Progress:
 - [x] M4.1 Schedule query + shared talk mapping
 - [x] M4.2 Filter logic + URL parse/serialize + Vitest
 - [x] M4.3 Saved-talks storage + Vitest
-- [ ] M4.4 Filter chips (+ /design-system states)
+- [x] M4.4 Filter chips (+ /design-system states)
 - [ ] M4.5 Page assembly (filters, list, empty states)
 - [ ] M4.6 Saving in the speaker modal + docs
 - [ ] M4.7 Checks + visual/keyboard pass
