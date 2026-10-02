@@ -23,7 +23,7 @@ export const HOME_QUERY = defineQuery(`{
 }`);
 
 export const SCHEDULE_QUERY = defineQuery(`{
-  "days": *[_type == "day" && defined(date)] | order(date asc) { _id, label, date },
+  "days": *[_type == "day" && defined(date)] | order(date asc).date,
   "talks": *[_type == "talk" && defined(speaker) && defined(day)]
     | order(day->date asc, startTime asc, title asc) {
       _id,

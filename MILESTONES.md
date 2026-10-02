@@ -117,7 +117,7 @@ Progress:
 - [x] M4.2 Filter logic + URL parse/serialize + Vitest
 - [x] M4.3 Saved-talks storage + Vitest
 - [x] M4.4 Filter chips (+ /design-system states)
-- [ ] M4.5 Page assembly (filters, list, empty states)
+- [x] M4.5 Page assembly (filters, list, empty states)
 - [ ] M4.6 Saving in the speaker modal + docs
 - [ ] M4.7 Checks + visual/keyboard pass
 - [ ] M4.8 Design review rounds

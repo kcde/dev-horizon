@@ -1,0 +1,50 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-300);
+}
+
+.heading {
+  color: var(--color-accent);
+}
+
+.filters {
+  padding-bottom: var(--space-300);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-125);
+}
+
+.filterGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-125);
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background: var(--color-neutral-500);
+}
+
+.ticketStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+}
+
+.empty {
+  padding: var(--space-600) var(--space-300);
+  text-align: center;
+  color: var(--color-text-muted);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+/* The filters wrap below desktop, which would leave the divider at the end of a row. */
+@media (max-width: 1023px) {
+  .divider {
+    display: none;
+  }
+}
