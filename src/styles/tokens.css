@@ -1,0 +1,114 @@
+/*
+ * Design tokens, from the Claude Design handoff (design-system/fig-tokens.css),
+ * which is generated from the Figma variables.
+ *
+ * Two layers:
+ *   1. Primitives: the raw palette and scales. Named as in Figma.
+ *   2. Semantic aliases: what components should use.
+ *
+ * Breakpoints (from Home.dc.html). Custom properties can't be used inside
+ * media queries, so these are written literally wherever they're needed:
+ *   desktop  ≥ 1024px
+ *   tablet   442px – 1023px   @media (max-width: 1023px)
+ *   mobile   ≤ 441px          @media (max-width: 441px)
+ */
+
+:root {
+  /* ---------- Primitives: color ---------- */
+  --color-neutral-0: rgb(255 255 255);
+  --color-neutral-100: rgb(252 239 232);
+  --color-neutral-200: rgb(194 197 194);
+  --color-neutral-500: rgb(73 97 106);
+  --color-neutral-600: rgb(51 68 74);
+  --color-neutral-800: rgb(0 26 36);
+  --color-neutral-900: rgb(0 21 29);
+
+  --color-green-200: rgb(209 255 102);
+  --color-yellow-100: rgb(255 230 186);
+  --color-red-100: rgb(254 201 195);
+  --color-red-300: rgb(255 128 128);
+  --color-blue-100: rgb(187 216 255);
+  --color-cyan-100: rgb(181 233 252);
+  --color-purple-100: rgb(204 196 253);
+
+  /* ---------- Primitives: spacing ---------- */
+  --space-0: 0;
+  --space-025: 2px;
+  --space-050: 4px;
+  --space-075: 6px;
+  --space-100: 8px;
+  --space-125: 10px;
+  --space-150: 12px;
+  --space-200: 16px;
+  --space-250: 20px;
+  --space-300: 24px;
+  --space-400: 32px;
+  --space-500: 40px;
+  --space-600: 48px;
+  --space-800: 64px;
+  --space-1000: 80px;
+  --space-1200: 96px;
+  --space-1400: 112px;
+  --space-1600: 128px;
+  --space-1800: 140px;
+
+  /* ---------- Primitives: radius ---------- */
+  --radius-0: 0;
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-24: 24px;
+  --radius-full: 999px;
+
+  /* ---------- Semantic: surfaces and text ---------- */
+  --color-bg: var(--color-neutral-900);
+  --color-surface: var(--color-neutral-800);
+  --color-text: var(--color-neutral-100);
+  --color-text-muted: var(--color-neutral-200);
+  --color-text-inverse: var(--color-neutral-900);
+  --color-text-inverse-muted: var(--color-neutral-600);
+  --color-accent: var(--color-green-200);
+  --color-danger: var(--color-red-300);
+  --color-border: var(--color-neutral-600);
+  /* Dims the page behind modals. neutral-900 at 80%. */
+  --color-overlay: rgb(0 21 29 / 0.8);
+
+  /* ---------- Semantic: tracks and keynote ---------- */
+  /* Keep in sync with TRACKS / KEYNOTE_COLOR in src/lib/tracks.ts. */
+  --color-track-frontend: var(--color-yellow-100);
+  --color-track-performance: var(--color-red-100);
+  --color-track-accessibility: var(--color-blue-100);
+  --color-track-tooling: var(--color-purple-100);
+  --color-keynote: var(--color-cyan-100);
+
+  /* ---------- Semantic: focus ---------- */
+  /* Override --focus-color on light surfaces (e.g. the keynote card). */
+  --focus-color: var(--color-accent);
+
+  /* ---------- Fonts (set by next/font in the site layout) ---------- */
+  --font-display-stack: var(--font-display), sans-serif;
+  --font-body-stack: var(--font-body), ui-monospace, monospace;
+
+  /* ---------- Layout ---------- */
+  --page-max: 1440px;
+  --page-pad: var(--space-500);
+  --page-gap: var(--space-800);
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --page-pad: var(--space-250);
+    --page-gap: var(--space-500);
+  }
+}
+
+@media (max-width: 441px) {
+  :root {
+    --page-pad: var(--space-200);
+    --page-gap: var(--space-400);
+  }
+}

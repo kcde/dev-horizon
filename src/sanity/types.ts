@@ -233,3 +233,135 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageAsset
   | Geopoint;
+
+// Source: src/sanity/queries.ts
+// Variable: SITE_SETTINGS_QUERY
+// Query: *[_type == "siteSettings"][0]{ eventName, tagline, eventDates, venue }
+export type SITE_SETTINGS_QUERY_RESULT = {
+  eventName: string | null;
+  tagline: string | null;
+  eventDates: string | null;
+  venue: string | null;
+} | null;
+
+// Source: src/sanity/queries.ts
+// Variable: HOME_QUERY
+// Query: {  "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },  "talks": *[_type == "talk" && defined(speaker) && defined(day)]    | order(day->date asc, startTime asc, title asc) {      _id,      title,      description,      track,      isKeynote,      startTime,      endTime,      location,      "day": day->{ label, date },      "speaker": speaker->{ name, "slug": slug.current, jobTitle, company, bio, photo }    }}
+export type HOME_QUERY_RESULT = {
+  settings: {
+    tagline: string | null;
+    eventDates: string | null;
+    venue: string | null;
+  } | null;
+  talks: Array<{
+    _id: string;
+    title: string | null;
+    description: string | null;
+    track: "accessibility" | "frontend" | "performance" | "tooling" | null;
+    isKeynote: boolean | null;
+    startTime: string | null;
+    endTime: string | null;
+    location: string | null;
+    day: {
+      label: string | null;
+      date: string | null;
+    };
+    speaker: {
+      name: string | null;
+      slug: string | null;
+      jobTitle: string | null;
+      company: string | null;
+      bio: string | null;
+      photo: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+    };
+  }>;
+};
+
+// Source: src/sanity/queries.ts
+// Variable: DESIGN_SYSTEM_SAMPLES_QUERY
+// Query: {  "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },  "keynote": *[_type == "talk" && isKeynote][0]{    title,    startTime,    location,    "date": day->date,    "speaker": speaker->{ name, jobTitle, company, photo }  },  "speakers": *[_type == "speaker" && slug.current in ["elena-vasquez", "james-okonkwo", "priya-sharma", "ryan-osullivan"]]    | order(name asc) {      name,      "slug": slug.current,      jobTitle,      company,      bio,      photo,      "talks": *[_type == "talk" && references(^._id)] | order(day->date asc, startTime asc, title asc){        _id,        title,        track,        isKeynote,        startTime,        endTime,        "date": day->date      }    },  "talks": *[_type == "talk"] | order(day->date asc, startTime asc)[0...3]{    _id,    title,    description,    track,    isKeynote,    startTime,    endTime,    location,    "speaker": speaker->{ name, company },    "day": day->{ label, date }  }}
+export type DESIGN_SYSTEM_SAMPLES_QUERY_RESULT = {
+  settings: {
+    tagline: string | null;
+    eventDates: string | null;
+    venue: string | null;
+  } | null;
+  keynote: {
+    title: string | null;
+    startTime: string | null;
+    location: string | null;
+    date: string | null;
+    speaker: {
+      name: string | null;
+      jobTitle: string | null;
+      company: string | null;
+      photo: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+    } | null;
+  } | null;
+  speakers: Array<{
+    name: string | null;
+    slug: string | null;
+    jobTitle: string | null;
+    company: string | null;
+    bio: string | null;
+    photo: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    talks: Array<{
+      _id: string;
+      title: string | null;
+      track: "accessibility" | "frontend" | "performance" | "tooling" | null;
+      isKeynote: boolean | null;
+      startTime: string | null;
+      endTime: string | null;
+      date: string | null;
+    }>;
+  }>;
+  talks: Array<{
+    _id: string;
+    title: string | null;
+    description: string | null;
+    track: "accessibility" | "frontend" | "performance" | "tooling" | null;
+    isKeynote: boolean | null;
+    startTime: string | null;
+    endTime: string | null;
+    location: string | null;
+    speaker: {
+      name: string | null;
+      company: string | null;
+    } | null;
+    day: {
+      label: string | null;
+      date: string | null;
+    } | null;
+  }>;
+};
+
+// Query TypeMap
+declare global {
+  interface SanityQueries {
+    '*[_type == "siteSettings"][0]{ eventName, tagline, eventDates, venue }': SITE_SETTINGS_QUERY_RESULT;
+    '{\n  "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },\n  "talks": *[_type == "talk" && defined(speaker) && defined(day)]\n    | order(day->date asc, startTime asc, title asc) {\n      _id,\n      title,\n      description,\n      track,\n      isKeynote,\n      startTime,\n      endTime,\n      location,\n      "day": day->{ label, date },\n      "speaker": speaker->{ name, "slug": slug.current, jobTitle, company, bio, photo }\n    }\n}': HOME_QUERY_RESULT;
+    '{\n  "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },\n  "keynote": *[_type == "talk" && isKeynote][0]{\n    title,\n    startTime,\n    location,\n    "date": day->date,\n    "speaker": speaker->{ name, jobTitle, company, photo }\n  },\n  "speakers": *[_type == "speaker" && slug.current in ["elena-vasquez", "james-okonkwo", "priya-sharma", "ryan-osullivan"]]\n    | order(name asc) {\n      name,\n      "slug": slug.current,\n      jobTitle,\n      company,\n      bio,\n      photo,\n      "talks": *[_type == "talk" && references(^._id)] | order(day->date asc, startTime asc, title asc){\n        _id,\n        title,\n        track,\n        isKeynote,\n        startTime,\n        endTime,\n        "date": day->date\n      }\n    },\n  "talks": *[_type == "talk"] | order(day->date asc, startTime asc)[0...3]{\n    _id,\n    title,\n    description,\n    track,\n    isKeynote,\n    startTime,\n    endTime,\n    location,\n    "speaker": speaker->{ name, company },\n    "day": day->{ label, date }\n  }\n}': DESIGN_SYSTEM_SAMPLES_QUERY_RESULT;
+  }
+}
+// Lets @sanity/client releases that predate the global registry read it too
+declare module "@sanity/client" {
+  interface SanityQueries extends globalThis.SanityQueries {}
+}

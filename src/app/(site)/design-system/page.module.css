@@ -1,0 +1,280 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1000);
+  padding-block: var(--space-800) var(--space-1600);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-300);
+  max-width: 900px;
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-400);
+  padding-top: var(--space-300);
+  border-top: 1px solid var(--color-border);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-250);
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-100);
+}
+
+.chip {
+  height: 80px;
+  border: 1px solid var(--color-border);
+}
+
+.typeRow {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--space-300);
+  align-items: baseline;
+  padding-bottom: var(--space-300);
+  border-bottom: 1px solid var(--color-surface);
+}
+
+.typeMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-050);
+}
+
+.scale {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-100);
+}
+
+.scaleRow {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: center;
+}
+
+.bar {
+  height: 16px;
+  background: var(--color-accent);
+}
+
+.radii {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--space-250);
+}
+
+.radiusItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-100);
+}
+
+.radiusBox {
+  height: 80px;
+  border: 1px solid var(--color-text-muted);
+}
+
+.focusRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-300);
+  align-items: center;
+}
+
+.sampleButton,
+.sampleButtonLight {
+  padding: var(--space-200) var(--space-300);
+  text-transform: uppercase;
+  border: 1px solid var(--color-text);
+}
+
+.sampleButton:focus-visible {
+  box-shadow: 4px 4px 0 0 var(--color-accent);
+}
+
+.lightSurface {
+  padding: var(--space-300);
+  background: var(--color-keynote);
+}
+
+.sampleButtonLight {
+  color: var(--color-text-inverse);
+  border-color: var(--color-text-inverse);
+}
+
+.sampleButtonLight:focus-visible {
+  box-shadow: 4px 4px 0 0 var(--color-text-inverse);
+}
+
+.utilities {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-300);
+}
+
+.paper {
+  display: flex;
+  align-items: flex-end;
+  height: 220px;
+  padding: var(--space-200);
+  background-color: var(--color-track-accessibility);
+  color: var(--color-text-inverse);
+}
+
+.paperKeynote {
+  background-color: var(--color-keynote);
+}
+
+@media (max-width: 1023px) {
+  .typeRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-100);
+  }
+}
+
+.stateGrid {
+  display: grid;
+  gap: var(--space-400);
+  align-items: start;
+}
+
+.stateCell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-150);
+  align-items: flex-start;
+  min-width: 0;
+}
+
+/* Cards and rows should fill their cell; buttons keep their natural width. */
+.stateCell > :global(.fill) {
+  align-self: stretch;
+}
+
+.iconRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-400);
+  align-items: center;
+  color: var(--color-text);
+}
+
+.iconRow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.logoSample {
+  width: 192px;
+  color: var(--color-accent);
+}
+
+.horizonSample {
+  width: 100%;
+  max-width: 554px;
+  padding: var(--space-300);
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-900);
+}
+
+.lightPanel {
+  padding: var(--space-300);
+  background: var(--color-keynote);
+  color: var(--color-text-inverse);
+}
+
+.lightPanel .muted {
+  color: var(--color-text-inverse-muted);
+}
+
+.trackRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-200);
+}
+
+@media (max-width: 1023px) {
+  .trackRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-250);
+  }
+}
+
+@media (max-width: 441px) {
+  .trackRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cardRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-300);
+}
+
+@media (max-width: 1023px) {
+  .cardRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-250);
+  }
+}
+
+@media (max-width: 441px) {
+  .cardRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ticketStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+}
+
+/* Mirrors the Home layout (M3): hero and keynote side by side on desktop. */
+.heroRow {
+  display: flex;
+  gap: var(--space-400);
+}
+
+.heroPanel {
+  width: calc((100% - var(--space-400)) * 780 / 1328);
+}
+
+.keynotePanel {
+  width: calc((100% - var(--space-400)) * 548 / 1328);
+}
+
+@media (max-width: 1023px) {
+  .heroRow {
+    flex-direction: column;
+    gap: var(--space-300);
+  }
+
+  .heroPanel,
+  .keynotePanel {
+    width: auto;
+  }
+}

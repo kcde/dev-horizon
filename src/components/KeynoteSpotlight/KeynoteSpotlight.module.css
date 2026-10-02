@@ -1,0 +1,187 @@
+/* "Featured Keynote" panel from Home.dc.html. Breakpoints: see tokens.css. */
+
+.spotlight {
+  position: relative;
+  display: flex;
+  height: 400px;
+  overflow: hidden;
+  background: var(--color-keynote);
+  color: var(--color-text-inverse);
+}
+
+.info {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-250);
+  width: 280px;
+  padding: var(--space-300);
+}
+
+.speaker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+}
+
+.label {
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: 0.64px;
+  text-transform: uppercase;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-100);
+}
+
+.name {
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.72px;
+  text-transform: lowercase;
+}
+
+.muted {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 0.56px;
+  text-transform: uppercase;
+  color: var(--color-text-inverse-muted);
+}
+
+.talk {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.talkText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  gap: var(--space-100);
+}
+
+.talkTitle {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: 0.56px;
+  text-transform: uppercase;
+}
+
+.button {
+  align-self: flex-start;
+}
+
+/* Cut-out photo, cropped by its frame on the right. */
+.photoFrame {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 311px;
+  max-width: calc(100% - 237px);
+  height: 100%;
+  overflow: hidden;
+}
+
+.photo {
+  position: absolute;
+  left: -14.8%;
+  bottom: -2px;
+  width: 154.7%;
+  aspect-ratio: 481 / 378;
+}
+
+.image {
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+/* Two faint rings, tablet only (per the design). */
+.circles {
+  display: none;
+  position: absolute;
+  left: 418px;
+  top: -14px;
+  width: 184px;
+  height: 214px;
+  overflow: hidden;
+}
+
+.circles span {
+  position: absolute;
+  border-radius: var(--radius-full);
+}
+
+.circles span:first-child {
+  left: 180px;
+  top: 0;
+  width: 184px;
+  height: 184px;
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.08);
+}
+
+.circles span:last-child {
+  left: 190px;
+  top: 90px;
+  width: 124px;
+  height: 124px;
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.06);
+}
+
+@media (max-width: 1023px) {
+  .info {
+    width: 360px;
+  }
+
+  .photoFrame {
+    width: 368px;
+    max-width: calc(100% - 360px);
+  }
+
+  .photo {
+    left: -12.5%;
+    width: 130.7%;
+  }
+
+  .circles {
+    display: block;
+  }
+}
+
+@media (max-width: 441px) {
+  .spotlight {
+    height: 340px;
+  }
+
+  .info {
+    flex: 1;
+    width: auto;
+    gap: var(--space-400);
+    padding: var(--space-250) var(--space-200);
+  }
+
+  .talk {
+    justify-content: flex-start;
+    gap: var(--space-300);
+  }
+
+  .button {
+    align-self: stretch;
+  }
+
+  .photoFrame,
+  .circles {
+    display: none;
+  }
+}

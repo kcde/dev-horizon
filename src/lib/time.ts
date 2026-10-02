@@ -34,3 +34,36 @@ export function rangesOverlap(a: TimeRange, b: TimeRange): boolean {
   }
   return aStart < bEnd && bStart < aEnd;
 }
+
+export const CONFERENCE_TIME_ZONE = "America/Los_Angeles";
+
+/** "13:00" → "1:00 PM". Returns the input unchanged if it isn't a valid "HH:mm" time. */
+export function formatTime(value: string): string {
+  const minutes = toMinutes(value);
+  if (minutes === null) return value;
+  const hours24 = Math.floor(minutes / 60);
+  const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
+  const suffix = hours24 < 12 ? "AM" : "PM";
+  return `${hours12}:${String(minutes % 60).padStart(2, "0")} ${suffix}`;
+}
+
+/** Conference time zone abbreviation on a given date ("2026-11-15" → "PST"). */
+export function timeZoneLabel(date: string): string {
+  // Noon UTC is the same calendar day in Los Angeles and clear of the 2am DST switch.
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: CONFERENCE_TIME_ZONE,
+    timeZoneName: "short",
+  }).formatToParts(new Date(`${date}T12:00:00Z`));
+  return parts.find((part) => part.type === "timeZoneName")?.value ?? "PT";
+}
+
+/** "2026-11-15" → "Nov 15". The date is a calendar day, so no time zone shift applies. */
+export function formatShortDate(date: string): string {
+  const parsed = new Date(`${date}T00:00:00Z`);
+  if (Number.isNaN(parsed.getTime())) return date;
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(parsed);
+}

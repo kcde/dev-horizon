@@ -18,7 +18,7 @@ Progress:
 - [x] M0.4 Talk validations
 - [x] M0.5 Typed data access
 - [x] M0.6 Seed content
-- [ ] M0.7 Vercel + PR
+- [x] M0.7 Vercel + PR
 
 - Next.js App Router + TypeScript (strict), npm, ESLint + Prettier, CSS Modules, Vitest.
 - Sanity: Studio embedded at `/studio`, project `8tnqf6xe`.
@@ -30,6 +30,16 @@ Progress:
 **Done when:** `npm run dev` serves an empty app, Studio works at `/studio`, and seed content is queryable.
 
 ## M1 — Design system
+
+Progress:
+
+- [x] M1.1 Separate site and Studio layouts
+- [x] M1.2 Tokens
+- [x] M1.3 Fonts
+- [x] M1.4 Type presets
+- [x] M1.5 Global styles + layout primitives
+- [x] M1.6 /design-system preview page
+- [x] M1.7 Docs + PR
 
 Source: Figma variables (from `Desktop - Home`, `90:363`).
 
@@ -49,11 +59,22 @@ Source: Figma variables (from `Desktop - Home`, `90:363`).
 - **Spacing scale:** 0, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80 (`spacing/0`–`spacing/1000`).
 - **Globals:** reset, page container + gutters per breakpoint, breakpoint media queries, grid-paper background pattern, shared focus ring (dashed lime outline), `// label` section-heading style.
 
-**Done when:** tokens are exposed as CSS custom properties, fonts load, and the Home page (M3) is built only from these tokens.
+**Done when:** tokens are exposed as CSS custom properties, fonts load self-hosted, and the dev-only `/design-system` page shows every token at all three breakpoints. Home (M3) is then built only from these tokens.
 
 M1, M2 and M3 run together. The Home page is where the tokens and components get looked at and adjusted, so each component is built and then used on Home right away.
 
 ## M2 — Components (the ones Home uses)
+
+Progress:
+
+- [x] M2.1 Foundations (icons, logo, time format, images, preview harness)
+- [x] M2.2 Buttons
+- [x] M2.3 Navigation + footer
+- [x] M2.4 Track card
+- [x] M2.5 Speaker card
+- [x] M2.6 Talk ticket
+- [x] M2.7 Hero + keynote spotlight
+- [x] M2.8 Keyboard/visual pass + docs
 
 Built against the Figma component sets, with every state from the design (default / hover / focus, plus the variants listed). Components that only Schedule or Speakers use are built in those milestones.
 
@@ -71,6 +92,14 @@ Built against the Figma component sets, with every state from the design (defaul
 **Done when:** each component matches the design at all three breakpoints on the Home page, with keyboard and focus behavior working.
 
 ## M3 — Home page
+
+Progress:
+
+- [x] M3.1 Home query
+- [x] M3.2 Featured-speaker and highlight selection + Vitest
+- [x] M3.3 Page assembly
+- [ ] M3.4 Checks + visual/keyboard pass
+- [ ] M3.5 Design review rounds (Keside's feedback folded back into tokens and components)
 
 Figma: `Desktop - Home` (`90:363`), `Tablet - Home` (`173:1470`), `Mobile - Home` (`175:1774`), hover states (`210:4798`), focus states (`249:4251`). Also the Claude Design handoff (`Home.dc.html`).
 
@@ -95,11 +124,10 @@ Figma: `Desktop - Schedule` (`115:669`), `Tablet - Schedule` (`193:1423`), `Mobi
 
 Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) and the `- Modal` variants (`193:3616`, `193:4048`, `193:4370`).
 
-- New component: speaker modal (`Speaker Modal Components`, `193:5252`): desktop, tablet, mobile; overlay, close (×), focus trap, Esc to close.
+- Speaker modal: already built during the M3 review (`SpeakerModal`, owned by `SpeakerCard`). Speakers only needs to pass each card its bio and talks.
 - Query speakers who have at least one talk; primary talk = earliest.
 - Grid at 4 / 2 / 1 columns (check the tablet/mobile frames).
-- Card → modal with bio + all talks (talk tickets, save toggle works here too).
-- Modal state in the URL (`?speaker=<slug>`), client-side; shareable, closes cleanly with back/close/Esc.
+- Card → modal with bio + all talks (talk tickets; the save star works once M4 lands).
 
 ## M6 — Launch readiness
 
@@ -116,7 +144,7 @@ Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) a
 All five conflicts are settled in DECISIONS.md:
 
 1. Times: 12-hour with PDT/PST (DECISIONS wins over the design).
-2. Keynote speaker is eligible for Home featured speakers (design wins).
+2. Keynote speaker always leads Home featured speakers (design wins); the other 7 come from the tracks.
 3. Tracks have hard-coded one-line descriptions (Home screen copy).
-4. Keynote row shows a cyan "KEYNOTE" tag but still filters under its track.
-5. Speaker modal is reflected in the URL (`/speakers?speaker=<slug>`); Speaker gets a `slug` field.
+4. The keynote is not a track: its row shows a cyan "KEYNOTE" tag, it never shows under a track filter, and it's left out of Home highlights.
+5. Speaker modal opens in place from any speaker card and isn't in the URL (changed during the M3 review). Speaker keeps a `slug` field as a stable identifier.

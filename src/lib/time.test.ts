@@ -1,6 +1,14 @@
 import { describe, expect, it } from "vitest";
 
-import { isEndAfterStart, isValidTime, rangesOverlap, toMinutes } from "./time";
+import {
+  formatShortDate,
+  formatTime,
+  isEndAfterStart,
+  isValidTime,
+  rangesOverlap,
+  timeZoneLabel,
+  toMinutes,
+} from "./time";
 
 describe("isValidTime", () => {
   it.each(["00:00", "09:00", "13:30", "23:59"])("accepts %s", (value) => {
@@ -76,5 +84,49 @@ describe("rangesOverlap", () => {
     expect(rangesOverlap(talk, { startTime: "x", endTime: "11:00" })).toBe(
       false,
     );
+  });
+});
+
+describe("formatTime", () => {
+  it.each([
+    ["00:00", "12:00 AM"],
+    ["00:30", "12:30 AM"],
+    ["09:00", "9:00 AM"],
+    ["11:59", "11:59 AM"],
+    ["12:00", "12:00 PM"],
+    ["13:05", "1:05 PM"],
+    ["23:45", "11:45 PM"],
+  ])("formats %s as %s", (input, expected) => {
+    expect(formatTime(input)).toBe(expected);
+  });
+
+  it("returns invalid input unchanged", () => {
+    expect(formatTime("noon")).toBe("noon");
+  });
+});
+
+describe("timeZoneLabel", () => {
+  it("is PST for the conference dates", () => {
+    expect(timeZoneLabel("2026-11-15")).toBe("PST");
+  });
+
+  it("is PDT in summer", () => {
+    expect(timeZoneLabel("2026-07-01")).toBe("PDT");
+  });
+
+  it("follows the DST switch (Nov 1, 2026)", () => {
+    expect(timeZoneLabel("2026-10-31")).toBe("PDT");
+    expect(timeZoneLabel("2026-11-01")).toBe("PST");
+  });
+});
+
+describe("formatShortDate", () => {
+  it("formats a calendar date", () => {
+    expect(formatShortDate("2026-11-15")).toBe("Nov 15");
+    expect(formatShortDate("2026-01-01")).toBe("Jan 1");
+  });
+
+  it("returns invalid input unchanged", () => {
+    expect(formatShortDate("someday")).toBe("someday");
   });
 });

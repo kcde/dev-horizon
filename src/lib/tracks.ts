@@ -1,4 +1,6 @@
 // Tracks are fixed and not editable in the CMS (see DECISIONS.md).
+// Colors are duplicated as CSS tokens (--color-track-*, --color-keynote) in
+// src/styles/tokens.css. Keep the two in sync.
 export const TRACK_KEYS = [
   "frontend",
   "performance",

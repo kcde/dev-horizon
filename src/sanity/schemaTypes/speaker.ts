@@ -17,7 +17,7 @@ export const speakerType = defineType({
     defineField({
       name: "slug",
       type: "slug",
-      description: "Used in the speaker modal URL.",
+      description: "Stable identifier for the speaker.",
       options: { source: "name", maxLength: 96 },
       validation: (rule) => rule.required(),
     }),

@@ -1,0 +1,84 @@
+/* Home hero from the design (Home.dc.html). Breakpoints: see tokens.css. */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  container-type: inline-size;
+  height: 400px;
+  padding: var(--space-250) var(--space-400);
+  overflow: hidden;
+  background: var(--color-neutral-100);
+  color: var(--color-text-inverse);
+}
+
+.title {
+  position: relative;
+  margin-bottom: 1.5em;
+  font-family: var(--font-display-stack);
+  font-size: clamp(40px, 10cqi, 72px);
+}
+
+.headline {
+  position: relative;
+  z-index: 1;
+  font-weight: 700;
+  font-size: 1em;
+  line-height: 1;
+  letter-spacing: -0.033em;
+  text-transform: lowercase;
+  text-wrap: balance;
+}
+
+.meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  margin-top: auto;
+  justify-content: space-between;
+  gap: var(--space-200);
+  padding-top: var(--space-200);
+  border-top: 2px solid var(--color-text-inverse);
+  font-size: 14px;
+  line-height: 18px;
+  text-transform: uppercase;
+}
+
+.meta span:first-child {
+  white-space: nowrap;
+}
+
+.meta span:last-child {
+  text-align: right;
+}
+
+.horizon {
+  position: absolute;
+  top: 100%;
+  left: 1em;
+  width: 7em;
+  height: auto;
+  color: var(--color-text-inverse);
+  transform: translateY(-28%);
+}
+
+@media (max-width: 1023px) {
+  .hero {
+    height: auto;
+    padding: var(--space-250) var(--space-300);
+  }
+
+  .title {
+    font-size: clamp(32px, 11.8cqi, 80px);
+  }
+}
+
+@media (max-width: 441px) {
+  .hero {
+    padding: var(--space-200);
+  }
+
+  .meta {
+    font-size: 12px;
+  }
+}
