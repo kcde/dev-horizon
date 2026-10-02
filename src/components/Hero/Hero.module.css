@@ -11,10 +11,13 @@
   color: var(--color-text-inverse);
 }
 
+.title {
+  position: relative;
+}
+
 .headline {
   position: relative;
   z-index: 1;
-  flex-grow: 1;
   max-width: 716px;
   font-family: var(--font-display-stack);
   font-weight: 700;
@@ -29,6 +32,7 @@
   position: relative;
   z-index: 1;
   display: flex;
+  margin-top: auto;
   justify-content: space-between;
   gap: var(--space-200);
   padding-top: var(--space-200);
@@ -46,22 +50,19 @@
   text-align: right;
 }
 
+/*
+ * HORIZON hangs from the headline's last line so it follows the wrapping.
+ * Offset, width and overlap are the design's, relative to the headline box
+ * and the lettering's own height.
+ */
 .horizon {
   position: absolute;
-  z-index: 0;
-  left: 113px;
-  right: 113px;
-  bottom: 148px;
-  height: 128px;
+  top: 100%;
+  left: 12.4%;
+  width: 75%;
+  height: auto;
   color: var(--color-text-inverse);
-}
-
-/* The design insets the lettering slightly within its box. */
-.horizonSvg {
-  position: absolute;
-  inset: 14.4% 1.6% 15.6% 1.5%;
-  width: 96.9%;
-  height: 70%;
+  transform: translateY(-24%);
 }
 
 @media (max-width: 1023px) {
@@ -76,10 +77,9 @@
   }
 
   .horizon {
-    left: 87px;
-    right: 87px;
-    bottom: 116px;
-    height: calc(23.1vw - 49.4px);
+    left: 10.5%;
+    width: 79%;
+    transform: translateY(-51%);
   }
 }
 
@@ -98,9 +98,8 @@
   }
 
   .horizon {
-    left: 33px;
-    right: 33px;
-    bottom: 78px;
-    height: calc(23.1vw - 22.6px);
+    left: 6.8%;
+    width: 86%;
+    transform: translateY(-11%);
   }
 }

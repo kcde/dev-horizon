@@ -22,16 +22,16 @@ export function Hero({
 }: HeroProps) {
   return (
     <section className={[styles.hero, className].filter(Boolean).join(" ")}>
-      <h1 className={styles.headline}>{tagline}</h1>
+      <div className={styles.title}>
+        <h1 className={styles.headline}>{tagline}</h1>
+        <HorizonText opacity={horizonOpacity} className={styles.horizon} />
+      </div>
       {(eventDates || venue) && (
         <p className={styles.meta}>
           {eventDates && <span>{eventDates}</span>}
           {venue && <span>{venue}</span>}
         </p>
       )}
-      <div className={styles.horizon}>
-        <HorizonText opacity={horizonOpacity} className={styles.horizonSvg} />
-      </div>
     </section>
   );
 }
