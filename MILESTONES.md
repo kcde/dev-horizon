@@ -120,7 +120,7 @@ Progress:
 - [x] M4.5 Page assembly (filters, list, empty states)
 - [x] M4.6 Saving in the speaker modal + docs
 - [x] M4.7 Checks + visual/keyboard pass
-- [ ] M4.8 Design review rounds
+- [x] M4.8 Design review rounds
 
 Figma: `Desktop - Schedule` (`115:669`), `Tablet - Schedule` (`193:1423`), `Mobile - Schedule` (`193:1929`), hover states (`249:3909`), focus states (`249:4311`).
 
