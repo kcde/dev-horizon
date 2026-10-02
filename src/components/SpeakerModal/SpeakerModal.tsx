@@ -9,6 +9,7 @@ import { SanityImage } from "@/components/SanityImage/SanityImage";
 import type { TalkTicketProps } from "@/components/TalkTicket/TalkTicket";
 import { TalkTicket } from "@/components/TalkTicket/TalkTicket";
 import type { TrackKey } from "@/lib/tracks";
+import { useSavedTalks } from "@/lib/useSavedTalks";
 
 import styles from "./SpeakerModal.module.css";
 
@@ -43,6 +44,7 @@ export function SpeakerModal({
 }: SpeakerModalProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const headingId = useId();
+  const { savedIds, toggle } = useSavedTalks();
   const role = [jobTitle, company && `@${company}`].filter(Boolean).join(" ");
 
   useEffect(() => {
@@ -114,7 +116,12 @@ export function SpeakerModal({
             <ul role="list" className={styles.talks}>
               {talks.map(({ id, ...talk }) => (
                 <li key={id}>
-                  <TalkTicket {...talk} showDetails={false} />
+                  <TalkTicket
+                    {...talk}
+                    showDetails={false}
+                    saved={savedIds.has(id)}
+                    onToggleSave={() => toggle(id)}
+                  />
                 </li>
               ))}
             </ul>

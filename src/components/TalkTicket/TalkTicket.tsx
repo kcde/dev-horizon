@@ -32,7 +32,7 @@ export type TalkTicketProps = {
   /** "highlight" is the Home page row: shows the day, no save star. */
   variant?: "schedule" | "highlight";
   saved?: boolean;
-  /** Without it, the star is shown as a static icon (saving arrives in M4). */
+  /** Without it, the star is a static icon (design-system previews). */
   onToggleSave?: () => void;
   /** Shows the description/location toggle. Off in the speaker modal. */
   showDetails?: boolean;

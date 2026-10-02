@@ -296,7 +296,7 @@ export default async function DesignSystemPage() {
             <h3 className="text-preset-4">TalkTicket</h3>
             <p className={`text-preset-7 ${styles.muted}`}>
               keynote · expanded / collapsed · saved (click the stars) /
-              highlight variant / modal (no details, static star)
+              highlight variant / no details, static star
             </p>
             <div className={styles.ticketStack}>
               <SaveableTicket {...keynoteTicket} defaultExpanded />

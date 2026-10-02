@@ -60,6 +60,9 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 
 - Filters: Day + Track + My Schedule + Clear, all combinable. The keynote shows only when no track filter is set (it still follows Day and My Schedule).
 - Filter state is reflected in the URL (e.g. `?day=2&track=frontend&mine=1`), updated client-side so pages stay static. `mine` only reflects the current browser's saved talks.
+- Day chips are tabs: one day is always selected (Day 1 by default, or when `day` is missing or invalid). Clear resets track and My Schedule and keeps the day.
+- Filter changes replace the URL (`history.replaceState`) instead of adding history entries, so Back leaves the page.
+- The static HTML shows the default view (Day 1, no filters); the URL's filters apply once the page loads.
 - Talk row: track color tag, title, speaker + company, start/end time, expandable details (description + location), save toggle.
 - Times: 12-hour format, America/Los_Angeles, labelled (PDT/PST). No conversion to the viewer's time zone. This overrides the design, which shows 24-hour times.
 - Day filter always means conference days.
@@ -91,7 +94,7 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - `/design-system` is a dev-only reference page (404 in production) showing tokens and, from M2, every component state.
 - Components live in `src/components/<Name>/` with a CSS Module, take plain-data props (no Sanity types) and are mapped from query results by the page.
 - Hover and focus are CSS-only (`:hover`, `:focus-visible`). Each selector also matches `[data-preview-state]`, which only `/design-system` sets, so every state can be shown side by side.
-- Speaker card and modal: a speaker card never navigates. Clicking it opens that speaker's modal in place, on any page; the card owns the modal. The modal isn't in the URL (no link, no history entry). It's a native `<dialog>`: focus trap, Escape, × and backdrop click close it, and focus returns to the card. Its tickets hide the details toggle and show a static star until saving exists (M4).
+- Speaker card and modal: a speaker card never navigates. Clicking it opens that speaker's modal in place, on any page; the card owns the modal. The modal isn't in the URL (no link, no history entry). It's a native `<dialog>`: focus trap, Escape, × and backdrop click close it, and focus returns to the card. Its tickets hide the details toggle; their stars save talks like the Schedule's.
 - Shared pieces: `IconButton` (the design's 40×40 "Menu" button: mobile menu toggle, modal close) and `--color-overlay` (neutral-900 at 80%) behind modals.
 - Talk times: start in large type ("9:00 AM"), end and zone in small type ("10:00 AM PST"). The zone comes from the talk's date, so PDT/PST is always right.
 - The schedule row (`TalkTicket`) is one responsive component. Home uses its `highlight` variant (shows the day, no save star).
