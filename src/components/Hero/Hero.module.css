@@ -50,11 +50,6 @@
   text-align: right;
 }
 
-/*
- * HORIZON hangs from the headline's last line so it follows the wrapping.
- * Offset, width and overlap are the design's, relative to the headline box
- * and the lettering's own height.
- */
 .horizon {
   position: absolute;
   top: 100%;

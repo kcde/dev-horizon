@@ -94,7 +94,6 @@
   overflow: hidden;
 }
 
-/* The design's 481×378 photo at left -46px in a 311px frame, as percentages so it scales with the frame. */
 .photo {
   position: absolute;
   left: -14.8%;
