@@ -22,6 +22,23 @@ export const HOME_QUERY = defineQuery(`{
     }
 }`);
 
+export const SCHEDULE_QUERY = defineQuery(`{
+  "days": *[_type == "day" && defined(date)] | order(date asc) { _id, label, date },
+  "talks": *[_type == "talk" && defined(speaker) && defined(day)]
+    | order(day->date asc, startTime asc, title asc) {
+      _id,
+      title,
+      description,
+      track,
+      isKeynote,
+      startTime,
+      endTime,
+      location,
+      "day": day->{ label, date },
+      "speaker": speaker->{ name, company }
+    }
+}`);
+
 // Dev-only: sample content for the /design-system page.
 export const DESIGN_SYSTEM_SAMPLES_QUERY = defineQuery(`{
   "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },

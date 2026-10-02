@@ -111,6 +111,17 @@ Figma: `Desktop - Home` (`90:363`), `Tablet - Home` (`173:1470`), `Mobile - Home
 
 ## M4 — Schedule page
 
+Progress:
+
+- [x] M4.1 Schedule query + shared talk mapping
+- [ ] M4.2 Filter logic + URL parse/serialize + Vitest
+- [ ] M4.3 Saved-talks storage + Vitest
+- [ ] M4.4 Filter chips (+ /design-system states)
+- [ ] M4.5 Page assembly (filters, list, empty states)
+- [ ] M4.6 Saving in the speaker modal + docs
+- [ ] M4.7 Checks + visual/keyboard pass
+- [ ] M4.8 Design review rounds
+
 Figma: `Desktop - Schedule` (`115:669`), `Tablet - Schedule` (`193:1423`), `Mobile - Schedule` (`193:1929`), hover states (`249:3909`), focus states (`249:4311`).
 
 - New component: filter chips: day (square, selected = lime fill), track (pill), My Schedule (dashed), Clear (red).
