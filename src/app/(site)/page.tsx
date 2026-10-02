@@ -7,6 +7,7 @@ import { TalkTicket } from "@/components/TalkTicket/TalkTicket";
 import { TrackCard } from "@/components/TrackCard/TrackCard";
 import type { SelectableTalk } from "@/lib/homeSelection";
 import { selectFeaturedSpeakers, selectHighlights } from "@/lib/homeSelection";
+import { toTicket } from "@/lib/talkTicket";
 import { TRACK_KEYS } from "@/lib/tracks";
 import { sanityFetch } from "@/sanity/fetch";
 import { HOME_QUERY } from "@/sanity/queries";
@@ -14,57 +15,28 @@ import type { HOME_QUERY_RESULT } from "@/sanity/types";
 
 import styles from "./page.module.css";
 
-type QueryTalk = HOME_QUERY_RESULT["talks"][number];
+type HomeQueryTalk = HOME_QUERY_RESULT["talks"][number];
 type HomeTalk = SelectableTalk & {
-  endTime: string;
-  source: QueryTalk;
-  speaker: QueryTalk["speaker"];
-  dayLabel: string | null;
+  ticket: SpeakerModalTalk;
+  speaker: HomeQueryTalk["speaker"];
+  location: string | null;
 };
 
 /** Drops talks missing a field Home needs, and adds the fields the selection rules use. */
-function toHomeTalk(talk: QueryTalk): HomeTalk | null {
-  const { title, track, startTime, endTime, day, speaker } = talk;
-  if (
-    !title ||
-    !track ||
-    !startTime ||
-    !endTime ||
-    !day.date ||
-    !speaker.slug
-  ) {
-    return null;
-  }
+function toHomeTalk(talk: HomeQueryTalk): HomeTalk | null {
+  const ticket = toTicket(talk);
+  if (!ticket || !talk.speaker.slug) return null;
   return {
-    id: talk._id,
-    title,
-    track,
-    date: day.date,
-    startTime,
-    endTime,
-    speakerSlug: speaker.slug,
+    id: ticket.id,
+    title: ticket.title,
+    track: ticket.track,
+    date: ticket.date,
+    startTime: ticket.startTime,
+    speakerSlug: talk.speaker.slug,
     isKeynote: talk.isKeynote,
-    source: talk,
-    speaker,
-    dayLabel: day.label,
-  };
-}
-
-/** TalkTicket props for a talk (used by highlights and the speaker modal). */
-function toTicket(talk: HomeTalk): SpeakerModalTalk {
-  return {
-    id: talk.id,
-    title: talk.title,
-    description: talk.source.description,
-    speakerName: talk.speaker.name,
-    company: talk.speaker.company,
-    track: talk.track,
-    isKeynote: talk.isKeynote,
-    startTime: talk.startTime,
-    endTime: talk.endTime,
-    date: talk.date,
-    dayLabel: talk.dayLabel,
-    location: talk.source.location,
+    ticket,
+    speaker: talk.speaker,
+    location: talk.location,
   };
 }
 
@@ -103,7 +75,7 @@ export default async function HomePage() {
               talkTitle={keynote.title}
               date={keynote.date}
               startTime={keynote.startTime}
-              location={keynote.source.location}
+              location={keynote.location}
               photo={keynote.speaker.photo}
               href={`/speakers?speaker=${keynote.speakerSlug}`}
               className={styles.keynote}
@@ -141,7 +113,7 @@ export default async function HomePage() {
                     bio={talk.speaker.bio}
                     talkTitle={talk.title}
                     talks={(ticketsBySpeaker.get(talk.speakerSlug) ?? []).map(
-                      toTicket,
+                      (speakerTalk) => speakerTalk.ticket,
                     )}
                     tint={talk.isKeynote ? "keynote" : talk.track}
                     photo={talk.speaker.photo}
@@ -169,7 +141,7 @@ export default async function HomePage() {
             <ul role="list" className={styles.ticketStack}>
               {highlights.map((talk) => (
                 <li key={talk.id}>
-                  <TalkTicket {...toTicket(talk)} variant="highlight" />
+                  <TalkTicket {...talk.ticket} variant="highlight" />
                 </li>
               ))}
             </ul>

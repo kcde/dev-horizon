@@ -284,6 +284,31 @@ export type HOME_QUERY_RESULT = {
 };
 
 // Source: src/sanity/queries.ts
+// Variable: SCHEDULE_QUERY
+// Query: {  "days": *[_type == "day" && defined(date)] | order(date asc).date,  "talks": *[_type == "talk" && defined(speaker) && defined(day)]    | order(day->date asc, startTime asc, title asc) {      _id,      title,      description,      track,      isKeynote,      startTime,      endTime,      location,      "day": day->{ label, date },      "speaker": speaker->{ name, company }    }}
+export type SCHEDULE_QUERY_RESULT = {
+  days: Array<string>;
+  talks: Array<{
+    _id: string;
+    title: string | null;
+    description: string | null;
+    track: "accessibility" | "frontend" | "performance" | "tooling" | null;
+    isKeynote: boolean | null;
+    startTime: string | null;
+    endTime: string | null;
+    location: string | null;
+    day: {
+      label: string | null;
+      date: string | null;
+    };
+    speaker: {
+      name: string | null;
+      company: string | null;
+    };
+  }>;
+};
+
+// Source: src/sanity/queries.ts
 // Variable: DESIGN_SYSTEM_SAMPLES_QUERY
 // Query: {  "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },  "keynote": *[_type == "talk" && isKeynote][0]{    title,    startTime,    location,    "date": day->date,    "speaker": speaker->{ name, jobTitle, company, photo }  },  "speakers": *[_type == "speaker" && slug.current in ["elena-vasquez", "james-okonkwo", "priya-sharma", "ryan-osullivan"]]    | order(name asc) {      name,      "slug": slug.current,      jobTitle,      company,      bio,      photo,      "talks": *[_type == "talk" && references(^._id)] | order(day->date asc, startTime asc, title asc){        _id,        title,        track,        isKeynote,        startTime,        endTime,        "date": day->date      }    },  "talks": *[_type == "talk"] | order(day->date asc, startTime asc)[0...3]{    _id,    title,    description,    track,    isKeynote,    startTime,    endTime,    location,    "speaker": speaker->{ name, company },    "day": day->{ label, date }  }}
 export type DESIGN_SYSTEM_SAMPLES_QUERY_RESULT = {
@@ -358,6 +383,7 @@ declare global {
   interface SanityQueries {
     '*[_type == "siteSettings"][0]{ eventName, tagline, eventDates, venue }': SITE_SETTINGS_QUERY_RESULT;
     '{\n  "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },\n  "talks": *[_type == "talk" && defined(speaker) && defined(day)]\n    | order(day->date asc, startTime asc, title asc) {\n      _id,\n      title,\n      description,\n      track,\n      isKeynote,\n      startTime,\n      endTime,\n      location,\n      "day": day->{ label, date },\n      "speaker": speaker->{ name, "slug": slug.current, jobTitle, company, bio, photo }\n    }\n}': HOME_QUERY_RESULT;
+    '{\n  "days": *[_type == "day" && defined(date)] | order(date asc).date,\n  "talks": *[_type == "talk" && defined(speaker) && defined(day)]\n    | order(day->date asc, startTime asc, title asc) {\n      _id,\n      title,\n      description,\n      track,\n      isKeynote,\n      startTime,\n      endTime,\n      location,\n      "day": day->{ label, date },\n      "speaker": speaker->{ name, company }\n    }\n}': SCHEDULE_QUERY_RESULT;
     '{\n  "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },\n  "keynote": *[_type == "talk" && isKeynote][0]{\n    title,\n    startTime,\n    location,\n    "date": day->date,\n    "speaker": speaker->{ name, jobTitle, company, photo }\n  },\n  "speakers": *[_type == "speaker" && slug.current in ["elena-vasquez", "james-okonkwo", "priya-sharma", "ryan-osullivan"]]\n    | order(name asc) {\n      name,\n      "slug": slug.current,\n      jobTitle,\n      company,\n      bio,\n      photo,\n      "talks": *[_type == "talk" && references(^._id)] | order(day->date asc, startTime asc, title asc){\n        _id,\n        title,\n        track,\n        isKeynote,\n        startTime,\n        endTime,\n        "date": day->date\n      }\n    },\n  "talks": *[_type == "talk"] | order(day->date asc, startTime asc)[0...3]{\n    _id,\n    title,\n    description,\n    track,\n    isKeynote,\n    startTime,\n    endTime,\n    location,\n    "speaker": speaker->{ name, company },\n    "day": day->{ label, date }\n  }\n}': DESIGN_SYSTEM_SAMPLES_QUERY_RESULT;
   }
 }

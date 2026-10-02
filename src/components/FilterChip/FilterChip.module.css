@@ -1,0 +1,86 @@
+/* Control Buttons from the design: tab, filter, toggle, clear × default, selected, hover, focus. */
+
+.chip {
+  --chip-color: var(--color-text);
+  --chip-border: var(--color-text);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-100);
+  height: 36px;
+  padding: var(--space-100) var(--space-200);
+  font-family: var(--font-body-stack);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--chip-color);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 0 0 1px var(--chip-border);
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.chip[data-variant="tab"] {
+  border-radius: var(--radius-0);
+}
+
+.chip[data-variant="filter"] {
+  --chip-border: var(--color-neutral-500);
+}
+
+.chip[data-variant="toggle"] {
+  --chip-color: var(--color-accent);
+  box-shadow: none;
+  outline: 1px dashed var(--color-accent);
+  outline-offset: -1px;
+}
+
+.chip[data-variant="clear"] {
+  --chip-color: var(--color-danger);
+  --chip-border: var(--color-danger);
+}
+
+.chip:is([data-variant="tab"], [data-variant="filter"]):not(
+    [aria-pressed="true"]
+  ):is(:hover, [data-preview-state="hover"]) {
+  --chip-color: var(--color-accent);
+  --chip-border: var(--color-accent);
+}
+
+.chip:hover,
+.chip[data-preview-state="hover"] {
+  box-shadow:
+    inset 0 0 0 1px var(--chip-border),
+    2px 2px 0 0 var(--chip-border);
+}
+
+.chip[data-variant="toggle"]:hover,
+.chip[data-variant="toggle"][data-preview-state="hover"] {
+  box-shadow: 2px 2px 0 0 var(--color-accent);
+}
+
+.chip[aria-pressed="true"] {
+  --chip-color: var(--color-text-inverse);
+  --chip-border: var(--color-accent);
+  background: var(--color-accent);
+  outline: none;
+}
+
+.chip[data-variant="toggle"][aria-pressed="true"] {
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+.chip:focus-visible,
+.chip[data-preview-state="focus"] {
+  outline: 1px dashed var(--focus-color);
+  outline-offset: -1px;
+  box-shadow: 2px 2px 0 0 var(--focus-color);
+}

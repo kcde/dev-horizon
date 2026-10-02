@@ -228,6 +228,12 @@
   }
 }
 
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-125);
+}
+
 .cardRow {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

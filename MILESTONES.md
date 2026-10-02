@@ -98,8 +98,8 @@ Progress:
 - [x] M3.1 Home query
 - [x] M3.2 Featured-speaker and highlight selection + Vitest
 - [x] M3.3 Page assembly
-- [ ] M3.4 Checks + visual/keyboard pass
-- [ ] M3.5 Design review rounds (Keside's feedback folded back into tokens and components)
+- [x] M3.4 Checks + visual/keyboard pass
+- [x] M3.5 Design review rounds (Keside's feedback folded back into tokens and components)
 
 Figma: `Desktop - Home` (`90:363`), `Tablet - Home` (`173:1470`), `Mobile - Home` (`175:1774`), hover states (`210:4798`), focus states (`249:4251`). Also the Claude Design handoff (`Home.dc.html`).
 
@@ -110,6 +110,17 @@ Figma: `Desktop - Home` (`90:363`), `Tablet - Home` (`173:1470`), `Mobile - Home
 - "View all speakers" / "View full schedule" links.
 
 ## M4 — Schedule page
+
+Progress:
+
+- [x] M4.1 Schedule query + shared talk mapping
+- [x] M4.2 Filter logic + URL parse/serialize + Vitest
+- [x] M4.3 Saved-talks storage + Vitest
+- [x] M4.4 Filter chips (+ /design-system states)
+- [x] M4.5 Page assembly (filters, list, empty states)
+- [x] M4.6 Saving in the speaker modal + docs
+- [x] M4.7 Checks + visual/keyboard pass
+- [ ] M4.8 Design review rounds
 
 Figma: `Desktop - Schedule` (`115:669`), `Tablet - Schedule` (`193:1423`), `Mobile - Schedule` (`193:1929`), hover states (`249:3909`), focus states (`249:4311`).
 

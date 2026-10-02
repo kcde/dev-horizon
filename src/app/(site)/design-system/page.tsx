@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
 
 import { Button } from "@/components/Button/Button";
+import type { FilterChipProps } from "@/components/FilterChip/FilterChip";
+import { FilterChip } from "@/components/FilterChip/FilterChip";
 import { Hero } from "@/components/Hero/Hero";
 import { HorizonText } from "@/components/HorizonText/HorizonText";
 import { IconButton } from "@/components/IconButton/IconButton";
@@ -130,6 +132,13 @@ const SPACING = [
 
 const RADII = ["0", "4", "6", "8", "10", "12", "16", "20", "24", "full"];
 
+const CHIP_SAMPLES: { variant: FilterChipProps["variant"]; label: string }[] = [
+  { variant: "tab", label: "Day 01" },
+  { variant: "filter", label: "Frontend" },
+  { variant: "toggle", label: "My Schedule" },
+  { variant: "clear", label: "Clear" },
+];
+
 export default async function DesignSystemPage() {
   if (process.env.NODE_ENV === "production") notFound();
 
@@ -226,6 +235,24 @@ export default async function DesignSystemPage() {
             </IconButton>
           )}
         />
+        {CHIP_SAMPLES.map(({ variant, label }) => (
+          <StateGrid
+            key={variant}
+            title={`FilterChip · ${variant}`}
+            render={(state) => (
+              <div className={styles.chipRow}>
+                <FilterChip variant={variant} previewState={state}>
+                  {label}
+                </FilterChip>
+                {variant !== "clear" && (
+                  <FilterChip variant={variant} selected previewState={state}>
+                    {label}
+                  </FilterChip>
+                )}
+              </div>
+            )}
+          />
+        ))}
         <StateGrid
           title="TrackCard"
           minColumnWidth="300px"
@@ -269,7 +296,7 @@ export default async function DesignSystemPage() {
             <h3 className="text-preset-4">TalkTicket</h3>
             <p className={`text-preset-7 ${styles.muted}`}>
               keynote · expanded / collapsed · saved (click the stars) /
-              highlight variant / modal (no details, static star)
+              highlight variant / no details, static star
             </p>
             <div className={styles.ticketStack}>
               <SaveableTicket {...keynoteTicket} defaultExpanded />
