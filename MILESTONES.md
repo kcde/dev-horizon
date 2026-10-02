@@ -98,8 +98,8 @@ Progress:
 - [x] M3.1 Home query
 - [x] M3.2 Featured-speaker and highlight selection + Vitest
 - [x] M3.3 Page assembly
-- [ ] M3.4 Checks + visual/keyboard pass
-- [ ] M3.5 Design review rounds (Keside's feedback folded back into tokens and components)
+- [x] M3.4 Checks + visual/keyboard pass
+- [x] M3.5 Design review rounds (Keside's feedback folded back into tokens and components)
 
 Figma: `Desktop - Home` (`90:363`), `Tablet - Home` (`173:1470`), `Mobile - Home` (`175:1774`), hover states (`210:4798`), focus states (`249:4251`). Also the Claude Design handoff (`Home.dc.html`).
 
