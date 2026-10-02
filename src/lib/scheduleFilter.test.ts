@@ -3,14 +3,17 @@ import { describe, expect, it } from "vitest";
 import type { FilterableTalk, ScheduleFilters } from "./scheduleFilter";
 import { filterTalks, filtersToSearch, parseFilters } from "./scheduleFilter";
 
-const DAYS = ["2026-11-15", "2026-11-16", "2026-11-17"];
+const D1 = "2026-11-15";
+const D2 = "2026-11-16";
+const D3 = "2026-11-17";
+const DAYS = [D1, D2, D3];
 
 const TALKS: FilterableTalk[] = [
-  { id: "keynote", date: DAYS[0], track: "frontend", isKeynote: true },
-  { id: "d1-frontend", date: DAYS[0], track: "frontend" },
-  { id: "d1-tooling", date: DAYS[0], track: "tooling" },
-  { id: "d2-frontend", date: DAYS[1], track: "frontend" },
-  { id: "d2-performance", date: DAYS[1], track: "performance" },
+  { id: "keynote", date: D1, track: "frontend", isKeynote: true },
+  { id: "d1-frontend", date: D1, track: "frontend" },
+  { id: "d1-tooling", date: D1, track: "tooling" },
+  { id: "d2-frontend", date: D2, track: "frontend" },
+  { id: "d2-performance", date: D2, track: "performance" },
 ];
 
 const ids = (talks: FilterableTalk[]) => talks.map((talk) => talk.id);
