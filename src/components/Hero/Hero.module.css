@@ -4,6 +4,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  container-type: inline-size;
   height: 400px;
   padding: var(--space-250) var(--space-400);
   overflow: hidden;
@@ -13,17 +14,18 @@
 
 .title {
   position: relative;
+  margin-bottom: 1.5em;
+  font-family: var(--font-display-stack);
+  font-size: clamp(40px, 10cqi, 72px);
 }
 
 .headline {
   position: relative;
   z-index: 1;
-  max-width: 716px;
-  font-family: var(--font-display-stack);
   font-weight: 700;
-  font-size: 72px;
+  font-size: 1em;
   line-height: 1;
-  letter-spacing: -2.4px;
+  letter-spacing: -0.033em;
   text-transform: lowercase;
   text-wrap: balance;
 }
@@ -53,48 +55,30 @@
 .horizon {
   position: absolute;
   top: 100%;
-  left: 12.4%;
-  width: 75%;
+  left: 1em;
+  width: 7em;
   height: auto;
   color: var(--color-text-inverse);
-  transform: translateY(-24%);
+  transform: translateY(-28%);
 }
 
 @media (max-width: 1023px) {
   .hero {
-    height: 360px;
+    height: auto;
     padding: var(--space-250) var(--space-300);
   }
 
-  .headline {
-    font-size: 80px;
-    letter-spacing: -2px;
-  }
-
-  .horizon {
-    left: 10.5%;
-    width: 79%;
-    transform: translateY(-51%);
+  .title {
+    font-size: clamp(32px, 11.8cqi, 80px);
   }
 }
 
 @media (max-width: 441px) {
   .hero {
-    height: 220px;
     padding: var(--space-200);
-  }
-
-  .headline {
-    font-size: 38px;
   }
 
   .meta {
     font-size: 12px;
-  }
-
-  .horizon {
-    left: 6.8%;
-    width: 86%;
-    transform: translateY(-11%);
   }
 }
