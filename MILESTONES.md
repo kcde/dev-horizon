@@ -140,7 +140,7 @@ Progress:
 - [x] M5.3 Speakers query + speaker listing rule + Vitest
 - [x] M5.4 Speakers page assembly
 - [x] M5.5 Checks + visual/keyboard pass
-- [ ] M5.6 Design review rounds
+- [x] M5.6 Design review rounds
 
 Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) and the `- Modal` variants (`193:3616`, `193:4048`, `193:4370`).
 
