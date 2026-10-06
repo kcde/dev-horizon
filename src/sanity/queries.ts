@@ -41,6 +41,23 @@ export const SCHEDULE_QUERY = defineQuery(`{
     }
 }`);
 
+// The page lists speakers from their talks (src/lib/speakers.ts), so speakers without a talk never appear.
+export const SPEAKERS_QUERY =
+  defineQuery(`*[_type == "talk" && defined(speaker) && defined(day)]
+  | order(day->date asc, startTime asc, title asc) {
+    _id,
+    title,
+    "slug": slug.current,
+    description,
+    track,
+    isKeynote,
+    startTime,
+    endTime,
+    location,
+    "day": day->{ label, date },
+    "speaker": speaker->{ name, "slug": slug.current, jobTitle, company, bio, photo }
+  }`);
+
 // Dev-only: sample content for the /design-system page.
 export const DESIGN_SYSTEM_SAMPLES_QUERY = defineQuery(`{
   "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },

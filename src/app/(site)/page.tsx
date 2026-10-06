@@ -4,41 +4,14 @@ import { KeynoteSpotlight } from "@/components/KeynoteSpotlight/KeynoteSpotlight
 import { SpeakerCard } from "@/components/SpeakerCard/SpeakerCard";
 import { TalkTicket } from "@/components/TalkTicket/TalkTicket";
 import { TrackCard } from "@/components/TrackCard/TrackCard";
-import type { SelectableTalk } from "@/lib/homeSelection";
 import { selectFeaturedSpeakers, selectHighlights } from "@/lib/homeSelection";
-import type { Ticket } from "@/lib/talkTicket";
-import { toTicket } from "@/lib/talkTicket";
+import type { SpeakerTalk } from "@/lib/speakers";
+import { speakerCardProps, toSpeakerTalk } from "@/lib/speakers";
 import { TRACK_KEYS } from "@/lib/tracks";
 import { sanityFetch } from "@/sanity/fetch";
 import { HOME_QUERY } from "@/sanity/queries";
-import type { HOME_QUERY_RESULT } from "@/sanity/types";
 
 import styles from "./page.module.css";
-
-type HomeQueryTalk = HOME_QUERY_RESULT["talks"][number];
-type HomeTalk = SelectableTalk & {
-  ticket: Ticket;
-  speaker: HomeQueryTalk["speaker"];
-  location: string | null;
-};
-
-/** Drops talks missing a field Home needs, and adds the fields the selection rules use. */
-function toHomeTalk(talk: HomeQueryTalk): HomeTalk | null {
-  const ticket = toTicket(talk);
-  if (!ticket || !talk.speaker.slug) return null;
-  return {
-    id: ticket.id,
-    title: ticket.title,
-    track: ticket.track,
-    date: ticket.date,
-    startTime: ticket.startTime,
-    speakerSlug: talk.speaker.slug,
-    isKeynote: talk.isKeynote,
-    ticket,
-    speaker: talk.speaker,
-    location: talk.location,
-  };
-}
 
 export default async function HomePage() {
   const { settings, talks } = await sanityFetch({
@@ -46,14 +19,14 @@ export default async function HomePage() {
     tags: ["siteSettings", "talk", "speaker", "day"],
   });
 
-  const homeTalks = talks
-    .map(toHomeTalk)
-    .filter((talk): talk is HomeTalk => talk !== null);
-  const keynote = homeTalks.find((talk) => talk.isKeynote);
-  const featured = selectFeaturedSpeakers(homeTalks);
-  const highlights = selectHighlights(homeTalks);
-  // Every talk per speaker, for their modal. homeTalks is already earliest-first.
-  const ticketsBySpeaker = Map.groupBy(homeTalks, (talk) => talk.speakerSlug);
+  const speakerTalks = talks
+    .map(toSpeakerTalk)
+    .filter((talk): talk is SpeakerTalk => talk !== null);
+  const keynote = speakerTalks.find((talk) => talk.isKeynote);
+  const featured = selectFeaturedSpeakers(speakerTalks);
+  const highlights = selectHighlights(speakerTalks);
+  // Every talk per speaker, for their modal. speakerTalks is already earliest-first.
+  const talksBySpeaker = Map.groupBy(speakerTalks, (talk) => talk.speakerSlug);
 
   return (
     <div className={styles.page}>
@@ -111,16 +84,10 @@ export default async function HomePage() {
               {featured.map((talk) => (
                 <li key={talk.id}>
                   <SpeakerCard
-                    name={talk.speaker.name ?? ""}
-                    jobTitle={talk.speaker.jobTitle}
-                    company={talk.speaker.company}
-                    bio={talk.speaker.bio}
-                    talkTitle={talk.title}
-                    talks={(ticketsBySpeaker.get(talk.speakerSlug) ?? []).map(
-                      (speakerTalk) => speakerTalk.ticket,
+                    {...speakerCardProps(
+                      talk,
+                      talksBySpeaker.get(talk.speakerSlug) ?? [],
                     )}
-                    tint={talk.isKeynote ? "keynote" : talk.track}
-                    photo={talk.speaker.photo}
                     className={styles.fill}
                   />
                 </li>
