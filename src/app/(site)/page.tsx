@@ -2,11 +2,11 @@ import { Button } from "@/components/Button/Button";
 import { Hero } from "@/components/Hero/Hero";
 import { KeynoteSpotlight } from "@/components/KeynoteSpotlight/KeynoteSpotlight";
 import { SpeakerCard } from "@/components/SpeakerCard/SpeakerCard";
-import type { SpeakerModalTalk } from "@/components/SpeakerModal/SpeakerModal";
 import { TalkTicket } from "@/components/TalkTicket/TalkTicket";
 import { TrackCard } from "@/components/TrackCard/TrackCard";
 import type { SelectableTalk } from "@/lib/homeSelection";
 import { selectFeaturedSpeakers, selectHighlights } from "@/lib/homeSelection";
+import type { Ticket } from "@/lib/talkTicket";
 import { toTicket } from "@/lib/talkTicket";
 import { TRACK_KEYS } from "@/lib/tracks";
 import { sanityFetch } from "@/sanity/fetch";
@@ -17,7 +17,7 @@ import styles from "./page.module.css";
 
 type HomeQueryTalk = HOME_QUERY_RESULT["talks"][number];
 type HomeTalk = SelectableTalk & {
-  ticket: SpeakerModalTalk;
+  ticket: Ticket;
   speaker: HomeQueryTalk["speaker"];
   location: string | null;
 };
@@ -77,7 +77,11 @@ export default async function HomePage() {
               startTime={keynote.startTime}
               location={keynote.location}
               photo={keynote.speaker.photo}
-              href={`/speakers?speaker=${keynote.speakerSlug}`}
+              href={
+                keynote.ticket.slug
+                  ? `/schedule?talk=${keynote.ticket.slug}`
+                  : "/schedule"
+              }
               className={styles.keynote}
             />
           )}

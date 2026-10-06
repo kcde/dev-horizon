@@ -37,6 +37,7 @@ export type TalkTicketProps = {
   /** Shows the description/location toggle. Off in the speaker modal. */
   showDetails?: boolean;
   defaultExpanded?: boolean;
+  onExpandedChange?: (expanded: boolean) => void;
   className?: string;
 };
 
@@ -58,6 +59,7 @@ export function TalkTicket({
   onToggleSave,
   showDetails = true,
   defaultExpanded = false,
+  onExpandedChange,
   className,
 }: TalkTicketProps) {
   const [expanded, setExpanded] = useState(defaultExpanded);
@@ -106,7 +108,10 @@ export function TalkTicket({
               className={styles.toggle}
               aria-expanded={expanded}
               aria-controls={detailsId}
-              onClick={() => setExpanded((open) => !open)}
+              onClick={() => {
+                setExpanded(!expanded);
+                onExpandedChange?.(!expanded);
+              }}
             >
               {expanded ? <MinusIcon /> : <PlusIcon />}
               {expanded ? "Hide details" : "Show details"}

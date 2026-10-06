@@ -9,6 +9,8 @@ export type ScheduleFilters = {
   track: TrackKey | null;
   /** Only the talks saved in this browser. */
   mine: boolean;
+  /** Slug of the talk whose details are open. */
+  talk: string | null;
 };
 
 export type FilterableTalk = {
@@ -17,33 +19,53 @@ export type FilterableTalk = {
   date: string;
   track: TrackKey;
   isKeynote?: boolean | null;
+  slug?: string | null;
 };
 
 export const DEFAULT_FILTERS: ScheduleFilters = {
   day: 1,
   track: null,
   mine: false,
+  talk: null,
 };
 
-/** Reads `?day=&track=&mine=1`. Values that don't fit fall back to the defaults. */
+/**
+ * Reads `?day=&track=&mine=1&talk=`. Values that don't fit fall back to the
+ * defaults. A talk link without a day opens on that talk's day.
+ */
 export function parseFilters(
   params: Pick<URLSearchParams, "get">,
-  dayCount: number,
+  days: readonly string[],
+  talks: readonly FilterableTalk[],
 ): ScheduleFilters {
   const dayParam = params.get("day") ?? "";
-  const day = /^\d+$/.test(dayParam) ? Number(dayParam) : 0;
   const track = params.get("track") ?? "";
+  const linked = talks.find(
+    (talk) => talk.slug && talk.slug === params.get("talk"),
+  );
+  const day = /^\d+$/.test(dayParam)
+    ? Number(dayParam)
+    : linked
+      ? days.indexOf(linked.date) + 1
+      : 0;
   return {
-    day: day >= 1 && day <= dayCount ? day : DEFAULT_FILTERS.day,
+    day: day >= 1 && day <= days.length ? day : DEFAULT_FILTERS.day,
     track: isTrackKey(track) ? track : null,
     mine: params.get("mine") === "1",
+    talk: linked?.slug ?? null,
   };
 }
 
-export function filtersToSearch({ day, track, mine }: ScheduleFilters): string {
+export function filtersToSearch({
+  day,
+  track,
+  mine,
+  talk,
+}: ScheduleFilters): string {
   const params = new URLSearchParams({ day: String(day) });
   if (track) params.set("track", track);
   if (mine) params.set("mine", "1");
+  if (talk) params.set("talk", talk);
   return `?${params}`;
 }
 
