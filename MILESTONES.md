@@ -136,10 +136,10 @@ Figma: `Desktop - Schedule` (`115:669`), `Tablet - Schedule` (`193:1423`), `Mobi
 Progress:
 
 - [x] M5.1 Talk slug (schema, seed, existing content)
-- [ ] M5.2 Talk links: `?talk=` on Schedule, ticket ↔ URL, Home "View talk" + Vitest
+- [x] M5.2 Talk links: `?talk=` on Schedule, ticket ↔ URL, Home "View talk" + Vitest
 - [x] M5.3 Speakers query + speaker listing rule + Vitest
-- [ ] M5.4 Speakers page assembly
-- [ ] M5.5 Checks + visual/keyboard pass
+- [x] M5.4 Speakers page assembly
+- [x] M5.5 Checks + visual/keyboard pass
 - [ ] M5.6 Design review rounds
 
 Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) and the `- Modal` variants (`193:3616`, `193:4048`, `193:4370`).

@@ -1,0 +1,35 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-300);
+}
+
+.heading {
+  padding-bottom: var(--space-300);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-accent);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-300);
+}
+
+/* Cards fill their grid cell so a row stays one height. */
+.fill {
+  height: 100%;
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-250);
+  }
+}
+
+@media (max-width: 441px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
