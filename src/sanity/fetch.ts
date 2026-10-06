@@ -2,7 +2,7 @@ import type { QueryParams } from "next-sanity";
 
 import { client } from "./client";
 
-// Fallback when the publish webhook (M6) doesn't fire.
+// Fallback when the publish webhook (M7) doesn't fire.
 const REVALIDATE_SECONDS = 60 * 60;
 
 /**

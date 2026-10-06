@@ -149,7 +149,19 @@ Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) a
 - Grid at 4 / 2 / 1 columns (check the tablet/mobile frames).
 - Card → modal with bio + all talks (talk tickets; the save star works once M4 lands).
 
-## M6 — Launch readiness
+## M6 — Motion
+
+Subtle animations that make the site feel more polished. CSS-first, and all of it switched off under `prefers-reduced-motion`. It comes before launch readiness so the accessibility and Lighthouse passes cover it.
+
+Candidates (to settle with Keside when planning):
+
+- Speaker modal opening and closing.
+- Talk ticket details expanding and collapsing.
+- Save star feedback when toggled.
+- Schedule list settling when filters change.
+- Cards and sections easing in on load or scroll.
+
+## M7 — Launch readiness
 
 - Sanity webhook → on-demand revalidation, plus hourly fallback.
 - Accessibility pass (keyboard, focus order, contrast, reduced motion, alt text).
