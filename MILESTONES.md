@@ -159,7 +159,7 @@ Progress:
 - [x] M6.2 Save star: pop when saving, small shrink when unsaving
 - [x] M6.3 Speaker modal opening and closing
 - [x] M6.4 Talk ticket details expanding and collapsing
-- [ ] M6.5 Page transitions between routes (crossfade)
+- [x] M6.5 Page transitions between routes (crossfade)
 - [ ] M6.6 Schedule list settling when filters change
 - [ ] M6.7 Speaker card photo: magnetic pull, photo morphing into the modal
 - [ ] M6.8 Checks + reduced-motion and cross-browser pass

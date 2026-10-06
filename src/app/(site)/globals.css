@@ -104,6 +104,20 @@ a:hover {
   white-space: nowrap;
 }
 
+/* ---------- Page transitions ---------- */
+/* The nav and footer are part of the browser's root snapshot: same timing, so everything fades as one. */
+::view-transition-old(.page),
+::view-transition-new(.page),
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--duration-slow);
+  animation-timing-function: var(--ease-out);
+}
+
+::view-transition {
+  pointer-events: none;
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -113,5 +127,11 @@ a:hover {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }
