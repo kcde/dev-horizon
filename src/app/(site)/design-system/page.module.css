@@ -96,6 +96,42 @@
   border: 1px solid var(--color-text-muted);
 }
 
+.motion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-300);
+}
+
+.motionControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-300);
+  align-items: center;
+}
+
+.motionRow {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: center;
+}
+
+.motionTrack {
+  container-type: inline-size;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.motionBox {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: var(--color-accent);
+  transition-property: translate;
+}
+
+.motionBox[data-at-end="true"] {
+  translate: calc(100cqi - 100%);
+}
+
 .focusRow {
   display: flex;
   flex-wrap: wrap;

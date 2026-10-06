@@ -100,6 +100,14 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - Talk times: start in large type ("9:00 AM"), end and zone in small type ("10:00 AM PST"). The zone comes from the talk's date, so PDT/PST is always right.
 - The schedule row (`TalkTicket`) is one responsive component. Home uses its `highlight` variant (shows the day, no save star).
 
+### Motion
+
+- Tokens in `tokens.css`: `--duration-fast` 200ms (hovers, the save star), `--duration-base` 400ms (modal, ticket details, schedule list), `--duration-slow` 600ms (page crossfade, speaker photo flight). `--ease-out` `cubic-bezier(0.16, 1, 0.3, 1)` for things appearing or reacting, exits included; `--ease-in-out` `cubic-bezier(0.77, 0, 0.175, 1)` for things travelling from A to B.
+- CSS first. Everything is off under `prefers-reduced-motion`, and a browser without a feature gets no animation, never broken UI (e.g. ticket details animate only where `interpolate-size` is supported; the modal's closing fade only where `overlay` is).
+- Page changes: React `<ViewTransition>` keyed by pathname (`PageTransition`). React skips view transitions on back/forward, so those get a CSS fade-in instead.
+- Schedule filtering and the speaker photo flying between card and modal use the browser's `document.startViewTransition` with `flushSync`, not React's `<ViewTransition>`: Next applies its URL sync outside our transition, so React can't tell those updates apart. View-transition names are set only while that transition runs (`html[data-vt]`).
+- GSAP only for the speaker photo's magnetic pull, loaded on the first hover (not in the initial JS). It's under GreenSock's no-charge standard licence.
+
 ## Still open
 
 - Domain.

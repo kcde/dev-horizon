@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { flushSync } from "react-dom";
 
 import type { PreviewStateProps } from "@/components/previewState";
 import type { SanityImageSource } from "@/components/SanityImage/SanityImage";
@@ -10,6 +11,50 @@ import { SpeakerModal } from "@/components/SpeakerModal/SpeakerModal";
 import type { TrackKey } from "@/lib/tracks";
 
 import styles from "./SpeakerCard.module.css";
+import { useMagneticPull } from "./useMagneticPull";
+
+const PHOTO_TRANSITION = "speaker-photo";
+const IMAGE_WAIT_MS = 300;
+
+const canMorph = () =>
+  typeof document.startViewTransition === "function" &&
+  !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/**
+ * Flies the photo between the card and the modal with a view transition. Only one element may
+ * carry the name at a time, so it moves from `from` to `to` inside the update.
+ */
+function morphPhoto(
+  update: () => void,
+  from: HTMLElement | null,
+  to: () => HTMLElement | null,
+  afterUpdate?: () => void,
+) {
+  const root = document.documentElement;
+  if (from) from.style.viewTransitionName = PHOTO_TRANSITION;
+  root.dataset.vt = "speaker";
+  const transition = document.startViewTransition(async () => {
+    if (from) from.style.viewTransitionName = "";
+    flushSync(update);
+    afterUpdate?.();
+    const target = to();
+    if (!target) return;
+    target.style.viewTransitionName = PHOTO_TRANSITION;
+    // The modal's photo is a different (smaller) image file: give it a moment to load so the
+    // photo doesn't land empty. The page stays frozen on the "before" snapshot meanwhile.
+    const image = target.querySelector("img");
+    if (image)
+      await Promise.race([
+        image.decode().catch(() => {}),
+        new Promise((resolve) => setTimeout(resolve, IMAGE_WAIT_MS)),
+      ]);
+  });
+  void transition.finished.finally(() => {
+    const target = to();
+    if (target) target.style.viewTransitionName = "";
+    delete root.dataset.vt;
+  });
+}
 
 export type SpeakerCardProps = PreviewStateProps & {
   name: string;
@@ -40,16 +85,43 @@ export function SpeakerCard({
   previewState,
 }: SpeakerCardProps) {
   const [open, setOpen] = useState(false);
+  const cardRef = useRef<HTMLElement>(null);
+  const photoRef = useRef<HTMLDivElement>(null);
+  const modalPhotoRef = useRef<HTMLDivElement>(null);
+  const openButtonRef = useRef<HTMLButtonElement>(null);
+  useMagneticPull(cardRef, photoRef);
+
+  const openModal = () => {
+    if (!canMorph()) return setOpen(true);
+    morphPhoto(
+      () => setOpen(true),
+      photoRef.current,
+      () => modalPhotoRef.current,
+    );
+  };
+
+  const closeModal = () => {
+    if (!canMorph()) return false;
+    morphPhoto(
+      () => setOpen(false),
+      modalPhotoRef.current,
+      () => photoRef.current,
+      // Unmounting skips the dialog's own focus return.
+      () => openButtonRef.current?.focus({ preventScroll: true }),
+    );
+    return true;
+  };
   const role = [jobTitle, company].filter(Boolean).join(" @ ");
 
   return (
     <>
       <article
+        ref={cardRef}
         className={[styles.card, className].filter(Boolean).join(" ")}
         data-tint={tint}
         data-preview-state={previewState}
       >
-        <div className={`grid-paper ${styles.photo}`}>
+        <div ref={photoRef} className={`grid-paper ${styles.photo}`}>
           <SanityImage
             image={photo}
             alt=""
@@ -64,8 +136,9 @@ export function SpeakerCard({
               <button
                 type="button"
                 className={styles.open}
+                ref={openButtonRef}
                 aria-haspopup="dialog"
-                onClick={() => setOpen(true)}
+                onClick={openModal}
               >
                 {name}
               </button>
@@ -93,6 +166,8 @@ export function SpeakerCard({
           photo={photo}
           talks={talks}
           onClose={() => setOpen(false)}
+          onRequestClose={closeModal}
+          photoRef={modalPhotoRef}
         />
       )}
     </>

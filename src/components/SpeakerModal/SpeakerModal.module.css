@@ -1,6 +1,9 @@
 /* "Speaker Modal" from the design: desktop, tablet, mobile. Breakpoints: see tokens.css. */
 
+/* Positioned explicitly: the browser's own centring (:modal) stops applying the moment close() runs, mid-fade. */
 .modal {
+  position: fixed;
+  inset: 0;
   width: min(800px, 100% - 2 * var(--page-pad));
   max-width: none;
   max-height: calc(100dvh - 2 * var(--page-pad));
@@ -10,10 +13,41 @@
   overflow: auto;
   background: transparent;
   color: var(--color-text);
+  transition-property: opacity, translate, display, overlay;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
+  transition-behavior: allow-discrete;
 }
 
 .modal::backdrop {
   background: var(--color-overlay);
+  transition-property: opacity, display, overlay;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
+  transition-behavior: allow-discrete;
+}
+
+@starting-style {
+  .modal[open] {
+    opacity: 0;
+    translate: 0 var(--space-200);
+  }
+
+  .modal[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+/* Without overlay (Firefox), a closing dialog leaves the top layer mid-fade and can slip under the nav: close instantly there. */
+@supports (overlay: auto) {
+  .modal:not([open]) {
+    opacity: 0;
+    translate: 0 var(--space-200);
+  }
+
+  .modal:not([open])::backdrop {
+    opacity: 0;
+  }
 }
 
 .panel {

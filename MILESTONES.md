@@ -153,13 +153,28 @@ Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) a
 
 Subtle animations that make the site feel more polished. CSS-first, and all of it switched off under `prefers-reduced-motion`. It comes before launch readiness so the accessibility and Lighthouse passes cover it.
 
-Candidates (to settle with Keside when planning):
+Progress:
 
-- Speaker modal opening and closing.
-- Talk ticket details expanding and collapsing.
-- Save star feedback when toggled.
-- Schedule list settling when filters change.
-- Cards and sections easing in on load or scroll.
+- [x] M6.1 Motion tokens (durations, easing); existing hover transitions moved onto them; `// motion` preview on `/design-system`
+- [x] M6.2 Save star: pop when saving, small shrink when unsaving
+- [x] M6.3 Speaker modal opening and closing
+- [x] M6.4 Talk ticket details expanding and collapsing
+- [x] M6.5 Page transitions between routes (crossfade)
+- [x] M6.6 Schedule list settling when filters change
+- [x] M6.7 Speaker card photo: magnetic pull, photo morphing into the modal
+- [x] M6.8 Checks + reduced-motion and cross-browser pass
+
+- CSS plus React's `<ViewTransition>` (bundled with Next 16) for M6.2–M6.6. Unsupported browsers get no animation, never broken UI.
+- Tokens: `--duration-fast` 200ms (hovers, star), `--duration-base` 400ms (modal, details, schedule list), `--duration-slow` 600ms (page crossfade, photo morph). `--ease-out` `cubic-bezier(0.16, 1, 0.3, 1)` for things appearing or reacting, exits included; `--ease-in-out` `cubic-bezier(0.77, 0, 0.175, 1)` for things moving from A to B.
+- M6.2: the star animates only after a click, not when saved talks load from storage.
+- M6.3: the modal can only animate closed if `onClose` (which unmounts it) waits for the close transition.
+- M6.4: `interpolate-size` height transition, keeping the `hidden` attribute. Chromium animates; Safari and Firefox open instantly as today (Keside's call).
+- M6.5: only the page content crossfades; nav and footer stay put.
+- M6.6: React's `<ViewTransition>` couldn't see filter changes (Next applies the URL sync later, outside our transition), so `Schedule` keeps filters in state and drives `document.startViewTransition` itself. Tickets get `view-transition-name: match-element` only while `html[data-vt="filter"]` is set, so ticket expands and page navigations don't animate the list.
+- M6.7 on pointer devices: the photo drifts toward the cursor inside its box (capped, springs back on leave). On click, the photo morphs into the modal's photo and back on close, which also covers touch. Like M6.6 it drives `document.startViewTransition` + `flushSync` directly, moving one `speaker-photo` name between the two photos; reduced motion and unsupported browsers keep the M6.3 fade.
+- GSAP for M6.7 only, loaded on first hover, reduced motion via `gsap.matchMedia`. The feel was settled in a prototype on branch `prototype/speaker-photo-motion` (variant A, its default settings); the falling-copies idea was dropped.
+- Scroll/load reveals dropped (Keside: too jarring, not needed).
+- The global reduced-motion rule doesn't stop view transitions; they need their own `animation: none`.
 
 ## M7 — Launch readiness
 

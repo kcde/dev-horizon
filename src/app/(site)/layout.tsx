@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Chakra_Petch, JetBrains_Mono } from "next/font/google";
 
+import { PageTransition } from "@/components/PageTransition/PageTransition";
 import { SiteFooter } from "@/components/SiteFooter/SiteFooter";
 import { SiteNav } from "@/components/SiteNav/SiteNav";
 import { sanityFetch } from "@/sanity/fetch";
@@ -42,7 +43,9 @@ export default async function SiteRootLayout({ children }: LayoutProps<"/">) {
       <body>
         <div className={`container ${styles.shell}`}>
           <SiteNav />
-          <main className={styles.main}>{children}</main>
+          <main className={styles.main}>
+            <PageTransition>{children}</PageTransition>
+          </main>
           <SiteFooter
             description={SITE_DESCRIPTION}
             venue={settings?.venue}
