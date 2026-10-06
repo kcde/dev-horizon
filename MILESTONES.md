@@ -158,7 +158,7 @@ Progress:
 - [x] M6.1 Motion tokens (durations, easing); existing hover transitions moved onto them; `// motion` preview on `/design-system`
 - [x] M6.2 Save star: pop when saving, small shrink when unsaving
 - [ ] M6.3 Speaker modal opening and closing
-- [ ] M6.4 Talk ticket details expanding and collapsing
+- [x] M6.4 Talk ticket details expanding and collapsing
 - [ ] M6.5 Page transitions between routes (crossfade)
 - [ ] M6.6 Schedule list settling when filters change
 - [ ] M6.7 Speaker card photo: magnetic pull, photo morphing into the modal

@@ -112,6 +112,37 @@
   display: none;
 }
 
+/* The negative margin cancels the body's flex gap and the 1px border, so showing or hiding the box moves nothing. */
+@supports (interpolate-size: allow-keywords) {
+  .details {
+    interpolate-size: allow-keywords;
+    overflow: clip;
+    /* A flex item's default min-height: auto would hold it at its content height. */
+    min-height: 0;
+    transition-property:
+      height, padding-top, margin-top, border-top-color, display;
+    transition-duration: var(--duration-base);
+    transition-timing-function: var(--ease-out);
+    transition-behavior: allow-discrete;
+  }
+
+  .details[hidden] {
+    height: 0;
+    padding-top: 0;
+    margin-top: calc(-1 * var(--space-150) - 1px);
+    border-top-color: transparent;
+  }
+
+  @starting-style {
+    .details:not([hidden]) {
+      height: 0;
+      padding-top: 0;
+      margin-top: calc(-1 * var(--space-150) - 1px);
+      border-top-color: transparent;
+    }
+  }
+}
+
 .location {
   font-weight: 500;
   text-transform: uppercase;
