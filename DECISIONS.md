@@ -13,7 +13,7 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 
 ### Talk
 
-- Fields: title, description, speaker (single reference), day (reference), track, startTime, endTime, location, isKeynote.
+- Fields: title, slug (generated from the full title, unique; used in Schedule links), description, speaker (single reference), day (reference), track, startTime, endTime, location, isKeynote.
 - Required: speaker, day, track, startTime, endTime. Validation: endTime must be after startTime.
 - Room clash (same location, overlapping time on the same day): warning, not a block.
 - Only one talk may have `isKeynote` set (validation blocks a second).
@@ -43,7 +43,7 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 ### Home
 
 - Hero: from Site Settings.
-- Keynote spotlight: the talk with `isKeynote`.
+- Keynote spotlight: the talk with `isKeynote`. Its "View talk" button opens that talk on the Schedule (`/schedule?talk=<slug>`).
 - Track cards: link to `/schedule?track=<key>`. Card content follows the design.
 - Featured speaker cards open the speaker modal (see Design → speaker card and modal).
 - Featured speakers (8): the keynote speaker first (the design features them), then 7 from the tracks: one per track, then a second per track in track order until 7 (so Tooling gets one). Track picks rotate days so all 3 days are represented; within a day, pick the earliest talk. The keynote speaker isn't picked again for a track. A speaker repeats only if no one else is available.
@@ -52,7 +52,7 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 
 ### Speakers
 
-- Grid of all speakers (with a talk): photo, name, job title, company, primary talk title.
+- Grid of all speakers (with a talk): photo, name, job title, company, primary talk title. The keynote speaker comes first, then everyone in order of their earliest talk.
 - Card background color = primary talk's track color. The keynote speaker gets a special background (per design).
 - Clicking a card opens a speaker modal: bio plus all of that speaker's talks.
 
@@ -62,6 +62,7 @@ Decisions settled after reviewing [PRD.md](PRD.md). Where this file and the PRD 
 - Filter state is reflected in the URL (e.g. `?day=2&track=frontend&mine=1`), updated client-side so pages stay static. `mine` only reflects the current browser's saved talks.
 - Day chips are tabs: one day is always selected (Day 1 by default, or when `day` is missing or invalid). Clear resets track and My Schedule and keeps the day.
 - Filter changes replace the URL (`history.replaceState`) instead of adding history entries, so Back leaves the page.
+- `?talk=<slug>` opens that talk's details and scrolls to it. Without a `day`, the talk's own day is shown. "Show details" puts the talk's slug in the URL (replacing any other); "Hide details" on that talk removes it; changing day clears it.
 - The static HTML shows the default view (Day 1, no filters); the URL's filters apply once the page loads.
 - Talk row: track color tag, title, speaker + company, start/end time, expandable details (description + location), save toggle.
 - Times: 12-hour format, America/Los_Angeles, labelled (PDT/PST). No conversion to the viewer's time zone. This overrides the design, which shows 24-hour times.

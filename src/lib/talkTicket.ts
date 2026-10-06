@@ -6,6 +6,7 @@ import type { TrackKey } from "./tracks";
 export type QueryTalk = {
   _id: string;
   title: string | null;
+  slug: string | null;
   description: string | null;
   track: TrackKey | null;
   isKeynote: boolean | null;
@@ -17,11 +18,17 @@ export type QueryTalk = {
 };
 
 /** TalkTicket props for a talk, or null if it's missing a field a ticket needs. */
-export function toTicket(talk: QueryTalk): SpeakerModalTalk | null {
+export type Ticket = SpeakerModalTalk & {
+  /** Without one, the talk can't be linked to. */
+  slug: string | null;
+};
+
+export function toTicket(talk: QueryTalk): Ticket | null {
   const { title, track, startTime, endTime, day, speaker } = talk;
   if (!title || !track || !startTime || !endTime || !day.date) return null;
   return {
     id: talk._id,
+    slug: talk.slug,
     title,
     description: talk.description,
     speakerName: speaker.name,

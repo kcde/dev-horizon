@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import type { SpeakerModalTalk } from "@/components/SpeakerModal/SpeakerModal";
 import { DEFAULT_FILTERS } from "@/lib/scheduleFilter";
+import type { Ticket } from "@/lib/talkTicket";
 import { toTicket } from "@/lib/talkTicket";
 import { sanityFetch } from "@/sanity/fetch";
 import { SCHEDULE_QUERY } from "@/sanity/queries";
@@ -22,7 +22,7 @@ export default async function SchedulePage() {
   const dates = days.filter((date): date is string => date !== null);
   const tickets = talks
     .map(toTicket)
-    .filter((talk): talk is SpeakerModalTalk => talk !== null);
+    .filter((talk): talk is Ticket => talk !== null);
 
   return (
     <div className={styles.page}>

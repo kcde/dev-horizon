@@ -12,7 +12,7 @@ const TALKS: FilterableTalk[] = [
   { id: "keynote", date: D1, track: "frontend", isKeynote: true },
   { id: "d1-frontend", date: D1, track: "frontend" },
   { id: "d1-tooling", date: D1, track: "tooling" },
-  { id: "d2-frontend", date: D2, track: "frontend" },
+  { id: "d2-frontend", date: D2, track: "frontend", slug: "d2-frontend" },
   { id: "d2-performance", date: D2, track: "performance" },
 ];
 
@@ -22,7 +22,7 @@ function filter(filters: Partial<ScheduleFilters>, saved: string[] = []) {
   return ids(
     filterTalks(
       TALKS,
-      { day: 1, track: null, mine: false, ...filters },
+      { day: 1, track: null, mine: false, talk: null, ...filters },
       { days: DAYS, savedIds: new Set(saved) },
     ),
   );
@@ -30,10 +30,15 @@ function filter(filters: Partial<ScheduleFilters>, saved: string[] = []) {
 
 describe("parseFilters", () => {
   const parse = (search: string) =>
-    parseFilters(new URLSearchParams(search), DAYS.length);
+    parseFilters(new URLSearchParams(search), DAYS, TALKS);
 
   it("defaults to Day 1, no track, everything", () => {
-    expect(parse("")).toEqual({ day: 1, track: null, mine: false });
+    expect(parse("")).toEqual({
+      day: 1,
+      track: null,
+      mine: false,
+      talk: null,
+    });
   });
 
   it("reads day, track and mine", () => {
@@ -41,6 +46,7 @@ describe("parseFilters", () => {
       day: 2,
       track: "tooling",
       mine: true,
+      talk: null,
     });
   });
 
@@ -55,27 +61,56 @@ describe("parseFilters", () => {
       day: 1,
       track: null,
       mine: false,
+      talk: null,
     });
+  });
+
+  it("opens a linked talk on its own day when no day is given", () => {
+    expect(parse("?talk=d2-frontend")).toMatchObject({
+      day: 2,
+      talk: "d2-frontend",
+    });
+  });
+
+  it("keeps an explicit day over the linked talk's day", () => {
+    expect(parse("?day=3&talk=d2-frontend")).toMatchObject({
+      day: 3,
+      talk: "d2-frontend",
+    });
+  });
+
+  it("ignores a talk link that matches no talk", () => {
+    expect(parse("?talk=gone")).toMatchObject({ day: 1, talk: null });
   });
 });
 
 describe("filtersToSearch", () => {
   it("always writes the day and leaves out unset filters", () => {
-    expect(filtersToSearch({ day: 1, track: null, mine: false })).toBe(
-      "?day=1",
-    );
+    expect(
+      filtersToSearch({ day: 1, track: null, mine: false, talk: null }),
+    ).toBe("?day=1");
   });
 
   it("writes every set filter", () => {
-    expect(filtersToSearch({ day: 3, track: "frontend", mine: true })).toBe(
-      "?day=3&track=frontend&mine=1",
-    );
+    expect(
+      filtersToSearch({
+        day: 3,
+        track: "frontend",
+        mine: true,
+        talk: "d2-frontend",
+      }),
+    ).toBe("?day=3&track=frontend&mine=1&talk=d2-frontend");
   });
 
   it("round-trips through parseFilters", () => {
-    const filters: ScheduleFilters = { day: 2, track: "tooling", mine: true };
+    const filters: ScheduleFilters = {
+      day: 2,
+      track: "tooling",
+      mine: true,
+      talk: "d2-frontend",
+    };
     expect(
-      parseFilters(new URLSearchParams(filtersToSearch(filters)), 3),
+      parseFilters(new URLSearchParams(filtersToSearch(filters)), DAYS, TALKS),
     ).toEqual(filters);
   });
 });

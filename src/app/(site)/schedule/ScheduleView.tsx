@@ -1,10 +1,10 @@
 "use client";
 
 import { FilterChip } from "@/components/FilterChip/FilterChip";
-import type { SpeakerModalTalk } from "@/components/SpeakerModal/SpeakerModal";
 import { TalkTicket } from "@/components/TalkTicket/TalkTicket";
 import type { ScheduleFilters } from "@/lib/scheduleFilter";
 import { filterTalks } from "@/lib/scheduleFilter";
+import type { Ticket } from "@/lib/talkTicket";
 import type { TrackKey } from "@/lib/tracks";
 import { TRACK_KEYS, TRACKS } from "@/lib/tracks";
 import { useSavedTalks } from "@/lib/useSavedTalks";
@@ -25,7 +25,7 @@ export function ScheduleView({
 }: {
   /** Conference days ("YYYY-MM-DD"), in order. */
   days: string[];
-  talks: SpeakerModalTalk[];
+  talks: Ticket[];
   filters: ScheduleFilters;
   onFiltersChange?: (filters: ScheduleFilters) => void;
 }) {
@@ -44,7 +44,7 @@ export function ScheduleView({
               key={date}
               variant="tab"
               selected={filters.day === index + 1}
-              onClick={() => update({ day: index + 1 })}
+              onClick={() => update({ day: index + 1, talk: null })}
             >
               Day {String(index + 1).padStart(2, "0")}
             </FilterChip>
@@ -101,11 +101,23 @@ export function ScheduleView({
       {shown.length > 0 ? (
         <ul role="list" className={styles.ticketStack}>
           {shown.map((talk) => (
-            <li key={talk.id}>
+            <li
+              key={talk.id}
+              id={talk.slug ? `talk-${talk.slug}` : undefined}
+              className={styles.ticketItem}
+            >
               <TalkTicket
                 {...talk}
                 saved={savedIds.has(talk.id)}
                 onToggleSave={() => toggle(talk.id)}
+                defaultExpanded={
+                  Boolean(talk.slug) && talk.slug === filters.talk
+                }
+                onExpandedChange={(open) => {
+                  if (!talk.slug) return;
+                  if (open) update({ talk: talk.slug });
+                  else if (filters.talk === talk.slug) update({ talk: null });
+                }}
               />
             </li>
           ))}

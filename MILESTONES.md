@@ -120,7 +120,7 @@ Progress:
 - [x] M4.5 Page assembly (filters, list, empty states)
 - [x] M4.6 Saving in the speaker modal + docs
 - [x] M4.7 Checks + visual/keyboard pass
-- [ ] M4.8 Design review rounds
+- [x] M4.8 Design review rounds
 
 Figma: `Desktop - Schedule` (`115:669`), `Tablet - Schedule` (`193:1423`), `Mobile - Schedule` (`193:1929`), hover states (`249:3909`), focus states (`249:4311`).
 
@@ -133,6 +133,15 @@ Figma: `Desktop - Schedule` (`115:669`), `Tablet - Schedule` (`193:1423`), `Mobi
 
 ## M5 — Speakers page + modal
 
+Progress:
+
+- [x] M5.1 Talk slug (schema, seed, existing content)
+- [x] M5.2 Talk links: `?talk=` on Schedule, ticket ↔ URL, Home "View talk" + Vitest
+- [x] M5.3 Speakers query + speaker listing rule + Vitest
+- [x] M5.4 Speakers page assembly
+- [x] M5.5 Checks + visual/keyboard pass
+- [x] M5.6 Design review rounds
+
 Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) and the `- Modal` variants (`193:3616`, `193:4048`, `193:4370`).
 
 - Speaker modal: already built during the M3 review (`SpeakerModal`, owned by `SpeakerCard`). Speakers only needs to pass each card its bio and talks.
@@ -140,7 +149,19 @@ Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) a
 - Grid at 4 / 2 / 1 columns (check the tablet/mobile frames).
 - Card → modal with bio + all talks (talk tickets; the save star works once M4 lands).
 
-## M6 — Launch readiness
+## M6 — Motion
+
+Subtle animations that make the site feel more polished. CSS-first, and all of it switched off under `prefers-reduced-motion`. It comes before launch readiness so the accessibility and Lighthouse passes cover it.
+
+Candidates (to settle with Keside when planning):
+
+- Speaker modal opening and closing.
+- Talk ticket details expanding and collapsing.
+- Save star feedback when toggled.
+- Schedule list settling when filters change.
+- Cards and sections easing in on load or scroll.
+
+## M7 — Launch readiness
 
 - Sanity webhook → on-demand revalidation, plus hourly fallback.
 - Accessibility pass (keyboard, focus order, contrast, reduced motion, alt text).
