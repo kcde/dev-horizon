@@ -89,6 +89,13 @@
   /* Override --focus-color on light surfaces (e.g. the keynote card). */
   --focus-color: var(--color-accent);
 
+  /* ---------- Motion (not in the Figma variables) ---------- */
+  --duration-fast: 200ms;
+  --duration-base: 400ms;
+  --duration-slow: 600ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
   /* ---------- Fonts (set by next/font in the site layout) ---------- */
   --font-display-stack: var(--font-display), sans-serif;
   --font-body-stack: var(--font-body), ui-monospace, monospace;

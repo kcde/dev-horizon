@@ -27,6 +27,7 @@ import { TRACK_KEYS } from "@/lib/tracks";
 import { sanityFetch } from "@/sanity/fetch";
 import { DESIGN_SYSTEM_SAMPLES_QUERY } from "@/sanity/queries";
 
+import { MotionPreview } from "./MotionPreview";
 import styles from "./page.module.css";
 import { SaveableTicket } from "./SaveableTicket";
 import { StateGrid } from "./StateGrid";
@@ -407,6 +408,11 @@ export default async function DesignSystemPage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className={styles.section}>
+        <h2 className="section-label">{"// motion"}</h2>
+        <MotionPreview />
       </section>
 
       <section className={styles.section}>
