@@ -1,10 +1,10 @@
 "use client";
 
 import { FilterChip } from "@/components/FilterChip/FilterChip";
-import type { SpeakerModalTalk } from "@/components/SpeakerModal/SpeakerModal";
 import { TalkTicket } from "@/components/TalkTicket/TalkTicket";
 import type { ScheduleFilters } from "@/lib/scheduleFilter";
 import { filterTalks } from "@/lib/scheduleFilter";
+import type { Ticket } from "@/lib/talkTicket";
 import type { TrackKey } from "@/lib/tracks";
 import { TRACK_KEYS, TRACKS } from "@/lib/tracks";
 import { useSavedTalks } from "@/lib/useSavedTalks";
@@ -25,7 +25,7 @@ export function ScheduleView({
 }: {
   /** Conference days ("YYYY-MM-DD"), in order. */
   days: string[];
-  talks: SpeakerModalTalk[];
+  talks: Ticket[];
   filters: ScheduleFilters;
   onFiltersChange?: (filters: ScheduleFilters) => void;
 }) {

@@ -133,6 +133,15 @@ Figma: `Desktop - Schedule` (`115:669`), `Tablet - Schedule` (`193:1423`), `Mobi
 
 ## M5 — Speakers page + modal
 
+Progress:
+
+- [ ] M5.1 Talk slug (schema, seed, existing content)
+- [ ] M5.2 Talk links: `?talk=` on Schedule, ticket ↔ URL, Home "View talk" + Vitest
+- [ ] M5.3 Speakers query + speaker listing rule + Vitest
+- [ ] M5.4 Speakers page assembly
+- [ ] M5.5 Checks + visual/keyboard pass
+- [ ] M5.6 Design review rounds
+
 Figma: `Desktop/Tablet/Mobile - Speakers` (`133:1157`, `193:2621`, `193:3120`) and the `- Modal` variants (`193:3616`, `193:4048`, `193:4370`).
 
 - Speaker modal: already built during the M3 review (`SpeakerModal`, owned by `SpeakerCard`). Speakers only needs to pass each card its bio and talks.

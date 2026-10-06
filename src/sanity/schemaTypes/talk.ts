@@ -17,6 +17,13 @@ export const talkType = defineType({
       type: "string",
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: "slug",
+      type: "slug",
+      description: "Used in Schedule links.",
+      options: { source: "title", maxLength: 96 },
+      validation: (rule) => rule.required(),
+    }),
     defineField({ name: "description", type: "text", rows: 5 }),
     defineField({
       name: "speaker",

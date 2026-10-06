@@ -82,6 +82,7 @@ async function main() {
       _id: `talk-${slugify(talk.title)}`,
       _type: "talk",
       title: talk.title,
+      slug: { _type: "slug", current: slugify(talk.title) },
       description: talk.description,
       speaker: { _type: "reference", _ref: `speaker-${talk.speaker}` },
       day: { _type: "reference", _ref: `day-${talk.day}` },

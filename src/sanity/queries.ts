@@ -11,6 +11,7 @@ export const HOME_QUERY = defineQuery(`{
     | order(day->date asc, startTime asc, title asc) {
       _id,
       title,
+      "slug": slug.current,
       description,
       track,
       isKeynote,
@@ -28,6 +29,7 @@ export const SCHEDULE_QUERY = defineQuery(`{
     | order(day->date asc, startTime asc, title asc) {
       _id,
       title,
+      "slug": slug.current,
       description,
       track,
       isKeynote,
