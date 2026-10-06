@@ -68,7 +68,16 @@ export function SpeakerModal({
       ref={dialog}
       className={styles.modal}
       aria-labelledby={headingId}
-      onClose={onClose}
+      // Unmount only after the closing transition, or it would be cut off.
+      onClose={(event) => {
+        const animations = event.currentTarget.getAnimations({
+          subtree: true,
+        });
+        void Promise.all(animations.map((a) => a.finished)).then(
+          onClose,
+          onClose,
+        );
+      }}
       // The dialog is exactly the panel's size, so a click on the dialog itself is on the backdrop.
       onClick={(event) => {
         if (event.target === event.currentTarget) event.currentTarget.close();
