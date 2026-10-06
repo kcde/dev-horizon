@@ -135,7 +135,7 @@ Figma: `Desktop - Schedule` (`115:669`), `Tablet - Schedule` (`193:1423`), `Mobi
 
 Progress:
 
-- [ ] M5.1 Talk slug (schema, seed, existing content)
+- [x] M5.1 Talk slug (schema, seed, existing content)
 - [ ] M5.2 Talk links: `?talk=` on Schedule, ticket ↔ URL, Home "View talk" + Vitest
 - [x] M5.3 Speakers query + speaker listing rule + Vitest
 - [ ] M5.4 Speakers page assembly
