@@ -136,6 +136,24 @@ html[data-vt="filter"]::view-transition-new(root) {
   animation-duration: var(--duration-fast);
 }
 
+/* Speaker photo flying between card and modal (data-vt is set by SpeakerCard.tsx). */
+::view-transition-group(speaker-photo) {
+  animation-duration: var(--duration-slow);
+  animation-timing-function: var(--ease-in-out);
+}
+
+/* The modal's rise would still be running at the "after" snapshot, so the photo would land low. */
+@starting-style {
+  html[data-vt="speaker"] dialog[open] {
+    translate: none;
+  }
+}
+
+html[data-vt="speaker"]::view-transition-old(root),
+html[data-vt="speaker"]::view-transition-new(root) {
+  animation-duration: var(--duration-base);
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,

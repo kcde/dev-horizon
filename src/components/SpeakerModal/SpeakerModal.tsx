@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useId, useRef } from "react";
+import type { Ref } from "react";
+import { useId, useLayoutEffect, useRef } from "react";
 
 import { CloseIcon } from "@/components/icons/icons";
 import { IconButton } from "@/components/IconButton/IconButton";
@@ -26,6 +27,9 @@ export type SpeakerModalProps = {
   /** All of the speaker's talks, earliest first. */
   talks: SpeakerModalTalk[];
   onClose: () => void;
+  /** Close button, backdrop and Escape call this first; return true if it closed the modal itself. */
+  onRequestClose?: () => boolean;
+  photoRef?: Ref<HTMLDivElement>;
 };
 
 /**
@@ -41,13 +45,20 @@ export function SpeakerModal({
   photo,
   talks,
   onClose,
+  onRequestClose,
+  photoRef,
 }: SpeakerModalProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const headingId = useId();
   const { savedIds, toggle } = useSavedTalks();
   const role = [jobTitle, company && `@${company}`].filter(Boolean).join(" ");
 
-  useEffect(() => {
+  const requestClose = () => {
+    if (!onRequestClose?.()) dialog.current?.close();
+  };
+
+  // A layout effect so the dialog is already open when a view transition takes its "after" snapshot.
+  useLayoutEffect(() => {
     const element = dialog.current;
     if (!element) return;
     if (!element.open) element.showModal();
@@ -78,22 +89,25 @@ export function SpeakerModal({
           onClose,
         );
       }}
+      onCancel={(event) => {
+        if (onRequestClose?.()) event.preventDefault();
+      }}
       // The dialog is exactly the panel's size, so a click on the dialog itself is on the backdrop.
       onClick={(event) => {
-        if (event.target === event.currentTarget) event.currentTarget.close();
+        if (event.target === event.currentTarget) requestClose();
       }}
     >
       <div className={styles.panel} data-tint={tint}>
         <IconButton
           label="Close"
-          onClick={() => dialog.current?.close()}
+          onClick={requestClose}
           className={styles.close}
         >
           <CloseIcon />
         </IconButton>
 
         <div className={styles.header}>
-          <div className={`grid-paper ${styles.photo}`}>
+          <div ref={photoRef} className={`grid-paper ${styles.photo}`}>
             <SanityImage
               image={photo}
               alt=""
