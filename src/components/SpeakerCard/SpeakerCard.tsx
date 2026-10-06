@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import type { PreviewStateProps } from "@/components/previewState";
 import type { SanityImageSource } from "@/components/SanityImage/SanityImage";
@@ -10,6 +10,7 @@ import { SpeakerModal } from "@/components/SpeakerModal/SpeakerModal";
 import type { TrackKey } from "@/lib/tracks";
 
 import styles from "./SpeakerCard.module.css";
+import { useMagneticPull } from "./useMagneticPull";
 
 export type SpeakerCardProps = PreviewStateProps & {
   name: string;
@@ -40,16 +41,20 @@ export function SpeakerCard({
   previewState,
 }: SpeakerCardProps) {
   const [open, setOpen] = useState(false);
+  const cardRef = useRef<HTMLElement>(null);
+  const photoRef = useRef<HTMLDivElement>(null);
+  useMagneticPull(cardRef, photoRef);
   const role = [jobTitle, company].filter(Boolean).join(" @ ");
 
   return (
     <>
       <article
+        ref={cardRef}
         className={[styles.card, className].filter(Boolean).join(" ")}
         data-tint={tint}
         data-preview-state={previewState}
       >
-        <div className={`grid-paper ${styles.photo}`}>
+        <div ref={photoRef} className={`grid-paper ${styles.photo}`}>
           <SanityImage
             image={photo}
             alt=""
