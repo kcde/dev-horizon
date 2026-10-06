@@ -160,7 +160,7 @@ Progress:
 - [x] M6.3 Speaker modal opening and closing
 - [x] M6.4 Talk ticket details expanding and collapsing
 - [x] M6.5 Page transitions between routes (crossfade)
-- [ ] M6.6 Schedule list settling when filters change
+- [x] M6.6 Schedule list settling when filters change
 - [ ] M6.7 Speaker card photo: magnetic pull, photo morphing into the modal
 - [ ] M6.8 Checks + reduced-motion and cross-browser pass
 
@@ -170,7 +170,7 @@ Progress:
 - M6.3: the modal can only animate closed if `onClose` (which unmounts it) waits for the close transition.
 - M6.4: `interpolate-size` height transition, keeping the `hidden` attribute. Chromium animates; Safari and Firefox open instantly as today (Keside's call).
 - M6.5: only the page content crossfades; nav and footer stay put.
-- M6.6: filter changes go through `history.replaceState`, not a React transition; fall back to `document.startViewTransition` if `startTransition` doesn't trigger `<ViewTransition>`.
+- M6.6: React's `<ViewTransition>` couldn't see filter changes (Next applies the URL sync later, outside our transition), so `Schedule` keeps filters in state and drives `document.startViewTransition` itself. Tickets get `view-transition-name: match-element` only while `html[data-vt="filter"]` is set, so ticket expands and page navigations don't animate the list.
 - M6.7 on pointer devices: the photo drifts toward the cursor inside its box (capped, springs back on leave). On click, the photo morphs into the modal's photo (`<ViewTransition>`), which also covers touch. Check it alongside the M6.3 modal animation.
 - GSAP for M6.7 only, loaded on first hover, reduced motion via `gsap.matchMedia`. The feel was settled in a prototype on branch `prototype/speaker-photo-motion` (variant A, its default settings); the falling-copies idea was dropped.
 - Scroll/load reveals dropped (Keside: too jarring, not needed).

@@ -105,6 +105,7 @@ export function ScheduleView({
               key={talk.id}
               id={talk.slug ? `talk-${talk.slug}` : undefined}
               className={styles.ticketItem}
+              data-filter-item
             >
               <TalkTicket
                 {...talk}
@@ -123,7 +124,7 @@ export function ScheduleView({
           ))}
         </ul>
       ) : (
-        <p className={styles.empty}>
+        <p className={styles.empty} data-filter-item>
           {filters.mine && savedIds.size === 0
             ? "Nothing saved yet. Star a talk to add it to your schedule."
             : "No talks match these filters."}
