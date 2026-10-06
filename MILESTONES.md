@@ -162,7 +162,7 @@ Progress:
 - [x] M6.5 Page transitions between routes (crossfade)
 - [x] M6.6 Schedule list settling when filters change
 - [x] M6.7 Speaker card photo: magnetic pull, photo morphing into the modal
-- [ ] M6.8 Checks + reduced-motion and cross-browser pass
+- [x] M6.8 Checks + reduced-motion and cross-browser pass
 
 - CSS plus React's `<ViewTransition>` (bundled with Next 16) for M6.2–M6.6. Unsupported browsers get no animation, never broken UI.
 - Tokens: `--duration-fast` 200ms (hovers, star), `--duration-base` 400ms (modal, details, schedule list), `--duration-slow` 600ms (page crossfade, photo morph). `--ease-out` `cubic-bezier(0.16, 1, 0.3, 1)` for things appearing or reacting, exits included; `--ease-in-out` `cubic-bezier(0.77, 0, 0.175, 1)` for things moving from A to B.
