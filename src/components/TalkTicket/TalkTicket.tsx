@@ -63,6 +63,8 @@ export function TalkTicket({
   className,
 }: TalkTicketProps) {
   const [expanded, setExpanded] = useState(defaultExpanded);
+  // Only animate the star after a click: saved talks load after the first render.
+  const [toggled, setToggled] = useState<"saved" | "unsaved" | null>(null);
   const detailsId = useId();
   const tag = isKeynote ? "Keynote" : TRACKS[track].name;
   const hasDetails = showDetails && Boolean(description || location);
@@ -137,7 +139,11 @@ export function TalkTicket({
             type="button"
             className={styles.save}
             aria-pressed={saved}
-            onClick={onToggleSave}
+            data-toggled={toggled ?? undefined}
+            onClick={() => {
+              setToggled(saved ? "unsaved" : "saved");
+              onToggleSave();
+            }}
           >
             {saved ? <StarSolidIcon /> : <StarIcon />}
             <span className="visually-hidden">

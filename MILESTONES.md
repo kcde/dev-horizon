@@ -156,7 +156,7 @@ Subtle animations that make the site feel more polished. CSS-first, and all of i
 Progress:
 
 - [x] M6.1 Motion tokens (durations, easing); existing hover transitions moved onto them; `// motion` preview on `/design-system`
-- [ ] M6.2 Save star: pop when saving, small shrink when unsaving
+- [x] M6.2 Save star: pop when saving, small shrink when unsaving
 - [ ] M6.3 Speaker modal opening and closing
 - [ ] M6.4 Talk ticket details expanding and collapsing
 - [ ] M6.5 Page transitions between routes (crossfade)
