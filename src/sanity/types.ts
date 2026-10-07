@@ -414,6 +414,19 @@ export type DESIGN_SYSTEM_SAMPLES_QUERY_RESULT = {
   }>;
 };
 
+// Source: src/sanity/queries.ts
+// Variable: SPEAKER_PHOTOS_QUERY
+// Query: *[_type == "speaker" && defined(photo)]{ photo }
+export type SPEAKER_PHOTOS_QUERY_RESULT = Array<{
+  photo: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+}>;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
@@ -422,6 +435,7 @@ declare global {
     '{\n  "days": *[_type == "day" && defined(date)] | order(date asc).date,\n  "talks": *[_type == "talk" && defined(speaker) && defined(day)]\n    | order(day->date asc, startTime asc, title asc) {\n      _id,\n      title,\n      "slug": slug.current,\n      description,\n      track,\n      isKeynote,\n      startTime,\n      endTime,\n      location,\n      "day": day->{ label, date },\n      "speaker": speaker->{ name, company }\n    }\n}': SCHEDULE_QUERY_RESULT;
     '*[_type == "talk" && defined(speaker) && defined(day)]\n  | order(day->date asc, startTime asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    description,\n    track,\n    isKeynote,\n    startTime,\n    endTime,\n    location,\n    "day": day->{ label, date },\n    "speaker": speaker->{ name, "slug": slug.current, jobTitle, company, bio, photo }\n  }': SPEAKERS_QUERY_RESULT;
     '{\n  "settings": *[_type == "siteSettings"][0]{ tagline, eventDates, venue },\n  "keynote": *[_type == "talk" && isKeynote][0]{\n    title,\n    startTime,\n    location,\n    "date": day->date,\n    "speaker": speaker->{ name, jobTitle, company, photo }\n  },\n  "speakers": *[_type == "speaker" && slug.current in ["elena-vasquez", "james-okonkwo", "priya-sharma", "ryan-osullivan"]]\n    | order(name asc) {\n      name,\n      "slug": slug.current,\n      jobTitle,\n      company,\n      bio,\n      photo,\n      "talks": *[_type == "talk" && references(^._id)] | order(day->date asc, startTime asc, title asc){\n        _id,\n        title,\n        track,\n        isKeynote,\n        startTime,\n        endTime,\n        "date": day->date\n      }\n    },\n  "talks": *[_type == "talk"] | order(day->date asc, startTime asc)[0...3]{\n    _id,\n    title,\n    description,\n    track,\n    isKeynote,\n    startTime,\n    endTime,\n    location,\n    "speaker": speaker->{ name, company },\n    "day": day->{ label, date }\n  }\n}': DESIGN_SYSTEM_SAMPLES_QUERY_RESULT;
+    '*[_type == "speaker" && defined(photo)]{ photo }': SPEAKER_PHOTOS_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too
