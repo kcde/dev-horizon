@@ -4,6 +4,7 @@ import { Chakra_Petch, JetBrains_Mono } from "next/font/google";
 import { PageTransition } from "@/components/PageTransition/PageTransition";
 import { SiteFooter } from "@/components/SiteFooter/SiteFooter";
 import { SiteNav } from "@/components/SiteNav/SiteNav";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import { sanityFetch } from "@/sanity/fetch";
 import { SITE_SETTINGS_QUERY } from "@/sanity/queries";
 
@@ -24,12 +25,17 @@ const body = JetBrains_Mono({
   variable: "--font-body",
 });
 
-const SITE_DESCRIPTION =
-  "A three-day conference for engineers who build the interfaces humans use every day.";
-
 export const metadata: Metadata = {
-  title: "DevHorizon 26",
+  metadataBase: SITE_URL,
+  title: { default: SITE_NAME, template: `%s · ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default async function SiteRootLayout({ children }: LayoutProps<"/">) {
