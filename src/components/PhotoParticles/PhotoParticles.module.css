@@ -2,5 +2,5 @@
   display: block;
   width: 100%;
   height: clamp(180px, 34vw, 420px);
-  touch-action: none;
+  touch-action: pan-y;
 }

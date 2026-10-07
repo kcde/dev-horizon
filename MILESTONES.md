@@ -183,11 +183,12 @@ Progress:
 - [x] M7.1 Sanity webhook → on-demand revalidation (`/api/revalidate`), hourly fallback kept
 - [x] M7.2 Metadata, OG image, favicon
 - [x] M7.2b 404 page: "404" made of speaker photos that scatter from the pointer
-- [ ] M7.3 Accessibility pass
+- [x] M7.3 Accessibility pass (VoiceOver check by Keside pending)
 - [ ] M7.4 Lighthouse pass
 - [ ] M7.5 Real content entry; share Sanity and Vercel with the client
 
 - M7.2: titles use `%s · DevHorizon 26`. `metadataBase` comes from Vercel's `VERCEL_PROJECT_PRODUCTION_URL`. The OG image mirrors the Home hero and reads Site Settings, so the `siteSettings` webhook refreshes it too. The favicon is the wordmark's "D" in accent green.
+- M7.3: axe (WCAG 2.2 AA + best practice) is clean on every page, the speaker modal and the mobile menu, at 1440 and 390; no horizontal scroll at 320. Fixes: hidden h2s on Schedule ("Day N talks") and Speakers so cards aren't h3s under the h1; the save star keeps one label and lets `aria-pressed` carry the state; "Skip to content" link; the 404 canvas allows vertical scrolling on touch.
 - M7.2b: picked over plain dots in a prototype (branch `prototype/404-particles`). Canvas + `requestAnimationFrame`, no GSAP: it's a spring simulation, not a tween. The loop sleeps once particles settle; reduced motion draws the formed "404" and ignores the pointer. Photos load without `crossOrigin`, so Sanity's CORS list doesn't apply (the canvas is never read back). Two root layouts mean unknown URLs need `experimental.globalNotFound`; `SiteShell` gives it the same nav, footer and fonts as the site layout.
 - M7.1: the webhook sends `{_type}` signed with `SANITY_REVALIDATE_SECRET`; the route revalidates that type's tag with `{ expire: 0 }` so editors see their change on the next load. The Sanity client skips the API CDN (`useCdn: false`): its 60s cache would otherwise feed the revalidation stale content.
 

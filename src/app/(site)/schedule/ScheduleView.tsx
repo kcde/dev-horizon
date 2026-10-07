@@ -94,6 +94,7 @@ export function ScheduleView({
         </div>
       </div>
 
+      <h2 className="visually-hidden">Day {filters.day} talks</h2>
       <p className="visually-hidden" aria-live="polite">
         {shown.length === 1 ? "1 talk" : `${shown.length} talks`}
       </p>

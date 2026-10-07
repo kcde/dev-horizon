@@ -38,9 +38,12 @@ export async function SiteShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en" id="top" className={`${display.variable} ${body.variable}`}>
       <body>
+        <a href="#main" className={styles.skipLink}>
+          Skip to content
+        </a>
         <div className={`container ${styles.shell}`}>
           <SiteNav />
-          <main className={styles.main}>
+          <main id="main" className={styles.main}>
             <PageTransition>{children}</PageTransition>
           </main>
           <SiteFooter
