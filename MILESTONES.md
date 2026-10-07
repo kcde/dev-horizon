@@ -183,7 +183,7 @@ Progress:
 - [x] M7.1 Sanity webhook → on-demand revalidation (`/api/revalidate`), hourly fallback kept
 - [x] M7.2 Metadata, OG image, favicon
 - [x] M7.2b 404 page: "404" made of speaker photos that scatter from the pointer
-- [x] M7.3 Accessibility pass (VoiceOver check by Keside pending)
+- [x] M7.3 Accessibility pass (VoiceOver checked by Keside)
 - [ ] M7.4 Lighthouse pass
 - [ ] M7.5 Real content entry; share Sanity and Vercel with the client
 
