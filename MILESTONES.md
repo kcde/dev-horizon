@@ -178,6 +178,16 @@ Progress:
 
 ## M7 — Launch readiness
 
+Progress:
+
+- [x] M7.1 Sanity webhook → on-demand revalidation (`/api/revalidate`), hourly fallback kept
+- [ ] M7.2 Metadata, OG image, favicon, 404 page
+- [ ] M7.3 Accessibility pass
+- [ ] M7.4 Lighthouse pass
+- [ ] M7.5 Real content entry; share Sanity and Vercel with the client
+
+- M7.1: the webhook sends `{_type}` signed with `SANITY_REVALIDATE_SECRET`; the route revalidates that type's tag with `{ expire: 0 }` so editors see their change on the next load.
+
 - Sanity webhook → on-demand revalidation, plus hourly fallback.
 - Accessibility pass (keyboard, focus order, contrast, reduced motion, alt text).
 - Metadata / OG image / favicon, 404 page.
