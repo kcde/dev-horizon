@@ -6,6 +6,7 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true,
+  // The API CDN holds answers for 60s, so a webhook revalidation would re-cache stale content.
+  useCdn: false,
   perspective: "published",
 });

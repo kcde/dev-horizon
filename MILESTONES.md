@@ -186,7 +186,7 @@ Progress:
 - [ ] M7.4 Lighthouse pass
 - [ ] M7.5 Real content entry; share Sanity and Vercel with the client
 
-- M7.1: the webhook sends `{_type}` signed with `SANITY_REVALIDATE_SECRET`; the route revalidates that type's tag with `{ expire: 0 }` so editors see their change on the next load.
+- M7.1: the webhook sends `{_type}` signed with `SANITY_REVALIDATE_SECRET`; the route revalidates that type's tag with `{ expire: 0 }` so editors see their change on the next load. The Sanity client skips the API CDN (`useCdn: false`): its 60s cache would otherwise feed the revalidation stale content.
 
 - Sanity webhook → on-demand revalidation, plus hourly fallback.
 - Accessibility pass (keyboard, focus order, contrast, reduced motion, alt text).
