@@ -25,6 +25,7 @@ export default async function SpeakersPage() {
   return (
     <div className={styles.page}>
       <h1 className={`text-preset-2 ${styles.heading}`}>{"// speakers"}</h1>
+      <h2 className="visually-hidden">All speakers</h2>
       <ul role="list" className={styles.grid}>
         {speakers.map(({ primary, talks: speakerTalks }) => (
           <li key={primary.speakerSlug}>

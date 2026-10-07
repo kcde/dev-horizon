@@ -99,3 +99,7 @@ export const DESIGN_SYSTEM_SAMPLES_QUERY = defineQuery(`{
     "day": day->{ label, date }
   }
 }`);
+
+export const SPEAKER_PHOTOS_QUERY = defineQuery(
+  `*[_type == "speaker" && defined(photo)]{ photo }`,
+);

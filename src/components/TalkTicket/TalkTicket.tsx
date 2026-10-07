@@ -147,8 +147,7 @@ export function TalkTicket({
           >
             {saved ? <StarSolidIcon /> : <StarIcon />}
             <span className="visually-hidden">
-              {saved ? "Remove from my schedule" : "Save to my schedule"}:{" "}
-              {title}
+              Save to my schedule: {title}
             </span>
           </button>
         ) : (

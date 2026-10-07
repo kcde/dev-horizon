@@ -34,7 +34,7 @@ import { StateGrid } from "./StateGrid";
 
 // Dev-only reference for tokens and (from M2) component states. Never ships.
 export const metadata: Metadata = {
-  title: "Design system · DevHorizon 26",
+  title: "Design system",
   robots: { index: false, follow: false },
 };
 
