@@ -12,6 +12,7 @@ import { useSavedTalks } from "@/lib/useSavedTalks";
 import styles from "./page.module.css";
 
 // The design shortens "Accessibility" on its chip.
+// Voice-control users say what they see, so the short label stays in the accessible name.
 const CHIP_LABELS: Partial<Record<TrackKey, string>> = {
   accessibility: "A11y",
 };
@@ -65,9 +66,10 @@ export function ScheduleView({
               >
                 {short ? (
                   <>
-                    <span aria-hidden="true">{short}</span>
+                    {short}
                     <span className="visually-hidden">
-                      {TRACKS[track].name}
+                      {" "}
+                      ({TRACKS[track].name})
                     </span>
                   </>
                 ) : (
